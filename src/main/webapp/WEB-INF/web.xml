@@ -7,7 +7,10 @@
          metadata-complete="false">
   
   <display-name>forum</display-name>
-
+  
+<!--   <welcome-file-list> -->
+<!--     <welcome-file>index.html</welcome-file> -->
+<!--   </welcome-file-list> -->
 
 <!-- needed for ContextLoaderListener -->
 	<context-param>
