@@ -23,10 +23,10 @@
 -->
   <mvc:resources location="/WEB-INF/ng/" mapping="/ng/**"/>
   
-<!--   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
-<!--     <property name="prefix" value="/WEB-INF/"/> -->
-<!--     <property name="suffix" value=".html"/> -->
-<!--   </bean> -->
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/ng/"/>
+    <property name="suffix" value=".html"/>
+  </bean>
   
 <!--   <mvc:view-controller path="/" view-name="forum"/> -->
 
@@ -63,7 +63,7 @@
 					<prop key="hibernate.format_sql">true</prop>
 					
 					<!-- Do not use -->
-					<prop key="hibernate.hbm2ddl.auto">create</prop>
+<!-- 					<prop key="hibernate.hbm2ddl.auto">create</prop> -->
 					 
 				</props>
 		</property>

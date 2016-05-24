@@ -4,7 +4,7 @@
 
 angular.module("ForumApp",["ui.router", "ui.bootstrap", 'ngAnimate']);
 
-angular.module("ForumApp").constant("baseUrl","http://localhost:8085/forum/");
+//angular.module("ForumApp").constant("baseUrl","http://localhost:8085/forum/");
 angular.module("ForumApp").constant("authUrl","user");
 angular.module("ForumApp").constant("roomsUrl","rooms");
 angular.module("ForumApp").constant("roomUrl","room/");
@@ -22,17 +22,17 @@ angular.module("ForumApp")
         })
         .state('homeState', {
             url: '/home',
-            templateUrl: 'templates/home.html',
+            templateUrl: 'ng/templates/home.html',
             controller: 'HomeCtrl as hData'
         })
         .state('allRoomsState', {
             url: '/room',
-            templateUrl: 'templates/allRooms.html',
+            templateUrl: 'ng/templates/allRooms.html',
             controller:'AllRoomsCtrl as aData'
         })
         .state('roomState', {
             url: '/room/:roomName',
-            templateUrl: 'templates/room.html',
+            templateUrl: 'ng/templates/room.html',
             controller:'RoomCtrl as rData'
         });
 });
@@ -46,7 +46,7 @@ angular.module("ForumApp")
 	navbarData.openUserModal = function(){
 	    var modalInstance = $uibModal.open({
 	        animation: true,
-	        templateUrl: 'templates/modals/userModal.html',
+	        templateUrl: 'ng/templates/modals/userModal.html',
 	        controller: 'UserModalCtrl as uData',
 	        size: 'lg'
 	      });	
@@ -55,7 +55,7 @@ angular.module("ForumApp")
 	navbarData.openLoginModal = function(){
 	    var modalInstance = $uibModal.open({
 	        animation: true,
-	        templateUrl: 'templates/modals/login.html',
+	        templateUrl: 'ng/templates/modals/login.html',
 	        controller: 'LoginCtrl as lData',
 	        size: 'sm'
 	      });	
@@ -177,7 +177,7 @@ angular.module("ForumApp")
 });
 
 angular.module("ForumApp")
-.service("ForumService", function($http, baseUrl, authUrl, roomsUrl, roomUrl, messagesUrl){
+.service("ForumService", function($http, authUrl, roomsUrl, roomUrl, messagesUrl){
 	
 	var serviceData = this;
 	
@@ -194,7 +194,7 @@ angular.module("ForumApp")
 	serviceData.auth = function(user){
 		return $http({
 			method:'POST',
-			url:baseUrl+authUrl,
+			url:authUrl,
 			data:user
 		});
 	}
@@ -211,7 +211,7 @@ angular.module("ForumApp")
 	serviceData.getAllRooms = function(){
 		return $http({
 			method:'GET',
-			url:baseUrl+roomsUrl
+			url:roomsUrl
 		}).then(function(response){
 			serviceData.allRooms.length = 0;
 			Array.prototype.push.apply(serviceData.allRooms, response.data);
@@ -258,7 +258,7 @@ angular.module("ForumApp")
 		
 		$http({
 			method:'GET',
-			url:baseUrl+roomUrl+roomName+messagesUrl + "?"+"page="+page+"&"+"size="+size
+			url:roomUrl+roomName+messagesUrl + "?"+"page="+page+"&"+"size="+size
 		}).then(function(response){
 
 			Array.prototype.push.apply(serviceData.currentMessages, response.data.content);
@@ -277,7 +277,7 @@ angular.module("ForumApp")
 		
 		$http({
 			method:'POST',
-			url:baseUrl+roomUrl+serviceData.currentRoom.name+messagesUrl,
+			url:roomUrl+serviceData.currentRoom.name+messagesUrl,
 			data:postData
 		}).then(function(response){
 			serviceData.getSetRoomMessages(serviceData.currentRoom.name, true);
@@ -288,7 +288,7 @@ angular.module("ForumApp")
 	serviceData.closeRoom = function(roomName){
 		return $http({
 			method:'DELETE',
-			url:baseUrl + roomUrl + roomName,
+			url:roomUrl + roomName,
 		});
 	}
 	
