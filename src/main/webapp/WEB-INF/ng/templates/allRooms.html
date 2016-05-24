@@ -1,0 +1,25 @@
+
+
+<table class="table table-responsive table-hover">
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Owner</th>
+    <th>Created</th>
+    <th>Closed</th>
+  </tr>
+  <tbody data-ng-repeat="room in aData.allRooms">
+    <tr data-ng-click="aData.viewRoom(room.name)">
+      <td>{{room.name}}</td>
+      <td>{{room.description}}</td>
+      <td>{{room.owner.username}}</td>
+      <td>{{room.created | date}}</td>
+      <td>
+        {{(room.closed | date) || "OPEN"}}
+		<button class="btn btn-danger" data-ng-if="aData.authUser.username == room.owner.username && !room.closed" data-ng-click="aData.closeRoom(room.name);$event.stopPropagation();">
+		  Close
+		</button>      
+      </td>
+    </tr>
+  </tbody>
+</table>
