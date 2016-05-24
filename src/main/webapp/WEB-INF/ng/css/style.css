@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+
+.loginForm {
+	margin: auto;
+	width: 72%;
+}
+
+.loginForm > div {
+	margin: 5px;
+}
+
+.forumRoom {
+	margin: auto;
+    width: 270px;
+    display: block;
+}
