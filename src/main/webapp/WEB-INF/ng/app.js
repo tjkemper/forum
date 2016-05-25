@@ -324,7 +324,7 @@ angular.module("ForumApp")
 			username : '=',
 			closefn : '&'
 		},
-		templateUrl: 'templates/directives/forumRoom.html'
+		templateUrl: 'ng/templates/directives/forumRoom.html'
 	};
 });
 
