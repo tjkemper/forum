@@ -283,9 +283,9 @@ angular.module("ForumApp")
 	}
 	
 	serviceData.copyAuthUser = function(){
-		var newAuthUser = {};
-		setPropsDynamically(serviceData.authUser, newAuthUser);
-		return newAuthUser;
+		var authUserCopy = {};
+		setPropsDynamically(serviceData.authUser, authUserCopy);
+		return authUserCopy;
 	}
 	
 	serviceData.logout = function(){
