@@ -20,9 +20,9 @@
         <li><a data-ui-sref="allRoomsState" data-ng-show="nData.authUser.username" tabindex="-1">Rooms</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-		<li><a data-ng-hide="nData.authUser.username" data-ng-click="nData.openRegisterModal()" tabindex="-1">Register</a></li>
-		<li><a data-ng-hide="nData.authUser.username" data-ng-click="nData.openLoginModal()" tabindex="-1">Login</a></li>
-        <li data-ng-show="nData.authUser.username" data-ng-click="nData.openUserModal()"><p class="navbar-text" style="color:#00BCD4;cursor:pointer;">{{nData.authUser.username}}</p></li>
+		<li><a data-ng-hide="nData.authUser.username" data-ng-click="nData.openRegisterModal()" class="clickable" tabindex="-1">Register</a></li>
+		<li><a data-ng-hide="nData.authUser.username" data-ng-click="nData.openLoginModal()" class="clickable" tabindex="-1">Login</a></li>
+        <li data-ng-show="nData.authUser.username" data-ng-click="nData.openUserModal()"><p id="userProfileBtn" class="navbar-text clickable">{{nData.authUser.username}}</p></li>
         <li><a data-ui-sref="logoutState" data-ng-show="nData.authUser.username" tabindex="-1">Logout</a></li>
     </ul>
   </div> <!-- end container fluid -->
