@@ -34,10 +34,11 @@
   </tr>
 </table>
 
-<div data-ng-show="!rData.lastPageAccessed.last">
-  <button class="btn btn-primary" data-ng-click="rData.loadMoreMessages()">
-    Load more...
-  </button>
+<div data-ng-hide="rData.lastPageAccessed.last">
+  <data-scroll-callback scroll-threshold="50" cb="rData.loadMoreMessages()" ready-for-more="rData.readyForMorePosts">Load more...</data-scroll-callback>
+<!--   <button class="btn btn-primary" data-ng-click="rData.loadMoreMessages()"> -->
+<!--     Load more... -->
+<!--   </button> -->
 </div>
 
 </div>

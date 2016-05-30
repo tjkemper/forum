@@ -225,6 +225,7 @@ angular.module("ForumApp")
 	roomData.currentMessages = ForumService.currentMessages;
 	roomData.lastPageAccessed = ForumService.lastPageAccessed;
 	roomData.newMessage="";
+	roomData.readyForMorePosts = true;
 	
 	var roomName = $stateParams.roomName;
 	ForumService.getRoom(roomName);
@@ -235,7 +236,13 @@ angular.module("ForumApp")
 	}
 	
 	roomData.loadMoreMessages = function(){
-		ForumService.getSetRoomMessages(roomName, false, roomData.lastPageAccessed.number + 1, roomData.lastPageAccessed.size);
+		if(roomData.readyForMorePosts){
+			ForumService.getSetRoomMessages(roomName, false, roomData.lastPageAccessed.number + 1, roomData.lastPageAccessed.size)
+			.then(function(response){
+				roomData.readyForMorePosts = true;
+			}, function(response){});
+		}
+		//TODO: set Load More directive if NOT last page
 	}
 	
 	roomData.closeRoom = function(roomName){
@@ -363,9 +370,9 @@ angular.module("ForumApp")
 		}
 		
 		page = page || 0; //Default page number (base 0)
-		size = size || 3; //Default page size
+		size = size || 10; //Default page size
 		
-		$http({
+		return $http({
 			method:'GET',
 			url:roomUrl+roomName+messagesUrl + "?"+"page="+page+"&"+"size="+size
 		}).then(function(response){
@@ -434,6 +441,31 @@ angular.module("ForumApp")
 			closefn : '&'
 		},
 		templateUrl: 'ng/templates/directives/forumRoom.html'
+	};
+});
+
+angular.module("ForumApp")
+.directive("scrollCallback", function(){
+	return {
+		scope : {
+			scrollThreshold : '=',
+			readyForMore : '=',
+			cb : '&'
+		},
+		link : function(scope, element, attrs){
+
+			var scrollThreshold = attrs.scrollThreshold || 0;
+			
+			angular.element(document).bind('scroll', function(){
+				var elementHeight = element[0].offsetTop;
+				var windowBottom = scrollY + innerHeight;
+
+				if(elementHeight && scope.readyForMore && (windowBottom - scrollThreshold > elementHeight)){
+					scope.readyForMore = false;
+					scope.cb();
+				}
+			});
+		}
 	};
 });
 
