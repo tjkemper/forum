@@ -1,3 +1,4 @@
-The OpenShift `jbossews` cartridge documentation can be found at:
+##Forum
+AngularJS, Spring Data, Spring MVC Rest... All the good stuff
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#tomcat
+Url: TBD
