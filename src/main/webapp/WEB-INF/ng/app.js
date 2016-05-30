@@ -452,6 +452,7 @@ angular.module("ForumApp")
 			readyForMore : '=',
 			cb : '&'
 		},
+		templateUrl: 'ng/templates/directives/scrollCallback.html',
 		link : function(scope, element, attrs){
 
 			var scrollThreshold = attrs.scrollThreshold || 0;
