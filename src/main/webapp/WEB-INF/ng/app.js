@@ -183,10 +183,26 @@ angular.module("ForumApp")
 	
 	allRoomsData.allRooms = ForumService.allRooms;
 	
+	allRoomsData.newRoom = null;
+	
 	ForumService.getAllRooms();
 	
 	allRoomsData.viewRoom = function(roomName){
 		$state.go("roomState", {roomName:roomName});
+	}
+	
+	allRoomsData.createRoom = function(){
+		if(allRoomsData.authUser){
+			
+			allRoomsData.newRoom.owner = {
+											username : allRoomsData.authUser.username					
+										 }
+
+			ForumService.createRoom(allRoomsData.newRoom).then(function(response){
+				allRoomsData.newRoom = null;
+				ForumService.getAllRooms();
+			}, function(response){});
+		}
 	}
 	
 	allRoomsData.closeRoom = function(roomName){
@@ -301,6 +317,15 @@ angular.module("ForumApp")
 			Array.prototype.push.apply(serviceData.allRooms, response.data);
 		},function(response){});
 	}
+	
+	serviceData.createRoom = function(room){
+		return $http({
+			method:'POST',
+			url:roomUrl,
+			data:room
+		});
+	}
+	
 	
 	serviceData.getRoom = function(roomName){
 		
