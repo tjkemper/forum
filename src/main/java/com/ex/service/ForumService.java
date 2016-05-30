@@ -12,6 +12,7 @@ public interface ForumService {
 	
 	public User auth(User user);
 	public User registerUser(User user);
+	public User updateUser(User user);
 	
 	public List<Room> getRooms();
 	public void createRoom(Room room);

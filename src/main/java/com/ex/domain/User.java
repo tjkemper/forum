@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author TJ
+ */
 @Entity
 @Table(name="FORUM_USER")
 public class User {
@@ -24,8 +28,15 @@ public class User {
 	@Column(name="USER_PASSWORD")
 	private String password;
 	
+	@Column(name="USER_FIRST_NAME")
+	private String firstName;
+	
+	@Column(name="USER_LAST_NAME")
+	private String lastName;
+	
 	@Column(name="USER_EMAIL")
 	private String email;
+	
 	
 	public User(){}
 	
@@ -75,9 +86,26 @@ public class User {
 		this.email = email;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + "]";
+		return "User [id=" + id + ", email=" + email + ", username=" + username + ", password=" + password
+				+ ", firstName=" + firstName + ", lastName=" + lastName + "]";
 	}
 	
 }

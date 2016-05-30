@@ -31,6 +31,11 @@ public class ForumRestController {
 		return forumService.registerUser(user);
 	}
 	
+	@RequestMapping(value="user", method=RequestMethod.PATCH)
+	public User updateUser(@RequestBody User user){
+		return forumService.updateUser(user);
+	}
+	
 	@RequestMapping(value="rooms", method=RequestMethod.GET)
 	public List<Room> rooms(){
 		return forumService.getRooms();

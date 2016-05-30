@@ -47,6 +47,24 @@ public class ForumServiceImpl implements ForumService {
 	}
 
 	@Override
+	public User updateUser(User user) {
+//		userRepo.updateUser(user.getUsername(), user.getEmail(), user.getFirstName(), user.getPassword());
+//		return userRepo.findByUsername(user.getUsername());
+		
+		List<User> userList = userRepo.findByUsername(user.getUsername());
+		if(userList.size() == 1){
+			User foundUser = userList.get(0);
+			foundUser.setEmail(user.getEmail());
+			foundUser.setFirstName(user.getFirstName());
+			foundUser.setLastName(user.getLastName());
+			return foundUser;
+		}else {
+			return null;
+		}
+		
+	}
+	
+	@Override
 	public List<Room> getRooms() {
 		return roomRepo.findAll();
 	}
@@ -110,5 +128,6 @@ public class ForumServiceImpl implements ForumService {
 			messageRepo.save(newMessage);
 		}
 	}
+
 
 }

@@ -2,10 +2,10 @@
  * @author Taylor Kemper
  */
 
-angular.module("ForumApp",["ui.router", "ui.bootstrap", 'ngAnimate']);
+angular.module("ForumApp",["ui.router", "ui.bootstrap", 'ngAnimate', 'ui.gravatar']);
 
 //angular.module("ForumApp").constant("baseUrl","http://localhost:8085/forum/");
-angular.module("ForumApp").constant("authUrl","user");
+angular.module("ForumApp").constant("userUrl","user");
 angular.module("ForumApp").constant("roomsUrl","rooms");
 angular.module("ForumApp").constant("roomUrl","room/");
 angular.module("ForumApp").constant("messagesUrl","/messages");
@@ -61,6 +61,15 @@ angular.module("ForumApp")
 	      });	
 	}
 	
+	navbarData.openRegisterModal = function(){
+	    var modalInstance = $uibModal.open({
+	        animation: true,
+	        templateUrl: 'ng/templates/modals/register.html',
+	        controller: 'RegisterCtrl as rData',
+	        size: 'sm'
+	      });	
+	}
+	
 });
 
 angular.module("ForumApp")
@@ -71,7 +80,23 @@ angular.module("ForumApp")
 	userModalData.authUser = ForumService.authUser;
 	
 	userModalData.update = function () {
-		$uibModalInstance.close();
+//		$uibModalInstance.close();
+		
+		var promise = ForumService.updateUser(userModalData.authUser);
+		
+		promise.then(function(response){
+			console.log("request success");
+			if(response.data != null && response.data != ""){
+				console.log("update user success");
+				ForumService.setAuthUser(response.data);
+				$uibModalInstance.close();
+			}
+		}, function(response){
+			console.log("request error");
+		});
+		
+		
+		
 	};
 	userModalData.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
@@ -95,7 +120,7 @@ angular.module("ForumApp")
 });
 
 angular.module("ForumApp")
-.controller("LoginCtrl", function($http, ForumService, $state, $uibModalInstance){
+.controller("LoginCtrl", function(ForumService, $state, $uibModalInstance){
 	
 	var loginData = this;
 	
@@ -116,6 +141,35 @@ angular.module("ForumApp")
 			}, function(response) {
 				console.log("request error");
 			});
+	}
+	
+});
+
+angular.module("ForumApp")
+.controller("RegisterCtrl", function(ForumService, $state, $uibModalInstance){
+	
+	var registerData = this;
+	
+	registerData.newUser = {};
+	
+	registerData.register = function(){
+		
+		var promise = ForumService.register(registerData.newUser);
+		
+		promise.then(function(response){
+			console.log("request success");
+			if(response.data != null && response.data != ""){
+				console.log("register success");
+				ForumService.setAuthUser(response.data);
+				$uibModalInstance.close();
+
+				$state.go("allRoomsState");
+			}
+		}, function(response){
+			console.log("request error");
+		});
+		
+		
 	}
 	
 });
@@ -177,7 +231,7 @@ angular.module("ForumApp")
 });
 
 angular.module("ForumApp")
-.service("ForumService", function($http, authUrl, roomsUrl, roomUrl, messagesUrl){
+.service("ForumService", function($http, userUrl, roomsUrl, roomUrl, messagesUrl){
 	
 	var serviceData = this;
 	
@@ -194,14 +248,38 @@ angular.module("ForumApp")
 	serviceData.auth = function(user){
 		return $http({
 			method:'POST',
-			url:authUrl,
+			url:userUrl,
 			data:user
 		});
 	}
 	
+	serviceData.register = function(user){
+		return $http({
+			method:'PUT',
+			url:userUrl,
+			data:user
+		});
+	}
+	
+	serviceData.updateUser = function(user){
+		return $http({
+			method:'PATCH',
+			url:userUrl,
+			data:user
+//			data:{
+//				username:serviceData.username,
+//				email:email,
+//				firstName:firstName,
+//				lastName:lastName
+//			}
+				
+		});
+	}
+	
 	serviceData.setAuthUser = function(someUser){
-		serviceData.authUser.username = someUser.username;
-		serviceData.authUser.email = someUser.email;
+		setPropsDynamically(someUser, serviceData.authUser);
+//		serviceData.authUser.username = someUser.username;
+//		serviceData.authUser.email = someUser.email;
 	}
 	
 	serviceData.logout = function(){
