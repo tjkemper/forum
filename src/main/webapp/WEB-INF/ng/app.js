@@ -77,7 +77,7 @@ angular.module("ForumApp")
 	
 	var userModalData = this;
 	
-	userModalData.authUser = ForumService.authUser;
+	userModalData.authUser = ForumService.copyAuthUser();
 	
 	userModalData.update = function () {
 //		$uibModalInstance.close();
@@ -280,6 +280,12 @@ angular.module("ForumApp")
 		setPropsDynamically(someUser, serviceData.authUser);
 //		serviceData.authUser.username = someUser.username;
 //		serviceData.authUser.email = someUser.email;
+	}
+	
+	serviceData.copyAuthUser = function(){
+		var newAuthUser = {};
+		setPropsDynamically(serviceData.authUser, newAuthUser);
+		return newAuthUser;
 	}
 	
 	serviceData.logout = function(){
