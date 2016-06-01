@@ -5,10 +5,14 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	
 <!-- 	Enable MVC annotations -->
@@ -28,7 +32,6 @@
     <property name="suffix" value=".html"/>
   </bean>
   
-<!--   <mvc:view-controller path="/" view-name="forum"/> -->
 
 
 
@@ -77,4 +80,40 @@
 <!--     Find JPA Repositories -->
     <jpa:repositories base-package="com.ex"/>
 
+
+
+
+
+
+
+
+<!-- Spring Security -->
+	<security:http  use-expressions="true">
+		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+		<security:form-login username-parameter="username" password-parameter="password" login-processing-url="/login" />
+		<security:http-basic/>
+		<security:logout logout-url="/logout"/>
+		<security:csrf />
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+		
+			<security:jdbc-user-service 
+					data-source-ref="mydataSource"
+		  			users-by-username-query=
+		    			"select USER_USERNAME, USER_PASSWORD, true from FORUM_USER where USER_USERNAME=?"
+		  			authorities-by-username-query=
+		    			"select USER_USERNAME, 'ROLE_USER' from FORUM_USER where USER_USERNAME=?  " />
+		
+<!-- 			<security:user-service> -->
+<!-- 				<security:user name="john" password="123" authorities="ROLE_USER" /> -->
+<!-- 				<security:user name="amy" password="1234" authorities="ROLE_USER"/> -->
+<!-- 				<security:user name="austin" password="12345" authorities="ROLE_DBA"/> -->
+<!-- 			</security:user-service> -->
+			
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	
 </beans>
