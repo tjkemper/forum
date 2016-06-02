@@ -1,5 +1,6 @@
 package com.ex.controller.rest;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class ForumRestController {
 	
 	@Autowired
 	private ForumService forumService;
+	
+	@RequestMapping("user/login")
+	public Principal getUser(Principal user) {
+		return user;
+	}
 	
 	@RequestMapping(value="user", method=RequestMethod.POST)
 	public User auth(@RequestBody User user){
