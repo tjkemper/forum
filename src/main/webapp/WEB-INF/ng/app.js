@@ -269,11 +269,20 @@ angular.module("ForumApp")
 	}
 	
 	serviceData.auth = function(user){
+		var headers = user ? {
+			Authorization : "Basic "
+					+ btoa(user.username + ":" + user.password)
+		} : {};
 		return $http({
 			method:'POST',
-			url:userUrl,
-			data:user
+			url:userUrl+'/login',
+			headers:headers
 		});
+//		return $http({
+//			method:'POST',
+//			url:userUrl,
+//			data:user
+//		});
 	}
 	
 	serviceData.register = function(user){
