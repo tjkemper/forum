@@ -1,41 +1,41 @@
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h3 class="panel-title">{{uData.authUser.username}}</h3>
+    <h3 class="panel-title">{{uData.userDetails.username}}</h3>
   </div>
   <div class="panel-body">
     <div class="row">
       <div class="col-md-3 col-lg-3 " align="center">
 <!--         <img alt="User Pic" src="ng/img/duke.png" class="img-circle img-responsive"/>  -->
-	  <img gravatar-src="uData.authUser.email" gravatar-size="200" class="img-circle img-responsive">
+	  <img gravatar-src="uData.userDetails.email" gravatar-size="200" class="img-circle img-responsive">
       </div>
         <div class=" col-md-9 col-lg-9 "> 
           <table class="table table-responsive">
             <tbody>
               <tr>
                 <td><label for="email">Email</label></td>
-                <td><input type="email" id="email" data-ng-model="uData.authUser.email" class="form-control"/></td>
+                <td><input type="email" id="email" data-ng-model="uData.userDetails.email" class="form-control"/></td>
               </tr>
               <tr>
                 <td><label for="firstName">First Name</label></td>
-                <td><input type="text" id="firstName" data-ng-model="uData.authUser.firstName" class="form-control"/></td>
+                <td><input type="text" id="firstName" data-ng-model="uData.userDetails.firstName" class="form-control"/></td>
               </tr>
               <tr>
                 <td><label for="lastName">Last Name</label></td>
-                <td><input type="text" id="lastName" data-ng-model="uData.authUser.lastName" class="form-control"/></td>
+                <td><input type="text" id="lastName" data-ng-model="uData.userDetails.lastName" class="form-control"/></td>
               </tr>
 
 
 <!--               <tr> -->
 <!--                 <td>Email</td> -->
-<!--                 <td>{{uData.authUser.email}}</td> -->
+<!--                 <td>{{uData.userDetails.email}}</td> -->
 <!--               </tr> -->
 <!--               <tr> -->
 <!--                 <td>First Name</td> -->
-<!--                 <td>{{uData.authUser.firstName}}</td> -->
+<!--                 <td>{{uData.userDetails.firstName}}</td> -->
 <!--               </tr> -->
 <!--               <tr> -->
 <!--                 <td>Last Name</td> -->
-<!--                 <td>{{uData.authUser.lastName}}</td> -->
+<!--                 <td>{{uData.userDetails.lastName}}</td> -->
 <!--               </tr> -->
               
             </tbody>

@@ -1,5 +1,5 @@
 <div class="well">
-  <data-forum-room room="rData.currentRoom" username="rData.authUser.username" closefn="rData.closeRoom(roomName)"></data-forum-room>
+  <data-forum-room room="rData.currentRoom" username="rData.authUser.name" closefn="rData.closeRoom(roomName)"></data-forum-room>
 </div>
 
 <div class="well" data-ng-hide="rData.currentRoom.closed">
@@ -35,10 +35,7 @@
 </table>
 
 <div data-ng-hide="rData.lastPageAccessed.last">
-  <data-scroll-callback scroll-threshold="50" cb="rData.loadMoreMessages()" ready-for-more="rData.readyForMorePosts">Load more...</data-scroll-callback>
-<!--   <button class="btn btn-primary" data-ng-click="rData.loadMoreMessages()"> -->
-<!--     Load more... -->
-<!--   </button> -->
+  <data-scroll-callback scroll-threshold="50" cb="rData.loadMoreMessages()" ready-for-more="rData.readyForMorePosts"></data-scroll-callback>
 </div>
 
 </div>

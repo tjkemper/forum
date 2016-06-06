@@ -5,10 +5,12 @@
 angular.module("ForumApp",["ui.router", "ui.bootstrap", 'ngAnimate', 'ui.gravatar']);
 
 //angular.module("ForumApp").constant("baseUrl","http://localhost:8085/forum/");
-angular.module("ForumApp").constant("userUrl","user");
-angular.module("ForumApp").constant("roomsUrl","rooms");
+angular.module("ForumApp").constant("userUrl","user/");
+angular.module("ForumApp").constant("loginUrl","login/");
+angular.module("ForumApp").constant("logoutUrl","logout/");
+angular.module("ForumApp").constant("roomsUrl","rooms/");
 angular.module("ForumApp").constant("roomUrl","room/");
-angular.module("ForumApp").constant("messagesUrl","/messages");
+angular.module("ForumApp").constant("messagesUrl","/messages/");
 
 angular.module("ForumApp")
 .config(function($stateProvider, $urlRouterProvider){
@@ -77,18 +79,29 @@ angular.module("ForumApp")
 	
 	var userModalData = this;
 	
-	userModalData.authUser = ForumService.copyAuthUser();
-	
+	//Just the userDetails
+	if(ForumService.authUser.userDetails){
+		userModalData.userDetails = ForumService.copyUserDetails();
+	}else{
+		var promise = ForumService.getUserDetails(ForumService.authUser.name);
+		promise.then(
+				function(response){
+					userModalData.userDetails = ForumService.copyUserDetails();
+				}, function(response){
+			
+				});
+	}
 	userModalData.update = function () {
 //		$uibModalInstance.close();
 		
-		var promise = ForumService.updateUser(userModalData.authUser);
+		
+		var promise = ForumService.updateUser(userModalData.userDetails);
 		
 		promise.then(function(response){
 			console.log("request success");
 			if(response.data != null && response.data != ""){
 				console.log("update user success");
-				ForumService.setAuthUser(response.data);
+				//ForumService.setAuthUser(response.data);
 				$uibModalInstance.close();
 			}
 		}, function(response){
@@ -125,21 +138,25 @@ angular.module("ForumApp")
 	var loginData = this;
 	
 	loginData.unauthUser = {};
+	loginData.message = "";
 	
 	loginData.auth = function(){
 		var promise = ForumService.auth(loginData.unauthUser);
 		
 		promise.then(function(response) {
-				console.log("request success");
-				if(response.data != null && response.data != ""){
-					console.log("auth success");
+				console.log("LoginCtrl - request success");
+				//FIXME: should not be here on 401
+				if(response.data){
+					console.log("LoginCtrl - auth success");
 					ForumService.setAuthUser(response.data);
+//					ForumService.getUserDetails(response.data.name);
 					$uibModalInstance.close();
 
 					$state.go("allRoomsState");
 				}
 			}, function(response) {
-				console.log("request error");
+				console.log("LoginCtrl - request error");
+				loginData.message = "Username/Password incorrect.";
 			});
 	}
 	
@@ -160,7 +177,7 @@ angular.module("ForumApp")
 			console.log("request success");
 			if(response.data != null && response.data != ""){
 				console.log("register success");
-				ForumService.setAuthUser(response.data);
+				//ForumService.setAuthUser(response.data);
 				$uibModalInstance.close();
 
 				$state.go("allRoomsState");
@@ -195,7 +212,7 @@ angular.module("ForumApp")
 		if(allRoomsData.authUser){
 			
 			allRoomsData.newRoom.owner = {
-											username : allRoomsData.authUser.username					
+											username : allRoomsData.authUser.name					
 										 }
 
 			ForumService.createRoom(allRoomsData.newRoom).then(function(response){
@@ -254,7 +271,7 @@ angular.module("ForumApp")
 });
 
 angular.module("ForumApp")
-.service("ForumService", function($http, userUrl, roomsUrl, roomUrl, messagesUrl){
+.service("ForumService", function($http, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl){
 	
 	var serviceData = this;
 	
@@ -275,14 +292,33 @@ angular.module("ForumApp")
 		} : {};
 		return $http({
 			method:'POST',
-			url:userUrl+'/login',
+			url:userUrl+loginUrl,
 			headers:headers
+		}).then(function(response){
+			console.log('ForumService - success auth');
+//			serviceData.setAuthUser(response.data);
+			return response;
+		}, function(response){
+			console.log('ForumService - failed auth');
+			console.log(response);
+			throw response;
 		});
-//		return $http({
-//			method:'POST',
-//			url:userUrl,
-//			data:user
-//		});
+
+	}
+	
+	serviceData.getUserDetails = function(username){
+		return $http({
+			method:'POST',
+			url:userUrl,
+			data:{
+				username:username
+			}
+		}).then(function(response){
+			console.log('ForumService - success getUserDetails');
+			serviceData.authUser.userDetails = response.data;
+		}, function(response){
+			console.log('ForumService - failed getUserDetails');
+		});
 	}
 	
 	serviceData.register = function(user){
@@ -290,27 +326,27 @@ angular.module("ForumApp")
 			method:'PUT',
 			url:userUrl,
 			data:user
-		});
+		}).then(function(response){
+			serviceData.auth(user);
+			return response;
+		}, function(response){});
 	}
 	
-	serviceData.updateUser = function(user){
+	serviceData.updateUser = function(userDetails){
 		return $http({
 			method:'PATCH',
 			url:userUrl,
-			data:user
-//			data:{
-//				username:serviceData.username,
-//				email:email,
-//				firstName:firstName,
-//				lastName:lastName
-//			}
-				
-		});
+			data:userDetails		
+		}).then(function(response){
+			//serviceData.auth();//TODO: will it work w/o credentials?
+			serviceData.getUserDetails(serviceData.authUser.name);
+			return response;
+		}, function(response){});
 	}
 	
 	serviceData.setAuthUser = function(someUser){
 		setPropsDynamically(someUser, serviceData.authUser);
-//		serviceData.authUser.username = someUser.username;
+//		serviceData.authUser.name = someUser.username;
 //		serviceData.authUser.email = someUser.email;
 	}
 	
@@ -320,8 +356,21 @@ angular.module("ForumApp")
 		return authUserCopy;
 	}
 	
+	serviceData.copyUserDetails = function(){
+		var userDetailsCopy = {};
+		setPropsDynamically(serviceData.authUser.userDetails, userDetailsCopy);
+		return userDetailsCopy;
+	}
+	
+	
 	serviceData.logout = function(){
-		clearPropsDynamically(serviceData.authUser);
+		return $http({
+			method:'POST',
+			url:logoutUrl
+		}).then(function(response){
+			clearPropsDynamically(serviceData.authUser);	
+		}, function(response){});
+		
 	}
 	
 	serviceData.getAllRooms = function(){
@@ -396,7 +445,7 @@ angular.module("ForumApp")
 		var postData = {
 			message:message,
 			owner:{
-				username:serviceData.authUser.username
+				username:serviceData.authUser.name
 			}
 		};
 		

@@ -34,7 +34,7 @@
       <td>{{room.created | date}}</td>
       <td>
         {{(room.closed | date) || "OPEN"}}
-		<button class="btn btn-danger" data-ng-if="aData.authUser.username == room.owner.username && !room.closed" data-ng-click="aData.closeRoom(room.name);$event.stopPropagation();">
+		<button class="btn btn-danger" data-ng-if="aData.authUser.name == room.owner.username && !room.closed" data-ng-click="aData.closeRoom(room.name);$event.stopPropagation();">
 		  Close
 		</button>      
       </td>

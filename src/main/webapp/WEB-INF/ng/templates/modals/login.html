@@ -3,6 +3,10 @@
 <div class="modal-body">
 <form class="modalForm form-inline" data-ng-submit="lData.auth()">
 	
+	<div data-ng-show="lData.message" class="alert alert-danger">
+	  {{lData.message}}
+	</div>
+	
 	<div class="form-group"> <!-- Username field -->
 		<input class="form-control" type="text" placeholder="Username" data-ng-model="lData.unauthUser.username"/>
 	</div>
