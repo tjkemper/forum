@@ -10,7 +10,8 @@ import com.ex.domain.User;
 
 public interface ForumService {
 	
-	public User auth(User user);
+//	public User auth(User user);//TODO: delete
+	public User getUserDetails(User user);
 	public User registerUser(User user);
 	public User updateUser(User user);
 	

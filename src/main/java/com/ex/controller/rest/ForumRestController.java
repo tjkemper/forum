@@ -28,8 +28,9 @@ public class ForumRestController {
 	}
 	
 	@RequestMapping(value="user", method=RequestMethod.POST)
-	public User auth(@RequestBody User user){
-		return forumService.auth(user);
+	public User getUserDetails(@RequestBody User user){
+//		return forumService.auth(user);
+		return forumService.getUserDetails(user);
 	}
 	
 	@RequestMapping(value="user", method=RequestMethod.PUT)

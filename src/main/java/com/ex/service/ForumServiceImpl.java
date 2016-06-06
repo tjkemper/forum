@@ -31,15 +31,18 @@ public class ForumServiceImpl implements ForumService {
 	@Autowired
 	private MessageRepo messageRepo;
 
+	
 	@Override
-	public User auth(User user) {
-		List<User> userList = userRepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+	public User getUserDetails(User user) {
+		List<User> userList = userRepo.findByUsername(user.getUsername());
+		
 		if (userList.size() == 1) {
 			return userList.get(0);
-		} else {
+		}else {
 			return null;
 		}
 	}
+
 	
 	@Override
 	public User registerUser(User user) {
