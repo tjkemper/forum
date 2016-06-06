@@ -85,43 +85,24 @@
 
 
 
-<!--    <security:http entry-point-ref="restAuthenticationEntryPoint"> -->
-<!--       <security:intercept-url pattern="/**" access="ROLE_USER"/> -->
- 
-<!--       <security:form-login -->
-<!--          authentication-success-handler-ref="mySuccessHandler" -->
-<!--          authentication-failure-handler-ref="myFailureHandler" -->
-<!--       /> -->
- 
-<!--       <security:logout /> -->
-<!--    </security:http> -->
- 
-<!--    <bean id="mySuccessHandler" -->
-<!--       class="com.ex.security.MySavedRequestAwareAuthenticationSuccessHandler"/> -->
-<!--    <bean id="myFailureHandler" class= -->
-<!--      "org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler"/> -->
- 
-<!--    <security:authentication-manager alias="authenticationManager"> -->
-<!--       <security:authentication-provider> -->
-<!--          <security:user-service> -->
-<!--             <security:user name="temporary" password="temporary" authorities="ROLE_ADMIN"/> -->
-<!--             <security:user name="john" password="123" authorities="ROLE_USER"/> -->
-<!--          </security:user-service> -->
-<!--       </security:authentication-provider> -->
-<!--    </security:authentication-manager> -->
+
 
 <!-- Spring Security -->
 	<security:http use-expressions="true" >
-<!-- 		<security:intercept-url pattern="/" method="GET" access="permitAll"/> -->
-		<security:intercept-url pattern="/ng/**" method="GET" access="permitAll"/>
+	
+		<!-- permitAll -->
+		<security:intercept-url pattern="/" method="GET" access="permitAll"/> <!-- home -->
+		<security:intercept-url pattern="/user/" method="PUT" access="permitAll"/> <!-- register -->
+		<security:intercept-url pattern="/ng/**" method="GET" access="permitAll"/> <!-- static content -->
 		
+		<!-- ROLE_USER -->
 		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
-<!-- 		<security:form-login username-parameter="username" password-parameter="password" login-processing-url="/user"  /> -->
+		
 		<security:http-basic entry-point-ref="restAuthenticationEntryPoint"/>
-<!-- 		<security:http-basic /> -->
 		<security:custom-filter ref="csrfHeaderFilter" after="CSRF_FILTER"/>
-		<security:logout logout-url="/logout" invalidate-session="true" delete-cookies="JSESSIONID,XSRF-TOKEN"/>
 		<security:csrf token-repository-ref="csrfTokenRepository"/>
+		<security:logout invalidate-session="true" delete-cookies="JSESSIONID,XSRF-TOKEN" logout-url="/logout/" logout-success-url="/"/>
+		
 	</security:http>
 	
 	<security:authentication-manager>
