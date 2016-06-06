@@ -144,12 +144,8 @@ angular.module("ForumApp")
 		var promise = ForumService.auth(loginData.unauthUser);
 		
 		promise.then(function(response) {
-				console.log("LoginCtrl - request success");
-				//FIXME: should not be here on 401
 				if(response.data){
-					console.log("LoginCtrl - auth success");
 					ForumService.setAuthUser(response.data);
-//					ForumService.getUserDetails(response.data.name);
 					$uibModalInstance.close();
 
 					$state.go("allRoomsState");
@@ -281,6 +277,8 @@ angular.module("ForumApp")
 	serviceData.currentMessages = [];
 	serviceData.lastPageAccessed = {};
 	
+	
+	
 	serviceData.getStats = function(){
 		//TODO: implement
 	}
@@ -295,12 +293,8 @@ angular.module("ForumApp")
 			url:userUrl+loginUrl,
 			headers:headers
 		}).then(function(response){
-			console.log('ForumService - success auth');
-//			serviceData.setAuthUser(response.data);
 			return response;
 		}, function(response){
-			console.log('ForumService - failed auth');
-			console.log(response);
 			throw response;
 		});
 
@@ -346,8 +340,6 @@ angular.module("ForumApp")
 	
 	serviceData.setAuthUser = function(someUser){
 		setPropsDynamically(someUser, serviceData.authUser);
-//		serviceData.authUser.name = someUser.username;
-//		serviceData.authUser.email = someUser.email;
 	}
 	
 	serviceData.copyAuthUser = function(){
@@ -488,6 +480,18 @@ angular.module("ForumApp")
 		}
 	}
 	
+	/*
+	 * Init user iff not found
+	 */
+	if(!serviceData.authUser.name){
+		var promise = serviceData.auth();
+		promise.then(function(response) {
+			if(response.data){
+				serviceData.setAuthUser(response.data);
+			}
+		}, function(response) {});		
+	}
+
 });
 
 angular.module("ForumApp")
