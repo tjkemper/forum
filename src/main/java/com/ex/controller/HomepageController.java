@@ -10,7 +10,6 @@ public class HomepageController {
 	
 	@RequestMapping("/")
 	public String serveHomepage(HttpServletRequest request){
-		System.out.println(request.getServletPath());
 		return "forum";
 	}
 	
