@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ex.domain.Message;
 import com.ex.domain.Room;
 import com.ex.domain.User;
+import com.ex.domain.m2m.UserMessage;
 import com.ex.service.ForumService;
 
 @RestController
@@ -71,6 +72,12 @@ public class ForumRestController {
 	@RequestMapping(value="room/{roomName}/messages", method=RequestMethod.POST)
 	public void postMessage(@RequestBody Message message, @PathVariable String roomName){
 		forumService.postMessage(message, roomName);
+	}
+	
+	
+	@RequestMapping(value="message/like", method=RequestMethod.POST)
+	public UserMessage likeMessage(@RequestBody UserMessage userMessage){
+		return forumService.likeMessage(userMessage);
 	}
 	
 	

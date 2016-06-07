@@ -14,9 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ex.domain.Message;
 import com.ex.domain.Room;
 import com.ex.domain.User;
+import com.ex.domain.m2m.UserMessage;
 import com.ex.repo.MessageRepo;
 import com.ex.repo.RoomRepo;
 import com.ex.repo.UserRepo;
+import com.ex.repo.m2m.UserMessageRepo;
 
 @Service
 @Transactional
@@ -30,6 +32,9 @@ public class ForumServiceImpl implements ForumService {
 	
 	@Autowired
 	private MessageRepo messageRepo;
+	
+	@Autowired
+	private UserMessageRepo userMessageRepo;
 
 	
 	@Override
@@ -130,6 +135,24 @@ public class ForumServiceImpl implements ForumService {
 			Message newMessage = new Message(message.getMessage(), owner, now, roomList.get(0));
 			messageRepo.save(newMessage);
 		}
+	}
+
+
+	@Override
+	public UserMessage likeMessage(UserMessage userMessage) {
+		Integer userId = userMessage.getUser().getId();
+		Integer messageId = userMessage.getMessage().getId();
+		if(userId != null && messageId != null){
+			User user = userRepo.findOne(userId);
+			Message message = messageRepo.findOne(messageId);
+			if(user != null && message != null){
+				userMessage.setUser(user);
+				userMessage.setMessage(message);
+				return userMessageRepo.save(userMessage);
+			}
+		}
+		
+		return null;
 	}
 
 
