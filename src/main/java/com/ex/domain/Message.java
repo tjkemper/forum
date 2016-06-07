@@ -1,17 +1,21 @@
 package com.ex.domain;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.ex.domain.m2m.UserMessage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -38,6 +42,10 @@ public class Message {
 	@ManyToOne
 	@JoinColumn(name="MESSAGE_ROOM")
 	private Room room;
+	
+	@OneToMany(mappedBy="message", fetch=FetchType.EAGER)
+	private Set<UserMessage> userMessage;
+
 	
 	public Message(){}
 
@@ -112,10 +120,73 @@ public class Message {
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
+	
+	public Set<UserMessage> getUserMessage() {
+		return userMessage;
+	}
 
+	public void setUserMessage(Set<UserMessage> userMessage) {
+		this.userMessage = userMessage;
+	}
+	
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", message=" + message + ", owner=" + owner + ", room=" + room + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((created == null) ? 0 : created.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((message == null) ? 0 : message.hashCode());
+		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
+		result = prime * result + ((room == null) ? 0 : room.hashCode());
+		result = prime * result + ((userMessage == null) ? 0 : userMessage.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Message other = (Message) obj;
+		if (created == null) {
+			if (other.created != null)
+				return false;
+		} else if (!created.equals(other.created))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (message == null) {
+			if (other.message != null)
+				return false;
+		} else if (!message.equals(other.message))
+			return false;
+		if (owner == null) {
+			if (other.owner != null)
+				return false;
+		} else if (!owner.equals(other.owner))
+			return false;
+		if (room == null) {
+			if (other.room != null)
+				return false;
+		} else if (!room.equals(other.room))
+			return false;
+		if (userMessage == null) {
+			if (other.userMessage != null)
+				return false;
+		} else if (!userMessage.equals(other.userMessage))
+			return false;
+		return true;
 	}
 	
 }
