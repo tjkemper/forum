@@ -2,7 +2,13 @@
  * @author Taylor Kemper
  */
 
-angular.module("ForumApp",["ui.router", "ui.bootstrap", 'ngAnimate', 'ui.gravatar']);
+angular.module("ForumApp",[
+                           "ui.router", 
+                           "ui.bootstrap",
+                           'ui.gravatar',
+                           'ngAnimate',
+                           'textAngular'
+                           ]);
 
 //angular.module("ForumApp").constant("baseUrl","http://localhost:8085/forum/");
 angular.module("ForumApp").constant("userUrl","user/");
