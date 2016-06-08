@@ -12,6 +12,10 @@
         <td><span class="label label-info">Created</span></td>
         <td>{{room.created | date}}</td>
       </tr>
+      <tr data-ng-show="room.closed">
+        <td><span class="label label-info">Closed</span></td>
+        <td>{{room.closed | date}}</td>
+      </tr>
       <tr>
         <td><span class="label label-info">Description</span></td>
         <td>{{room.description}}</td>
