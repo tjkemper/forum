@@ -72,7 +72,9 @@ angular.module("ForumApp")
 			var scrollElement = angular.element(element[0].querySelector('#scroll'));
 			
 			scrollElement[0].addEventListener('click', function(event){
-				scrollToTop(100);
+				//FIXME: scrollToTop animation messing up - scrolls to top, then to bottom, then to top
+//				scrollToTop(100);
+				scrollTo(0,0);
 			});
 			
 			angular.element(document).bind('scroll', function() {

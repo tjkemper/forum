@@ -26,11 +26,16 @@
     <th>Message</th>
     <th>Owner</th>
     <th>Created</th>
+    <th></th>
   </tr>
   <tr data-ng-repeat="msg in rData.currentMessages">
     <td>{{msg.message}}</td>
     <td>{{msg.owner.username}}</td>
     <td>{{msg.created | date : "short"}}</td>
+    <td>
+      <button data-ng-hide="msg.authUserMessage.userLikesMessage" data-ng-click="rData.likeMessage(msg, true)" class="btn btn-success">Like</button>
+      <button data-ng-show="msg.authUserMessage.userLikesMessage" data-ng-click="rData.likeMessage(msg, false)" class="btn btn-danger">Unlike</button>
+    </td>
   </tr>
 </table>
 

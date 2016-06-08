@@ -227,4 +227,13 @@ angular.module("ForumApp")
 		},function(response){});
 	}
 	
+	roomData.likeMessage = function(message, userLikesMessage){
+		
+		var promise = ForumService.likeMessage(message.id, userLikesMessage);
+		
+		promise.then(function(response){
+			message.authUserMessage = response.data;
+		}, function(response){});
+	}
+	
 });

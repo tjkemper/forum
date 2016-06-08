@@ -3,7 +3,7 @@
  */
 
 angular.module("ForumApp")
-.service("ForumService", function($http, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl){
+.service("ForumService", function($http, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl){
 	
 	var serviceData = this;
 	
@@ -191,6 +191,22 @@ angular.module("ForumApp")
 		return $http({
 			method:'DELETE',
 			url:roomUrl + roomName,
+		});
+	}
+	
+	serviceData.likeMessage = function(messageId, userLikesMessage){
+		
+		var data = {
+			user:{
+				username : serviceData.authUser.name
+			},
+			userLikesMessage:userLikesMessage
+		};
+		
+		return $http({
+			method:'POST',
+			url:messageUrl + '/' + messageId + likeUrl,
+			data:data
 		});
 	}
 	
