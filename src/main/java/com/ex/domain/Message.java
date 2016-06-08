@@ -49,6 +49,9 @@ public class Message {
 	
 	@Transient
 	private UserMessage authUserMessage;
+	
+	@Transient
+	private int numLikes;
 
 	
 	public Message(){}
@@ -140,8 +143,15 @@ public class Message {
 	public void setAuthUserMessage(UserMessage authUserMessage) {
 		this.authUserMessage = authUserMessage;
 	}
-
 	
+	public int getNumLikes() {
+		return numLikes;
+	}
+
+	public void setNumLikes(int numLikes) {
+		this.numLikes = numLikes;
+	}
+
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", message=" + message + ", owner=" + owner + ", room=" + room + "]";

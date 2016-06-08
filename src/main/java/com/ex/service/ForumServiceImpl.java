@@ -127,10 +127,18 @@ public class ForumServiceImpl implements ForumService {
 			Iterator<UserMessage> userMessageIter = message.getUserMessage().iterator();
 			while(userMessageIter.hasNext()){
 				UserMessage userMessage = userMessageIter.next();
+				
+				//calculate numLikes per message
+				if(userMessage.getUserLikesMessage()){
+					message.setNumLikes(message.getNumLikes() + 1); //add 1 like
+				}
+				
+				//check if authenticated user has a UserMessage relationship
 				if(name.equals(userMessage.getUser().getUsername())){
 					message.setAuthUserMessage(userMessage);
-					break;
 				}
+				
+				
 			}
 		}
 		
