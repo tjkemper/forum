@@ -148,17 +148,9 @@ public class ForumServiceImpl implements ForumService {
 		if(userMessageList.size() > 0){
 			//User Message relationship already exists
 			if(userMessageList.size() == 1){
+
 				UserMessage existingUserMessage = userMessageList.get(0);
-				System.out.println("existingUserMessage");
-				System.out.println(existingUserMessage);
-				if(existingUserMessage.getUserLikesMessage() == true){
-					//User already likes this message
-					return existingUserMessage;
-				}else {
-					existingUserMessage.setUserLikesMessage(true);
-					return existingUserMessage;
-				}
-				
+				existingUserMessage.setUserLikesMessage(userMessage.getUserLikesMessage());
 				
 			}else {
 				//FIXME: Multiple User Message relationships (should not get here)
