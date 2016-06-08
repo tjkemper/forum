@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -27,6 +28,7 @@ public class User {
 	@Column(name="USER_USERNAME", unique=true)
 	private String username;
 	
+	@JsonIgnore
 	@Column(name="USER_PASSWORD")
 	private String password;
 	
