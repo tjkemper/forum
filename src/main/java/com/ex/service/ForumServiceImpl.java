@@ -140,18 +140,48 @@ public class ForumServiceImpl implements ForumService {
 
 	@Override
 	public UserMessage likeMessage(UserMessage userMessage) {
-		Integer userId = userMessage.getUser().getId();
+
+		String username = userMessage.getUser().getUsername();
 		Integer messageId = userMessage.getMessage().getId();
-		if(userId != null && messageId != null){
-			User user = userRepo.findOne(userId);
-			Message message = messageRepo.findOne(messageId);
-			if(user != null && message != null){
-				userMessage.setUser(user);
-				userMessage.setMessage(message);
-				return userMessageRepo.save(userMessage);
+		
+		List<UserMessage> userMessageList = userMessageRepo.findByUserUsernameAndMessageId(username, messageId);
+		if(userMessageList.size() > 0){
+			//User Message relationship already exists
+			if(userMessageList.size() == 1){
+				UserMessage existingUserMessage = userMessageList.get(0);
+				System.out.println("existingUserMessage");
+				System.out.println(existingUserMessage);
+				if(existingUserMessage.getUserLikesMessage() == true){
+					//User already likes this message
+					return existingUserMessage;
+				}else {
+					existingUserMessage.setUserLikesMessage(true);
+					return existingUserMessage;
+				}
+				
+				
+			}else {
+				//FIXME: Multiple User Message relationships (should not get here)
+			}
+		}else {
+			//User Message relationship does not exist
+			if(username != null && messageId != null){
+				List<User> userList = userRepo.findByUsername(username);
+				
+				if(userList.size() == 1){
+					User user = userList.get(0);
+				
+					Message message = messageRepo.findOne(messageId);
+					if(user != null && message != null){
+						userMessage.setUser(user);
+						userMessage.setMessage(message);
+						return userMessageRepo.save(userMessage);
+					}
+				}
+				
 			}
 		}
-		
+			
 		return null;
 	}
 
