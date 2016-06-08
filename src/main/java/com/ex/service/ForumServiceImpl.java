@@ -2,12 +2,15 @@ package com.ex.service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -111,7 +114,28 @@ public class ForumServiceImpl implements ForumService {
 			return null;
 		}
 	}
-
+	
+	private void findAndSetAuthUserMessage(Page<Message> messageList){
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		System.out.println("LOGGED IN AS:" + name);
+		
+		Iterator<Message> messageIter = messageList.iterator();
+		while(messageIter.hasNext()){
+			Message message = messageIter.next();
+			Iterator<UserMessage> userMessageIter = message.getUserMessage().iterator();
+			while(userMessageIter.hasNext()){
+				UserMessage userMessage = userMessageIter.next();
+				if(name.equals(userMessage.getUser().getUsername())){
+					message.setAuthUserMessage(userMessage);
+					break;
+				}
+			}
+		}
+		
+	}
+	
 	@Override
 	public Page<Message> getMessagesByRoomPage(String roomName, Integer page, Integer size) {
 		List<Room> roomList = roomRepo.findByName(roomName);
@@ -120,6 +144,7 @@ public class ForumServiceImpl implements ForumService {
 			Pageable pageable = new PageRequest(page, size);
 			
 			Page<Message> messageList = messageRepo.findByRoomOrderByCreatedDesc(room, pageable);
+			findAndSetAuthUserMessage(messageList);
 			return messageList;
 //			return messageRepo.findByRoomOrderByCreatedDesc(room, pageable);
 		} else {

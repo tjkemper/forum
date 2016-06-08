@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.ex.domain.m2m.UserMessage;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -45,6 +46,9 @@ public class Message {
 	
 	@OneToMany(mappedBy="message", fetch=FetchType.EAGER)
 	private Set<UserMessage> userMessage;
+	
+	@Transient
+	private UserMessage authUserMessage;
 
 	
 	public Message(){}
@@ -128,6 +132,15 @@ public class Message {
 	public void setUserMessage(Set<UserMessage> userMessage) {
 		this.userMessage = userMessage;
 	}
+	
+	public UserMessage getAuthUserMessage() {
+		return authUserMessage;
+	}
+
+	public void setAuthUserMessage(UserMessage authUserMessage) {
+		this.authUserMessage = authUserMessage;
+	}
+
 	
 	@Override
 	public String toString() {
