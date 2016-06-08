@@ -29,6 +29,20 @@
 	color:#ffffff;
 }
 
+.likeBtn {
+	display: inline;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.noticeMeText {
+	font-weight: bolder;
+	font-family: cursive;
+	font-size: 1.2em;
+}
+
 #scroll {
 	cursor: pointer;
     width: 30px;

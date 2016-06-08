@@ -26,15 +26,24 @@
     <th>Message</th>
     <th>Owner</th>
     <th>Created</th>
-    <th></th>
+    <th># Likes</th>
   </tr>
   <tr data-ng-repeat="msg in rData.currentMessages">
     <td>{{msg.message}}</td>
     <td>{{msg.owner.username}}</td>
     <td>{{msg.created | date : "short"}}</td>
     <td>
-      <button data-ng-hide="msg.authUserMessage.userLikesMessage" data-ng-click="rData.likeMessage(msg, true)" class="btn btn-success">Like</button>
-      <button data-ng-show="msg.authUserMessage.userLikesMessage" data-ng-click="rData.likeMessage(msg, false)" class="btn btn-danger">Unlike</button>
+      <span class="badge">{{msg.numLikes}}</span>
+      <div data-ng-hide="msg.authUserMessage.userLikesMessage" data-ng-click="rData.likeMessage(msg, true)" class="likeBtn clickable pull-right" uib-popover-template="'ng/templates/popovers/clickToLike.html'" popover-trigger="mouseenter">
+        <span class="label label-primary">Like</span>
+      </div>
+
+      <div data-ng-show="msg.authUserMessage.userLikesMessage" data-ng-click="rData.likeMessage(msg, false)" class="likeBtn clickable pull-right" uib-popover-template="'ng/templates/popovers/clickToUnlike.html'" popover-trigger="mouseenter">
+        <div class="label label-success">
+          <span class="glyphicon glyphicon-heart"></span>
+        </div>
+      </div>
+
     </td>
   </tr>
 </table>

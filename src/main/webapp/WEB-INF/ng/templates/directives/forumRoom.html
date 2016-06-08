@@ -20,9 +20,10 @@
         <td><span class="label label-info">Status</span></td>
         <td>
           {{room.closed ? 'CLOSED' : 'OPEN'}}
-          <button class="btn btn-danger" data-ng-if="username == room.owner.username && !room.closed" data-ng-click="closefn({roomName:room.name})">
+          <div class="label label-danger clickable" data-ng-if="username == room.owner.username && !room.closed" data-ng-click="closefn({roomName:room.name})" uib-popover-template="'ng/templates/popovers/clickToCloseRoom.html'" popover-trigger="mouseenter">
       	    Close
-          </button>
+          </div>
+
         </td>
       </tr>
       

@@ -34,9 +34,9 @@
       <td>{{room.created | date}}</td>
       <td>
         {{(room.closed | date) || "OPEN"}}
-		<button class="btn btn-danger" data-ng-if="aData.authUser.name == room.owner.username && !room.closed" data-ng-click="aData.closeRoom(room.name);$event.stopPropagation();">
+		<div class="label label-danger clickable" data-ng-if="aData.authUser.name == room.owner.username && !room.closed" data-ng-click="aData.closeRoom(room.name);$event.stopPropagation();" uib-popover-template="'ng/templates/popovers/clickToCloseRoom.html'" popover-trigger="mouseenter">
 		  Close
-		</button>      
+		</div>
       </td>
     </tr>
   </tbody>

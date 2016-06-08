@@ -233,6 +233,11 @@ angular.module("ForumApp")
 		
 		promise.then(function(response){
 			message.authUserMessage = response.data;
+			if(userLikesMessage){
+				message.numLikes++;
+			}else {
+				message.numLikes--;
+			}
 		}, function(response){});
 	}
 	
