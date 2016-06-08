@@ -115,7 +115,7 @@ public class ForumServiceImpl implements ForumService {
 		}
 	}
 	
-	private void findAndSetAuthUserMessage(Page<Message> messageList){
+	private void enhanceMessageList(Page<Message> messageList){
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
@@ -152,9 +152,8 @@ public class ForumServiceImpl implements ForumService {
 			Pageable pageable = new PageRequest(page, size);
 			
 			Page<Message> messageList = messageRepo.findByRoomOrderByCreatedDesc(room, pageable);
-			findAndSetAuthUserMessage(messageList);
+			enhanceMessageList(messageList);
 			return messageList;
-//			return messageRepo.findByRoomOrderByCreatedDesc(room, pageable);
 		} else {
 			return null;
 		}
