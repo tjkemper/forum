@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="FORUM_MESSAGE")
-@JsonIgnoreProperties(value={"room", "userMessage"})
+@JsonIgnoreProperties(value={"room"})
 public class Message {
 	
 	@Id

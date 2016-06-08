@@ -10,5 +10,5 @@ import com.ex.domain.m2m.UserMessage;
 public interface UserMessageRepo extends JpaRepository<UserMessage, Integer> {
 	
 	public List<UserMessage> findByUserUsernameAndMessageId(String username, Integer id);
-	
+
 }

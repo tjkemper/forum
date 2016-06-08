@@ -118,7 +118,10 @@ public class ForumServiceImpl implements ForumService {
 		if (roomList.size() == 1) {
 			Room room = roomList.get(0);
 			Pageable pageable = new PageRequest(page, size);
-			return messageRepo.findByRoomOrderByCreatedDesc(room, pageable);
+			
+			Page<Message> messageList = messageRepo.findByRoomOrderByCreatedDesc(room, pageable);
+			return messageList;
+//			return messageRepo.findByRoomOrderByCreatedDesc(room, pageable);
 		} else {
 			return null;
 		}
@@ -139,10 +142,10 @@ public class ForumServiceImpl implements ForumService {
 
 
 	@Override
-	public UserMessage likeMessage(UserMessage userMessage) {
+	public UserMessage likeMessage(UserMessage userMessage, String messageIdStr) {
 
 		String username = userMessage.getUser().getUsername();
-		Integer messageId = userMessage.getMessage().getId();
+		Integer messageId = Integer.parseInt(messageIdStr);
 		
 		List<UserMessage> userMessageList = userMessageRepo.findByUserUsernameAndMessageId(username, messageId);
 		if(userMessageList.size() > 0){
@@ -151,6 +154,7 @@ public class ForumServiceImpl implements ForumService {
 
 				UserMessage existingUserMessage = userMessageList.get(0);
 				existingUserMessage.setUserLikesMessage(userMessage.getUserLikesMessage());
+				return existingUserMessage;
 				
 			}else {
 				//FIXME: Multiple User Message relationships (should not get here)

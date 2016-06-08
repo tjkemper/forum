@@ -75,9 +75,9 @@ public class ForumRestController {
 	}
 	
 	
-	@RequestMapping(value="message/like", method=RequestMethod.POST)
-	public UserMessage likeMessage(@RequestBody UserMessage userMessage){
-		return forumService.likeMessage(userMessage);
+	@RequestMapping(value="message/{messageId}/like", method=RequestMethod.POST)
+	public UserMessage likeMessage(@RequestBody UserMessage userMessage, @PathVariable String messageId){
+		return forumService.likeMessage(userMessage, messageId);
 	}
 	
 	

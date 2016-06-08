@@ -23,5 +23,5 @@ public interface ForumService {
 	public Page<Message> getMessagesByRoomPage(String roomName, Integer page, Integer size);
 	public void postMessage(Message message, String roomName);
 	
-	public UserMessage likeMessage(UserMessage userMessage);
+	public UserMessage likeMessage(UserMessage userMessage, String messageIdStr);
 }
