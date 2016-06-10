@@ -16,6 +16,20 @@ angular.module("ForumApp")
 });
 
 angular.module("ForumApp")
+.directive("messageList", function(){
+	return {
+		scope : {
+			messages 	      : '=',
+			lastPageAccessed  : '=',
+			readyForMorePosts : '=',
+			likeMessage 	  : '&',
+			loadMoreMessages  : '&'
+		},
+		templateUrl : 'ng/templates/directives/messageList.html'
+	};
+});
+
+angular.module("ForumApp")
 .directive("scrollCallback", function(){
 	return {
 		scope : {

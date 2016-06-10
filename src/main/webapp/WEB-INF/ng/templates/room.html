@@ -26,38 +26,15 @@
 <div class="page-header">
 	<h3>Messages</h3>
 </div>
-<table class="table table-responsive table-hover">
-  <tr>
-    <th>Message</th>
-    <th>Owner</th>
-    <th>Created</th>
-    <th># Likes</th>
-  </tr>
-  <tr data-ng-repeat="msg in rData.currentMessages">
-<!--     <td>{{msg.message}}</td> -->
-    <td>
-      <span data-ng-bind-html="msg.message"></span>
-    </td>
-    <td>{{msg.owner.username}}</td>
-    <td>{{msg.created | date : "short"}}</td>
-    <td>
-      <span class="badge">{{msg.numLikes}}</span>
-      <div data-ng-hide="msg.authUserMessage.userLikesMessage" data-ng-click="rData.likeMessage(msg, true)" class="likeBtn clickable pull-right" uib-popover-template="'ng/templates/popovers/clickToLike.html'" popover-trigger="mouseenter">
-        <span class="label label-primary">Like</span>
-      </div>
 
-      <div data-ng-show="msg.authUserMessage.userLikesMessage" data-ng-click="rData.likeMessage(msg, false)" class="likeBtn clickable pull-right" uib-popover-template="'ng/templates/popovers/clickToUnlike.html'" popover-trigger="mouseenter">
-        <div class="label label-success">
-          <span class="glyphicon glyphicon-heart"></span>
-        </div>
-      </div>
+<data-message-list 	messages='rData.currentMessages'
+					last-page-accessed='rData.lastPageAccessed'
+					ready-for-more-posts='rData.readyForMorePosts'
+					like-message='rData.likeMessage(message, userLikesMessage)'
+					load-more-messages='rData.loadMoreMessages()'
+					>
+</data-message-list>
 
-    </td>
-  </tr>
-</table>
 
-<div data-ng-hide="rData.lastPageAccessed.last">
-  <data-scroll-callback scroll-threshold="50" cb="rData.loadMoreMessages()" ready-for-more="rData.readyForMorePosts"></data-scroll-callback>
-</div>
 
 </div>
