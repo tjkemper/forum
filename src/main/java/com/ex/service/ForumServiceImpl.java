@@ -128,6 +128,7 @@ public class ForumServiceImpl implements ForumService {
 			while(userMessageIter.hasNext()){
 				UserMessage userMessage = userMessageIter.next();
 				
+				//FIXME: null check on userLikesMessage Boolean
 				//calculate numLikes per message
 				if(userMessage.getUserLikesMessage()){
 					message.setNumLikes(message.getNumLikes() + 1); //add 1 like
