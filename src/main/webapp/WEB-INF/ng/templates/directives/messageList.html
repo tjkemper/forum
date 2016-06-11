@@ -1,32 +1,52 @@
-<table class="table table-responsive table-hover">
-  <tr>
-    <th>Message!!!!!!!</th>
-    <th>Owner</th>
-    <th>Created</th>
-    <th># Likes</th>
-  </tr>
-  <tr data-ng-repeat="msg in messages">
-    <td>
-      <span data-ng-bind-html="msg.message"></span>
-    </td>
-    <td>{{msg.owner.username}}</td>
-    <td>{{msg.created | date : "short"}}</td>
-    <td>
-      <span class="badge">{{msg.numLikes}}</span>
-      <div data-ng-hide="msg.authUserMessage.userLikesMessage" data-ng-click="likeMessage({message:msg, userLikesMessage:true})" class="likeBtn clickable pull-right" uib-popover-template="'ng/templates/popovers/clickToLike.html'" popover-trigger="mouseenter">
-        <span class="label label-primary">Like</span>
-      </div>
+<div data-ng-repeat="msg in messages">
 
-      <div data-ng-show="msg.authUserMessage.userLikesMessage" data-ng-click="likeMessage({message:msg, userLikesMessage:false})" class="likeBtn clickable pull-right" uib-popover-template="'ng/templates/popovers/clickToUnlike.html'" popover-trigger="mouseenter">
-        <div class="label label-success">
-          <span class="glyphicon glyphicon-heart"></span>
-        </div>
-      </div>
+  <!-- display info about message -->
+  <div class="row">
+  
+	<div class="col-xs-4">
+	  <div data-ng-hide="msg.authUserMessage.userLikesMessage" data-ng-click="likeMessage({message:msg, userLikesMessage:true})" class="likeBtn clickable" uib-popover-template="'ng/templates/popovers/clickToLike.html'" popover-trigger="mouseenter">
+	    <span class="label label-primary">Like</span>
+	  </div>
+	  <div data-ng-show="msg.authUserMessage.userLikesMessage" data-ng-click="likeMessage({message:msg, userLikesMessage:false})" class="likeBtn clickable" uib-popover-template="'ng/templates/popovers/clickToUnlike.html'" popover-trigger="mouseenter">
+		<div class="label label-success">
+		  <span class="glyphicon glyphicon-heart"></span>
+		</div>
+	  </div>
+	  <span class="badge">{{msg.numLikes}}</span>
+	</div>
 
-    </td>
-  </tr>
-</table>
+	<div class="col-xs-4 limitedText">
+	  <img gravatar-src="msg.owner.email" gravatar-size="25" class="img-circle img-responsive" style="display: inline;">
+	  <span class="noticeMeText">
+		{{msg.owner.username}}
+	  </span>
+	</div>
 
+	<div class="col-xs-4">
+	  <span class="pull-right">
+		{{msg.created | date : "short"}}
+	  </span>
+	</div>
+	  
+  </div> <!-- end row -->
+
+  <!-- display message -->
+  <div class="jumbotron">
+	<div class="row">
+	  <div class="col-xs-12">
+	    <span data-ng-bind-html="msg.message"></span>
+	  </div>
+	</div>
+  </div>
+	
+  <!-- display awesome hr -->
+  <hr class="awesomeHr"/>
+
+</div> <!-- end repeat over messages -->
+
+
+<!-- Load more messages on scroll -->
 <div data-ng-hide="lastPageAccessed.last">
   <data-scroll-callback scroll-threshold="50" cb="loadMoreMessages()" ready-for-more="readyForMorePosts"></data-scroll-callback>
 </div>
+
