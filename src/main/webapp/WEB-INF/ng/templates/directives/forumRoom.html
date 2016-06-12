@@ -50,6 +50,13 @@
   <hr class="awesomeHr"/>
   <div class="row">
     <div class="col-xs-12">
+      <form data-ng-submit="addCategoryToRoom({room:room, category:newCategory});">
+        <input data-ng-model="newCategory" class="form-control"/>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
       <div data-ng-repeat="cat in room.roomCategory" style="display: inline;">
         <div class="btn-group" style="margin-top: 5px;">
           <div class="btn btn-primary btn-xs">

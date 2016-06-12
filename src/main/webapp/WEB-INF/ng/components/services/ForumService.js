@@ -216,7 +216,9 @@ angular.module("ForumApp")
 			url:roomUrl+room.name+categoryUrl,
 			data:category
 		}).then(function(response){
-			room.roomCategory.push(response.data);
+			if(response.data){
+				room.roomCategory.push(response.data);
+			}
 			return response
 		}, function(response){
 			return response

@@ -242,7 +242,12 @@ angular.module("ForumApp")
 	}
 	
 	roomData.addCategoryToRoom = function(room, category){
-		ForumService.addCategoryToRoom(room, category);
+		var categoryFormatted = {
+				category : {
+					categoryName : category
+				}
+		}
+		ForumService.addCategoryToRoom(room, categoryFormatted);
 	}
 	
 	
