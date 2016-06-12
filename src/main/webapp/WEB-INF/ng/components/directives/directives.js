@@ -108,3 +108,43 @@ angular.module("ForumApp")
 		}
 	};
 });
+
+angular.module("ForumApp")
+.directive("likesList", function(){
+	return {
+		scope : {
+			msg : '=',
+			numPics : '='
+		},
+		templateUrl : "ng/templates/directives/likesList.html",
+		link : function(scope, element, attrs){
+			
+			console.log(scope.msg);
+			console.log(scope.numPics);
+			
+			
+			var likesForPics = [];
+			for(var umIndex = 0; umIndex < scope.msg.userMessage.length; umIndex++){
+				var userMessage = scope.msg.userMessage[umIndex];
+				if(userMessage.userLikesMessage){
+					likesForPics.push(userMessage);
+				}
+				if(likesForPics.length >= scope.numPics){
+					break;
+				}
+			}
+			
+			scope.likesForPics = likesForPics;
+			scope.numOtherLikes = scope.msg.numLikes - likesForPics.length;
+			
+			console.log('numLikes: ' + scope.msg.numLikes);
+			console.log('numOtherLikes: ' + scope.numOtherLikes);
+			
+		}
+	};
+});
+
+
+
+
+

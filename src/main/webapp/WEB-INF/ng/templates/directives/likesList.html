@@ -1,0 +1,13 @@
+
+<div data-ng-show="msg.numLikes > 0">
+  <div data-ng-repeat="like in likesForPics" style="display: inline;">
+    <img gravatar-src="like.user.email" gravatar-size="25" class="img-circle img-responsive" style="display: inline;">
+  </div>
+
+  <div data-ng-show="numOtherLikes > 0" style="display: inline;">
+    plus {{numOtherLikes}} like this message!
+  </div>
+</div>
+<div data-ng-show="msg.numLikes <= 0">
+  Be the first to like this message!
+</div>
