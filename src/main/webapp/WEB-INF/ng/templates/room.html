@@ -2,7 +2,12 @@
   
   <div class="col-xs-12 col-md-4">
     <div class="well">
-      <data-forum-room room="rData.currentRoom" username="rData.authUser.name" closefn="rData.closeRoom(roomName)"></data-forum-room>
+      <data-forum-room 	room="rData.currentRoom" 
+      					username="rData.authUser.name" 
+      					closefn="rData.closeRoom(roomName)"
+      					add-category-to-room='rData.addCategoryToRoom(room, category)'
+						remove-category-from-room='rData.removeCategoryFromRoom(room, category)'
+      					/>
     </div>
   </div>
 
@@ -28,7 +33,7 @@
 						last-page-accessed='rData.lastPageAccessed'
 						ready-for-more-posts='rData.readyForMorePosts'
 						like-message='rData.likeMessage(message, userLikesMessage)'
-						load-more-messages='rData.loadMoreMessages()'
+						load-more-messages='rData.loadMoreMessages()'						
 					>
   </data-message-list>
 </div>

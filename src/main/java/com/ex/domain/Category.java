@@ -13,6 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.ex.domain.m2m.RoomCategory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value={"roomCategory"})
 public class Category {
 	
+	@JsonIgnore
 	@Id
 	@Column(name="CATEGORY_ID")
 	@SequenceGenerator(allocationSize=1,name="categorySeq",sequenceName="CATEGORY_SEQ")

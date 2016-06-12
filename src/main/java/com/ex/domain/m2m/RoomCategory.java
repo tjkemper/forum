@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import com.ex.domain.Category;
 import com.ex.domain.Room;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value={"room"})
 public class RoomCategory {
 	
+	@JsonIgnore
 	@Id
 	@Column(name="RC_ID")
 	@SequenceGenerator(allocationSize=1,name="roomCategorySeq",sequenceName="ROOM_CATEGORY_SEQ")

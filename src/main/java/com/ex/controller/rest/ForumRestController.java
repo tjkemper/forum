@@ -82,6 +82,8 @@ public class ForumRestController {
 		return forumService.likeMessage(userMessage, messageId);
 	}
 	
+	//NOTE: not needed - categories are created dynamically
+	//TODO: delete
 	@RequestMapping(value="category", method=RequestMethod.POST)
 	public Category createCategory(@RequestBody Category category){
 		return forumService.createCategory(category);

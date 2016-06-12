@@ -19,6 +19,7 @@ angular.module("ForumApp").constant("roomUrl","room/");
 angular.module("ForumApp").constant("messagesUrl","/messages/");
 angular.module("ForumApp").constant("messageUrl","message");
 angular.module("ForumApp").constant("likeUrl","/like");
+angular.module("ForumApp").constant("categoryUrl", "/category");
 
 angular.module("ForumApp")
 .config(function($stateProvider, $urlRouterProvider){

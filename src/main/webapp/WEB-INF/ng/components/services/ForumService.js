@@ -3,7 +3,7 @@
  */
 
 angular.module("ForumApp")
-.service("ForumService", function($http, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl){
+.service("ForumService", function($http, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl, categoryUrl){
 	
 	var serviceData = this;
 	
@@ -209,6 +209,40 @@ angular.module("ForumApp")
 			data:data
 		});
 	}
+	
+	serviceData.addCategoryToRoom = function(room, category){
+		return $http({
+			method:'PUT',
+			url:roomUrl+room.name+categoryUrl,
+			data:category
+		}).then(function(response){
+			room.roomCategory.push(response.data);
+			return response
+		}, function(response){
+			return response
+		});
+	}
+	
+	serviceData.removeCategoryFromRoom = function(room, category){
+		return $http({
+			method:'DELETE',
+			url:roomUrl+room.name+categoryUrl,
+			data:category,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+		}).then(function(response){
+			
+			var categoryIndex = room.roomCategory.indexOf(category);
+			room.roomCategory.splice(categoryIndex, 1);
+
+			return response;
+		}, function(response){
+			return response;
+		});
+	}
+	
+	
 	
 	
 	/*

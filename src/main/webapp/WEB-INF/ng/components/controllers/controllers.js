@@ -241,4 +241,13 @@ angular.module("ForumApp")
 		}, function(response){});
 	}
 	
+	roomData.addCategoryToRoom = function(room, category){
+		ForumService.addCategoryToRoom(room, category);
+	}
+	
+	
+	roomData.removeCategoryFromRoom = function(room, category){
+		ForumService.removeCategoryFromRoom(room, category);
+	}
+	
 });

@@ -9,7 +9,9 @@ angular.module("ForumApp")
 		scope : {
 			room : '=',
 			username : '=',
-			closefn : '&'
+			closefn : '&',
+			addCategoryToRoom : '&',
+			removeCategoryFromRoom : '&'
 		},
 		templateUrl: 'ng/templates/directives/forumRoom.html'
 	};

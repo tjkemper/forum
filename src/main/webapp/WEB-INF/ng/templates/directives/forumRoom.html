@@ -51,10 +51,14 @@
   <div class="row">
     <div class="col-xs-12">
       <div data-ng-repeat="cat in room.roomCategory" style="display: inline;">
-        <span class="label label-primary">
-          {{cat.category.categoryName}} <span class="label label-danger">X</span>
-        </span>
-        
+        <div class="btn-group" style="margin-top: 5px;">
+          <div class="btn btn-primary btn-xs">
+            {{cat.category.categoryName}}
+          </div>
+          <div data-ng-click="removeCategoryFromRoom({room:room, category:cat});" class="btn btn-danger btn-xs">
+            <span class="glyphicon glyphicon-remove"></span>
+          </div>
+        </div>        
       </div>
     </div>
   </div>
