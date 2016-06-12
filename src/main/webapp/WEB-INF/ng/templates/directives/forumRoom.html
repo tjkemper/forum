@@ -48,7 +48,7 @@
     </div>
   </div>
   <hr class="awesomeHr"/>
-  <div class="row">
+  <div class="row" data-ng-if="username == room.owner.username">
     <div class="col-xs-12">
       <form data-ng-submit="addCategoryToRoom({room:room, category:newCategory});">
         <input data-ng-model="newCategory" class="form-control"/>
@@ -62,7 +62,7 @@
           <div class="btn btn-primary btn-xs">
             {{cat.category.categoryName}}
           </div>
-          <div data-ng-click="removeCategoryFromRoom({room:room, category:cat});" class="btn btn-danger btn-xs">
+          <div data-ng-click="removeCategoryFromRoom({room:room, category:cat});" data-ng-if="username == room.owner.username" class="btn btn-danger btn-xs">
             <span class="glyphicon glyphicon-remove"></span>
           </div>
         </div>        
