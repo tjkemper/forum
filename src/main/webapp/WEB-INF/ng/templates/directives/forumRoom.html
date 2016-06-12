@@ -1,36 +1,51 @@
 <div class="forumRoom">
   <div class="page-header">
     <h2>{{room.name}}</h2>
+  <span style="font-style: italic;">
+    {{room.description}}
+  </span>  
   </div>
-  <table class="table table-responsive">
-    <tbody>
-      <tr>
-        <td><span class="label label-info">Owner</span></td>
-        <td>{{room.owner.username}}</td>
-      </tr>
-      <tr>
-        <td><span class="label label-info">Created</span></td>
-        <td>{{room.created | date}}</td>
-      </tr>
-      <tr data-ng-show="room.closed">
-        <td><span class="label label-info">Closed</span></td>
-        <td>{{room.closed | date}}</td>
-      </tr>
-      <tr>
-        <td><span class="label label-info">Description</span></td>
-        <td>{{room.description}}</td>
-      </tr>
-      <tr>
-        <td><span class="label label-info">Status</span></td>
-        <td>
-          {{room.closed ? 'CLOSED' : 'OPEN'}}
-          <div class="label label-danger clickable" data-ng-if="username == room.owner.username && !room.closed" data-ng-click="closefn({roomName:room.name})" uib-popover-template="'ng/templates/popovers/clickToCloseRoom.html'" popover-trigger="mouseenter">
-      	    Close
-          </div>
+  
+  <div class="row">
+    <div class="col-xs-4">
+      <span class="label label-info">Owner</span>
+    </div>
+    <div class="col-xs-8 limitedText">
+      <img gravatar-src="room.owner.email" gravatar-size="25" class="img-circle img-responsive" style="display: inline;">
+      <span class="noticeMeText">
+        {{room.owner.username}}
+      </span>      
+    </div>
+  </div>
+  <hr class="awesomeHr"/>
+  <div class="row">
+    <div class="col-xs-4">
+      <span class="label label-info">Created</span>
+    </div>
+    <div class="col-xs-8">
+      {{room.created | date}}
+    </div>
+  </div>
+  <hr class="awesomeHr"/>
+  <div class="row" data-ng-show="room.closed">
+    <div class="col-xs-4">
+      <span class="label label-info">Closed</span>
+    </div>
+    <div class="col-xs-8">
+      {{room.closed | date}}
+    </div>
+  </div>
+  <hr class="awesomeHr" data-ng-show="room.closed"/>
+  <div class="row">
+    <div class="col-xs-4">
+      <span class="label label-info">Status</span>
+    </div>
+    <div class="col-xs-8">
+      {{room.closed ? 'CLOSED' : 'OPEN'}}
+      <div class="label label-danger clickable" data-ng-if="username == room.owner.username && !room.closed" data-ng-click="closefn({roomName:room.name})" uib-popover-template="'ng/templates/popovers/clickToCloseRoom.html'" popover-trigger="mouseenter">
+        Close
+      </div>
+    </div>
+  </div>
 
-        </td>
-      </tr>
-      
-    </tbody>
-  </table>   
 </div>
