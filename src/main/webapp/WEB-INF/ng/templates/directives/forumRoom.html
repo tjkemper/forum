@@ -47,5 +47,16 @@
       </div>
     </div>
   </div>
+  <hr class="awesomeHr"/>
+  <div class="row">
+    <div class="col-xs-12">
+      <div data-ng-repeat="cat in room.roomCategory" style="display: inline;">
+        <span class="label label-primary">
+          {{cat.category.categoryName}} <span class="label label-danger">X</span>
+        </span>
+        
+      </div>
+    </div>
+  </div>
 
 </div>
