@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ex.domain.Category;
 import com.ex.domain.Message;
 import com.ex.domain.Room;
 import com.ex.domain.User;
+import com.ex.domain.m2m.RoomCategory;
 import com.ex.domain.m2m.UserMessage;
 import com.ex.service.ForumService;
 
@@ -80,5 +82,14 @@ public class ForumRestController {
 		return forumService.likeMessage(userMessage, messageId);
 	}
 	
+	@RequestMapping(value="category", method=RequestMethod.POST)
+	public Category createCategory(@RequestBody Category category){
+		return forumService.createCategory(category);
+	}
+	
+	@RequestMapping(value="room/category", method=RequestMethod.PUT)
+	public RoomCategory addCategoryToRoom(@RequestBody RoomCategory roomCategory){
+		return forumService.addCategoryToRoom(roomCategory);
+	}
 	
 }

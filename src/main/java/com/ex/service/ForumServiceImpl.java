@@ -14,13 +14,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ex.domain.Category;
 import com.ex.domain.Message;
 import com.ex.domain.Room;
 import com.ex.domain.User;
+import com.ex.domain.m2m.RoomCategory;
 import com.ex.domain.m2m.UserMessage;
+import com.ex.repo.CategoryRepo;
 import com.ex.repo.MessageRepo;
 import com.ex.repo.RoomRepo;
 import com.ex.repo.UserRepo;
+import com.ex.repo.m2m.RoomCategoryRepo;
 import com.ex.repo.m2m.UserMessageRepo;
 
 @Service
@@ -37,7 +41,13 @@ public class ForumServiceImpl implements ForumService {
 	private MessageRepo messageRepo;
 	
 	@Autowired
+	private CategoryRepo categoryRepo;
+	
+	@Autowired
 	private UserMessageRepo userMessageRepo;
+	
+	@Autowired
+	private RoomCategoryRepo roomCategoryRepo;
 
 	
 	@Override
@@ -211,6 +221,30 @@ public class ForumServiceImpl implements ForumService {
 			}
 		}
 			
+		return null;
+	}
+
+
+	@Override
+	public Category createCategory(Category category) {
+		//TODO: check if category name already exists (it should be unique)
+		return categoryRepo.save(category);
+	}
+
+
+	@Override
+	public RoomCategory addCategoryToRoom(RoomCategory roomCategory) {
+		
+		Room room = roomRepo.findOneByName(roomCategory.getRoom().getName());
+		Category category = categoryRepo.findOneByCategoryName(roomCategory.getCategory().getCategoryName());
+		
+		if(room != null && category != null){
+			
+			roomCategory.setRoom(room);
+			roomCategory.setCategory(category);
+			return roomCategoryRepo.save(roomCategory);
+		}
+		
 		return null;
 	}
 

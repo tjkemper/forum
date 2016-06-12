@@ -2,6 +2,7 @@ package com.ex.domain;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.ex.domain.m2m.RoomCategory;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -46,6 +48,9 @@ public class Room {
 	
 	@OneToMany(mappedBy="room", fetch=FetchType.LAZY)
 	private List<Message> messages;
+	
+	@OneToMany(mappedBy="room", fetch=FetchType.EAGER)
+	private Set<RoomCategory> roomCategory;
 	
 	public Room(){}
 
@@ -133,6 +138,14 @@ public class Room {
 
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
+	}
+
+	public Set<RoomCategory> getRoomCategory() {
+		return roomCategory;
+	}
+
+	public void setRoomCategory(Set<RoomCategory> roomCategory) {
+		this.roomCategory = roomCategory;
 	}
 
 	@Override

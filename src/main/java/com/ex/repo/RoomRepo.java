@@ -13,6 +13,8 @@ import com.ex.domain.Room;
 public interface RoomRepo extends JpaRepository<Room, Integer> {
 	List<Room> findByName(String name);
 	
+	Room findOneByName(String name);
+	
 	@Modifying
 	@Query("update Room set closed = :closedVar where name = :roomNameVar")
 	void closeRoom(@Param("roomNameVar") String roomName, @Param("closedVar") Timestamp closed);

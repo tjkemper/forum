@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.ex.domain.Category;
 import com.ex.domain.Message;
 import com.ex.domain.Room;
 import com.ex.domain.User;
+import com.ex.domain.m2m.RoomCategory;
 import com.ex.domain.m2m.UserMessage;
 
 public interface ForumService {
@@ -24,4 +26,7 @@ public interface ForumService {
 	public void postMessage(Message message, String roomName);
 	
 	public UserMessage likeMessage(UserMessage userMessage, String messageIdStr);
+	
+	public Category createCategory(Category category);
+	public RoomCategory addCategoryToRoom(RoomCategory roomCategory);
 }
