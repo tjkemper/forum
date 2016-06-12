@@ -1,37 +1,34 @@
-<div class="well">
-  <data-forum-room room="rData.currentRoom" username="rData.authUser.name" closefn="rData.closeRoom(roomName)"></data-forum-room>
-</div>
+<div class="row">
+  
+  <div class="col-xs-4">
+    <div class="well">
+      <data-forum-room room="rData.currentRoom" username="rData.authUser.name" closefn="rData.closeRoom(roomName)"></data-forum-room>
+    </div>
+  </div>
 
-<div class="well" data-ng-hide="rData.currentRoom.closed">
-<div class="page-header">
-	<h3>Post Message</h3>
-</div>
-<form data-ng-submit="rData.postMessage()">
-	<div class="form-group">
-<!-- 	  <label for="message">Message:</label> -->
-<!-- 	  <textarea class="form-control" rows="5" id="message" data-ng-model="rData.newMessage"></textarea> -->
-	  <div text-angular data-ng-model="rData.newMessage"></div>
-	  
+  <div class="col-xs-8">
+    <div class="well" data-ng-hide="rData.currentRoom.closed">
+      <form data-ng-submit="rData.postMessage()">
+	    <div class="form-group">
+	      <div text-angular data-ng-model="rData.newMessage"></div>
 	  
 <!-- 	  text angular defaults -->
 <!-- 	  <div text-angular ng-model="htmlVariable" ta-toolbar-class="btn-toolbar" ta-toolbar-group-class="btn-group" ta-toolbar-button-class="btn btn-default" ta-toolbar-active-button-class="active"></div> -->
-	</div>
-	<div class="form-group"> <!-- Post Message button -->
-		<button class="btn btn-primary" type="submit">Post Message</button>
-	</div>	
-</form>
+	    </div>
+	    <div class="form-group"> <!-- Post Message button -->
+		  <button class="btn btn-primary" type="submit">Post Message</button>
+	    </div>	
+      </form>
+    </div>
+  </div>
 </div>
 
 <div class="well">
-
-<data-message-list 	messages='rData.currentMessages'
-					last-page-accessed='rData.lastPageAccessed'
-					ready-for-more-posts='rData.readyForMorePosts'
-					like-message='rData.likeMessage(message, userLikesMessage)'
-					load-more-messages='rData.loadMoreMessages()'
+  <data-message-list	messages='rData.currentMessages'
+						last-page-accessed='rData.lastPageAccessed'
+						ready-for-more-posts='rData.readyForMorePosts'
+						like-message='rData.likeMessage(message, userLikesMessage)'
+						load-more-messages='rData.loadMoreMessages()'
 					>
-</data-message-list>
-
-
-
+  </data-message-list>
 </div>
