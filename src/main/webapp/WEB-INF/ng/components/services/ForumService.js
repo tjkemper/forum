@@ -219,9 +219,9 @@ angular.module("ForumApp")
 			if(response.data){
 				room.roomCategory.push(response.data);
 			}
-			return response
+			return response;
 		}, function(response){
-			return response
+			throw response;
 		});
 	}
 	
@@ -240,7 +240,7 @@ angular.module("ForumApp")
 
 			return response;
 		}, function(response){
-			return response;
+			throw response;
 		});
 	}
 	
