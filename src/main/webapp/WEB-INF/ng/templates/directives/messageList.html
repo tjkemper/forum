@@ -3,7 +3,7 @@
   <!-- display info about message -->
   <div class="row">
   
-	<div class="col-xs-4">
+	<div class="col-xs-2">
 	  <div data-ng-hide="msg.authUserMessage.userLikesMessage" data-ng-click="likeMessage({message:msg, userLikesMessage:true})" class="likeBtn clickable" uib-popover-template="'ng/templates/popovers/clickToLike.html'" popover-trigger="mouseenter">
 	    <span class="label label-primary">Like</span>
 	  </div>
@@ -15,7 +15,7 @@
 	  <span class="badge">{{msg.numLikes}}</span>
 	</div>
 
-	<div class="col-xs-4 limitedText">
+	<div class="col-xs-6 limitedText">
 	  <img gravatar-src="msg.owner.email" gravatar-size="25" class="img-circle img-responsive" style="display: inline;">
 	  <span class="noticeMeText">
 		{{msg.owner.username}}
