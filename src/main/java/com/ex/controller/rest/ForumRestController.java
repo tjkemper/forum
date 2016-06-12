@@ -87,9 +87,16 @@ public class ForumRestController {
 		return forumService.createCategory(category);
 	}
 	
-	@RequestMapping(value="room/category", method=RequestMethod.PUT)
-	public RoomCategory addCategoryToRoom(@RequestBody RoomCategory roomCategory){
-		return forumService.addCategoryToRoom(roomCategory);
+	@RequestMapping(value="room/{roomName}/category", method=RequestMethod.PUT)
+	public RoomCategory addCategoryToRoom(@RequestBody RoomCategory roomCategory, @PathVariable String roomName){
+		return forumService.addCategoryToRoom(roomCategory, roomName);
 	}
+	
+	@RequestMapping(value="room/{roomName}/category", method=RequestMethod.DELETE)
+	public Integer removeCategoryFromRoom(@RequestBody RoomCategory roomCategory, @PathVariable String roomName){
+		
+		return forumService.removeCategoryFromRoom(roomCategory, roomName);
+	}
+	
 	
 }

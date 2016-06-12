@@ -233,19 +233,39 @@ public class ForumServiceImpl implements ForumService {
 
 
 	@Override
-	public RoomCategory addCategoryToRoom(RoomCategory roomCategory) {
+	public RoomCategory addCategoryToRoom(RoomCategory roomCategory, String roomName) {
 		
-		Room room = roomRepo.findOneByName(roomCategory.getRoom().getName());
-		Category category = categoryRepo.findOneByCategoryName(roomCategory.getCategory().getCategoryName());
+		String categoryName = roomCategory.getCategory().getCategoryName();
 		
-		if(room != null && category != null){
+		RoomCategory existingRoomCategory = roomCategoryRepo.findOneByRoomNameAndCategoryCategoryName(roomName, categoryName);
+		
+		if(existingRoomCategory == null){
+		
+			Room room = roomRepo.findOneByName(roomName);
 			
-			roomCategory.setRoom(room);
-			roomCategory.setCategory(category);
-			return roomCategoryRepo.save(roomCategory);
+			if(room != null){
+				Category category = categoryRepo.findOneByCategoryName(categoryName);
+				if(category == null){
+					category = createCategory(new Category(categoryName));
+				}
+				
+				roomCategory.setRoom(room);
+				roomCategory.setCategory(category);
+				return roomCategoryRepo.save(roomCategory);
+			}
+			
+		}else {
+			//room already has category
+			return null;
 		}
 		
+		
 		return null;
+	}
+
+	@Override
+	public Integer removeCategoryFromRoom(RoomCategory roomCategory, String roomName) {
+		return roomCategoryRepo.deleteOneByRoomNameAndCategoryCategoryName(roomName, roomCategory.getCategory().getCategoryName());
 	}
 
 

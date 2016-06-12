@@ -28,5 +28,8 @@ public interface ForumService {
 	public UserMessage likeMessage(UserMessage userMessage, String messageIdStr);
 	
 	public Category createCategory(Category category);
-	public RoomCategory addCategoryToRoom(RoomCategory roomCategory);
+	
+	public RoomCategory addCategoryToRoom(RoomCategory roomCategory, String roomName);
+	public Integer removeCategoryFromRoom(RoomCategory roomCategory, String roomName);
+	
 }

@@ -9,6 +9,7 @@ import com.ex.domain.m2m.UserMessage;
 
 public interface RoomCategoryRepo extends JpaRepository<RoomCategory, Integer> {
 
-	public List<RoomCategory> findByRoomIdAndCategoryId(Integer idOne, Integer idTwo);
+	public RoomCategory findOneByRoomNameAndCategoryCategoryName(String name, String categoryName);
+	public Integer deleteOneByRoomNameAndCategoryCategoryName(String name, String categoryName);
 
 }
