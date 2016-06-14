@@ -241,15 +241,17 @@ angular.module("ForumApp")
 	}
 	
 	roomData.updateRoomName = function(room, newName){
-		var promise = ForumService.updateRoomName(room, newName);
-		
-		promise.then(function(response){
-			room.name = newName;
-			$state.go("roomState", {roomName:newName});
-		}, function(response){
-			console.log('updateRoomName failed')
-			console.log('\tfrom ' + room.name + ' to ' + newName);
-		});
+		if(newName) {
+			var promise = ForumService.updateRoomName(room, newName);
+			
+			promise.then(function(response){
+				room.name = newName;
+				$state.go("roomState", {roomName:newName});
+			}, function(response){
+				console.log('updateRoomName failed')
+				console.log('\tfrom ' + room.name + ' to ' + newName);
+			});
+		}
 	}
 	
 	roomData.updateRoomDescription = function(room, newDescription){

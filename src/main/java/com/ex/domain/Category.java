@@ -28,7 +28,7 @@ public class Category {
 	@GeneratedValue(generator="categorySeq",strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	
-	@Column(name="CATEGORY_NAME", unique=true)
+	@Column(name="CATEGORY_NAME", unique=true, nullable=false)
 	private String categoryName;
 	
 	@OneToMany(mappedBy="category", fetch=FetchType.LAZY)

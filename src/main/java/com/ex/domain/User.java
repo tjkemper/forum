@@ -25,11 +25,11 @@ public class User {
 	@GeneratedValue(generator="userSeq",strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	
-	@Column(name="USER_USERNAME", unique=true)
+	@Column(name="USER_USERNAME", unique=true, nullable=false)
 	private String username;
 	
 	@JsonIgnore
-	@Column(name="USER_PASSWORD")
+	@Column(name="USER_PASSWORD", nullable=false)
 	private String password;
 	
 	@Column(name="USER_FIRST_NAME")

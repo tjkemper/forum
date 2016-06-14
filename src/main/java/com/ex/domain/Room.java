@@ -30,7 +30,7 @@ public class Room {
 	@GeneratedValue(generator="roomSeq",strategy=GenerationType.SEQUENCE)
 	private Integer id;
 	
-	@Column(name="ROOM_NAME", unique=true)
+	@Column(name="ROOM_NAME", unique=true, nullable=false)
 	private String name;
 	
 	@Column(name="ROOM_DESCRIPTION", length=4000)
