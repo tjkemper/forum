@@ -110,6 +110,14 @@ public class ForumServiceImpl implements ForumService {
 	}
 	
 	@Override
+	public void updateRoomName(String roomName, String newRoomName){
+		Room room = roomRepo.findOneByName(roomName);
+		if(room != null){
+			room.setName(newRoomName);
+		}
+	}
+	
+	@Override
 	public void closeRoom(String roomName) {
 		Timestamp now = new Timestamp(new Date().getTime());
 		roomRepo.closeRoom(roomName, now);

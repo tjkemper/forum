@@ -9,6 +9,7 @@ angular.module("ForumApp")
 		scope : {
 			room : '=',
 			username : '=',
+			updateRoomName : '&',
 			closefn : '&',
 			reopenfn : '&',
 			addCategoryToRoom : '&',

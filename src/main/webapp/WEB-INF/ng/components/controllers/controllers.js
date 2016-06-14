@@ -240,6 +240,18 @@ angular.module("ForumApp")
 		//TODO: set Load More directive if NOT last page
 	}
 	
+	roomData.updateRoomName = function(room, newName){
+		var promise = ForumService.updateRoomName(room, newName);
+		
+		promise.then(function(response){
+			room.name = newName;
+			$state.go("roomState", {roomName:newName});
+		}, function(response){
+			console.log('updateRoomName failed')
+			console.log('\tfrom ' + room.name + ' to ' + newName);
+		});
+	}
+	
 	roomData.closeRoom = function(roomName){
 		ForumService.closeRoom(roomName).then(function(response){
 			ForumService.getSetCurrentRoom(roomName, true);

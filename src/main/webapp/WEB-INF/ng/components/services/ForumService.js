@@ -3,7 +3,7 @@
  */
 
 angular.module("ForumApp")
-.service("ForumService", function($http, $cookies, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl, categoryUrl){
+.service("ForumService", function($http, $cookies, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl, categoryUrl, updateRoomNameUrl){
 	
 	var serviceData = this;
 	
@@ -188,6 +188,12 @@ angular.module("ForumApp")
 		},function(response){});
 	}
 	
+	serviceData.updateRoomName = function(room, newName){
+		return $http({
+					method:'PUT',
+					url:roomUrl+room.name+updateRoomNameUrl+'?newRoomName='+newName,
+		});
+	}
 	
 	serviceData.closeRoom = function(roomName){
 		return $http({
