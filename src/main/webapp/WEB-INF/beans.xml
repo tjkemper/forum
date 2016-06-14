@@ -21,10 +21,6 @@
 <!-- 	Find Spring Beans -->
 	<context:component-scan base-package="com.ex"/>
 	
-<!-- 
-	HOMEPAGE
-	http://localhost:8085/forum/ng/forum.html 
--->
   <mvc:resources location="/WEB-INF/ng/" mapping="/ng/**"/>
   
   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
