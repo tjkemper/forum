@@ -52,16 +52,24 @@ angular.module("ForumApp")
 	}
 	
 	serviceData.register = function(user){
-		$cookies.remove('JSESSIONID');
-		$cookies.remove('XSRF-TOKEN');
+//		$cookies.remove('JSESSIONID');
+//		$cookies.remove('XSRF-TOKEN');
 		
 		return $http({
 			method:'PUT',
 			url:userUrl,
 			data:user
 		}).then(function(response){
-			return serviceData.auth(user);
-		}, function(response){});
+			var subpromise = serviceData.auth(user);
+			subpromise.then(function(response){
+				serviceData.setAuthUser(response.data);
+			}, function(response){
+				
+			});
+			return response;
+		}, function(response){
+			throw response;
+		});
 	}
 	
 	serviceData.updateUser = function(userDetails){

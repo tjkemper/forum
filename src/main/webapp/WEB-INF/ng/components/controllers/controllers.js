@@ -127,6 +127,7 @@ angular.module("ForumApp")
 	var registerData = this;
 	
 	registerData.newUser = {};
+	registerData.message = "";
 	
 	registerData.register = function(){
 		
@@ -136,13 +137,15 @@ angular.module("ForumApp")
 			console.log("request success");
 			if(response.data != null && response.data != ""){
 				console.log("register success");
-				ForumService.setAuthUser(response.data);
+//				ForumService.setAuthUser(response.data);
 				$uibModalInstance.close();
 
 				$state.go("allRoomsState");
 			}
 		}, function(response){
 			console.log("request error");
+			registerData.message = "username already exists";
+			
 		});
 		
 		
