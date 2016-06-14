@@ -136,7 +136,7 @@ angular.module("ForumApp")
 			console.log("request success");
 			if(response.data != null && response.data != ""){
 				console.log("register success");
-				//ForumService.setAuthUser(response.data);
+				ForumService.setAuthUser(response.data);
 				$uibModalInstance.close();
 
 				$state.go("allRoomsState");

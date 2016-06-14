@@ -20,6 +20,7 @@ import com.ex.domain.Room;
 import com.ex.domain.User;
 import com.ex.domain.m2m.RoomCategory;
 import com.ex.domain.m2m.UserMessage;
+import com.ex.model.RegisterUser;
 import com.ex.repo.CategoryRepo;
 import com.ex.repo.MessageRepo;
 import com.ex.repo.RoomRepo;
@@ -63,7 +64,8 @@ public class ForumServiceImpl implements ForumService {
 
 	
 	@Override
-	public User registerUser(User user) {
+	public User registerUser(RegisterUser registerUser) {
+		User user = new User(registerUser.getUsername(), registerUser.getPassword());
 		return userRepo.save(user);
 	}
 

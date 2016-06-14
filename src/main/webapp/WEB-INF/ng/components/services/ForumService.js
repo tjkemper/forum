@@ -3,7 +3,7 @@
  */
 
 angular.module("ForumApp")
-.service("ForumService", function($http, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl, categoryUrl){
+.service("ForumService", function($http, $cookies, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl, categoryUrl){
 	
 	var serviceData = this;
 	
@@ -52,13 +52,15 @@ angular.module("ForumApp")
 	}
 	
 	serviceData.register = function(user){
+		$cookies.remove('JSESSIONID');
+		$cookies.remove('XSRF-TOKEN');
+		
 		return $http({
 			method:'PUT',
 			url:userUrl,
 			data:user
 		}).then(function(response){
-			serviceData.auth(user);
-			return response;
+			return serviceData.auth(user);
 		}, function(response){});
 	}
 	

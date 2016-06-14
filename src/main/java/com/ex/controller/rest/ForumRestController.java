@@ -17,6 +17,7 @@ import com.ex.domain.Room;
 import com.ex.domain.User;
 import com.ex.domain.m2m.RoomCategory;
 import com.ex.domain.m2m.UserMessage;
+import com.ex.model.RegisterUser;
 import com.ex.service.ForumService;
 
 @RestController
@@ -37,8 +38,8 @@ public class ForumRestController {
 	}
 	
 	@RequestMapping(value="user", method=RequestMethod.PUT)
-	public User registerUser(@RequestBody User user){
-		return forumService.registerUser(user);
+	public User registerUser(@RequestBody RegisterUser registerUser){
+		return forumService.registerUser(registerUser);
 	}
 	
 	@RequestMapping(value="user", method=RequestMethod.PATCH)

@@ -7,6 +7,7 @@ angular.module("ForumApp",[
                            "ui.bootstrap",
                            'ui.gravatar',
                            'ngAnimate',
+                           'ngCookies',
                            'textAngular'
                            ]);
 

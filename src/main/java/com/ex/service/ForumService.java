@@ -10,11 +10,12 @@ import com.ex.domain.Room;
 import com.ex.domain.User;
 import com.ex.domain.m2m.RoomCategory;
 import com.ex.domain.m2m.UserMessage;
+import com.ex.model.RegisterUser;
 
 public interface ForumService {
 	
 	public User getUserDetails(User user);
-	public User registerUser(User user);
+	public User registerUser(RegisterUser registerUser);
 	public User updateUser(User user);
 	
 	public List<Room> getRooms();
