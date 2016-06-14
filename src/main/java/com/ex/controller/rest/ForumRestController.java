@@ -61,6 +61,11 @@ public class ForumRestController {
 		forumService.closeRoom(roomName);
 	}
 	
+	@RequestMapping(value="room/{roomName}", method=RequestMethod.PUT)
+	public void reopenRoom(@PathVariable String roomName){
+		forumService.reopenRoom(roomName);
+	}
+	
 //	@RequestMapping(value="room/{roomName}/messages", method=RequestMethod.GET)
 //	public List<Message> roomMessages(@PathVariable String roomName){
 //		return forumService.getMessagesByRoom(roomName);

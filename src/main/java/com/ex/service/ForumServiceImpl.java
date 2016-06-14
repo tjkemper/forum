@@ -113,7 +113,14 @@ public class ForumServiceImpl implements ForumService {
 		roomRepo.closeRoom(roomName, now);
 	}
 
-
+	@Override
+	public void reopenRoom(String roomName) {
+		Room room = roomRepo.findOneByName(roomName);
+		if(room != null){
+			room.setClosed(null);
+		}
+	}
+	
 	@Override
 	public List<Message> getMessagesByRoom(String roomName) {
 		List<Room> roomList = roomRepo.findByName(roomName);
@@ -267,6 +274,5 @@ public class ForumServiceImpl implements ForumService {
 	public Integer removeCategoryFromRoom(RoomCategory roomCategory, String roomName) {
 		return roomCategoryRepo.deleteOneByRoomNameAndCategoryCategoryName(roomName, roomCategory.getCategory().getCategoryName());
 	}
-
 
 }

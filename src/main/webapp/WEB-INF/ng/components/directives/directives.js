@@ -10,6 +10,7 @@ angular.module("ForumApp")
 			room : '=',
 			username : '=',
 			closefn : '&',
+			reopenfn : '&',
 			addCategoryToRoom : '&',
 			removeCategoryFromRoom : '&'
 		},

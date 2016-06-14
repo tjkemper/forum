@@ -194,6 +194,13 @@ angular.module("ForumApp")
 		});
 	}
 	
+	serviceData.reopenRoom = function(roomName){
+		return $http({
+			method:'PUT',
+			url:roomUrl + roomName,
+		});
+	}
+	
 	serviceData.likeMessage = function(messageId, userLikesMessage){
 		
 		var data = {

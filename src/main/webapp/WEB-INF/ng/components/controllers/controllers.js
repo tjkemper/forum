@@ -189,6 +189,14 @@ angular.module("ForumApp")
 		},function(response){});
 	}
 	
+	allRoomsData.reopenRoom = function(roomName){
+		ForumService.reopenRoom(roomName).then(function(response){
+			
+			ForumService.getAllRooms();
+			
+		},function(response){});
+	}
+	
 });
 
 angular.module("ForumApp")
@@ -223,6 +231,12 @@ angular.module("ForumApp")
 	
 	roomData.closeRoom = function(roomName){
 		ForumService.closeRoom(roomName).then(function(response){
+			ForumService.getSetCurrentRoom(roomName, true);
+		},function(response){});
+	}
+	
+	roomData.reopenRoom = function(roomName){
+		ForumService.reopenRoom(roomName).then(function(response){
 			ForumService.getSetCurrentRoom(roomName, true);
 		},function(response){});
 	}

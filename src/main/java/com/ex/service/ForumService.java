@@ -20,6 +20,7 @@ public interface ForumService {
 	public List<Room> getRooms();
 	public void createRoom(Room room);
 	public void closeRoom(String roomName);
+	public void reopenRoom(String roomName);
 	
 	public List<Message> getMessagesByRoom(String roomName);
 	public Page<Message> getMessagesByRoomPage(String roomName, Integer page, Integer size);

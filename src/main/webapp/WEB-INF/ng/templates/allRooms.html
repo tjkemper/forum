@@ -37,6 +37,9 @@
 		<div class="label label-danger clickable" data-ng-if="aData.authUser.name == room.owner.username && !room.closed" data-ng-click="aData.closeRoom(room.name);$event.stopPropagation();" uib-popover-template="'ng/templates/popovers/clickToCloseRoom.html'" popover-trigger="mouseenter">
 		  Close
 		</div>
+        <div class="label label-success clickable" data-ng-if="aData.authUser.name == room.owner.username && room.closed" data-ng-click="aData.reopenRoom(room.name);$event.stopPropagation();" uib-popover-template="'ng/templates/popovers/clickToReopenRoom.html'" popover-trigger="mouseenter">
+          Reopen
+        </div>
       </td>
     </tr>
   </tbody>

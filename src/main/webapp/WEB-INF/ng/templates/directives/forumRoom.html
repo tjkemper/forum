@@ -33,6 +33,9 @@
     </div>
     <div class="col-xs-8">
       {{room.closed | date}}
+      <div class="label label-success clickable" data-ng-if="username == room.owner.username && room.closed" data-ng-click="reopenfn({roomName:room.name})" uib-popover-template="'ng/templates/popovers/clickToReopenRoom.html'" popover-trigger="mouseenter">
+        Reopen
+      </div>
     </div>
   </div>
   <hr class="awesomeHr" data-ng-show="room.closed"/>
