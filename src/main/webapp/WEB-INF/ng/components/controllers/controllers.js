@@ -164,6 +164,8 @@ angular.module("ForumApp")
 	
 	allRoomsData.newRoom = null;
 	
+	allRoomsData.message = "";
+	
 	ForumService.getAllRooms();
 	
 	allRoomsData.viewRoom = function(roomName){
@@ -180,7 +182,9 @@ angular.module("ForumApp")
 			ForumService.createRoom(allRoomsData.newRoom).then(function(response){
 				allRoomsData.newRoom = null;
 				ForumService.getAllRooms();
-			}, function(response){});
+			}, function(response){
+				allRoomsData.message = "Room name already exists."
+			});
 		}
 	}
 	

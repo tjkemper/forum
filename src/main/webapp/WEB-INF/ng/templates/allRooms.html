@@ -1,6 +1,9 @@
 
 <div class="container">
 <div class="well">
+  <div data-ng-show="aData.message" class="alert alert-danger">
+    {{aData.message}}
+  </div>
 <h1>Create Room</h1>
 <form data-ng-submit="aData.createRoom()">
   <div class="form-group"> <!-- Name field -->
