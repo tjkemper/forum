@@ -173,6 +173,9 @@ angular.module("ForumApp")
 	}
 	
 	allRoomsData.createRoom = function(){
+		
+		allRoomsData.message = "";
+		
 		if(allRoomsData.authUser){
 			
 			allRoomsData.newRoom.owner = {
