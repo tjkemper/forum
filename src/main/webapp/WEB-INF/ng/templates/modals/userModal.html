@@ -17,7 +17,12 @@
             <tbody>
               <tr>
                 <td><label for="email">Email</label></td>
-                <td><input type="email" id="email" data-ng-model="uData.userDetails.email" class="form-control"/></td>
+                <td>
+                  <input type="email" id="email" data-ng-model="uData.userDetails.email" class="form-control"/>
+                  <div data-ng-hide="uData.userDetails.email" class="alert alert-danger">
+                    Email invalid.  Will not be updated.
+                  </div>
+                </td>
               </tr>
               <tr>
                 <td><label for="firstName">First Name</label></td>
