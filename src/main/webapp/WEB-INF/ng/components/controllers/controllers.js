@@ -114,7 +114,6 @@ angular.module("ForumApp")
 					$state.go("allRoomsState");
 				}
 			}, function(response) {
-				console.log("LoginCtrl - request error");
 				loginData.message = "Username/Password incorrect.";
 			});
 	}
@@ -134,20 +133,22 @@ angular.module("ForumApp")
 		var promise = ForumService.register(registerData.newUser);
 		
 		promise.then(function(response){
-			console.log("request success");
-			if(response.data != null && response.data != ""){
-				console.log("register success");
-//				ForumService.setAuthUser(response.data);
-				$uibModalInstance.close();
 
-				$state.go("allRoomsState");
+			if(response.data != null && response.data != ""){
+				
+				//iff register success then authenticate user
+				var authpromise = ForumService.auth(registerData.newUser);
+				authpromise.then(function(response) {
+						if(response.data){
+							ForumService.setAuthUser(response.data);
+							$uibModalInstance.close();
+							$state.go("allRoomsState");
+						}
+					}, function(response) {});
 			}
 		}, function(response){
-			console.log("request error");
 			registerData.message = "username already exists";
-			
 		});
-		
 		
 	}
 	
