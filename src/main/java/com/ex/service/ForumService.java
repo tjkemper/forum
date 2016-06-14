@@ -28,6 +28,8 @@ public interface ForumService {
 	public List<Message> getMessagesByRoom(String roomName);
 	public Page<Message> getMessagesByRoomPage(String roomName, Integer page, Integer size);
 	public void postMessage(Message message, String roomName);
+	public void updateMessage(Integer id, String newMessage);
+	public void deleteMessage(Integer id);
 	
 	public UserMessage likeMessage(UserMessage userMessage, String messageIdStr);
 	

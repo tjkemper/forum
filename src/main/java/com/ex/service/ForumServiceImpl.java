@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
 import com.ex.domain.Category;
@@ -212,6 +213,22 @@ public class ForumServiceImpl implements ForumService {
 		}
 	}
 
+	@Override
+	public void updateMessage(Integer id, String newMessage) {
+		if(id != null && StringUtils.hasText(newMessage)) {
+			Message message = messageRepo.findOne(id);
+			if(message != null){
+				message.setMessage(newMessage);
+			}
+		}
+	}
+
+	@Override
+	public void deleteMessage(Integer id) {
+		if(id != null){
+			messageRepo.delete(id);
+		}
+	}
 
 	@Override
 	public UserMessage likeMessage(UserMessage userMessage, String messageIdStr) {

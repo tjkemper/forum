@@ -92,6 +92,15 @@ public class ForumRestController {
 		forumService.postMessage(message, roomName);
 	}
 	
+	@RequestMapping(value="message/{messageId}", method=RequestMethod.PUT)
+	public void updateMessage(@PathVariable Integer messageId, @RequestBody String newMessage){
+		forumService.updateMessage(messageId, newMessage);
+	}
+	
+	@RequestMapping(value="message/{messageId}", method=RequestMethod.DELETE)
+	public void deleteMessage(@PathVariable Integer messageId){
+		forumService.deleteMessage(messageId);
+	}
 	
 	@RequestMapping(value="message/{messageId}/like", method=RequestMethod.POST)
 	public UserMessage likeMessage(@RequestBody UserMessage userMessage, @PathVariable String messageId){

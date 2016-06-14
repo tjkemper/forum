@@ -3,6 +3,7 @@ package com.ex.domain;
 import java.sql.Timestamp;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,7 +45,7 @@ public class Message {
 	@JoinColumn(name="MESSAGE_ROOM")
 	private Room room;
 	
-	@OneToMany(mappedBy="message", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="message", fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	private Set<UserMessage> userMessage;
 	
 	@Transient
