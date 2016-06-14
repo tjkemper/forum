@@ -62,6 +62,11 @@ public class ForumRestController {
 		forumService.updateRoomName(roomName, newRoomName);
 	}
 	
+	@RequestMapping(value="room/{roomName}/updateRoomDescription", method=RequestMethod.PUT)
+	public void updateRoomDescription(@PathVariable String roomName, @RequestBody String newRoomDescription){
+		forumService.updateRoomDescription(roomName, newRoomDescription);
+	}
+	
 	@RequestMapping(value="room/{roomName}", method=RequestMethod.DELETE)
 	public void closeRoom(@PathVariable String roomName){
 		forumService.closeRoom(roomName);

@@ -21,6 +21,7 @@ public interface ForumService {
 	public List<Room> getRooms();
 	public void createRoom(Room room);
 	public void updateRoomName(String roomName, String newRoomName);
+	public void updateRoomDescription(String roomName, String newDescription);
 	public void closeRoom(String roomName);
 	public void reopenRoom(String roomName);
 	

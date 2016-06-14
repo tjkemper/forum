@@ -252,6 +252,17 @@ angular.module("ForumApp")
 		});
 	}
 	
+	roomData.updateRoomDescription = function(room, newDescription){
+		var promise = ForumService.updateRoomDescription(room, newDescription);
+		
+		promise.then(function(response){
+			room.description = newDescription;
+		}, function(response){
+			console.log('updateRoomDescription failed')
+			console.log('\tfrom ' + room.description + ' to ' + newDescription);
+		});
+	}
+	
 	roomData.closeRoom = function(roomName){
 		ForumService.closeRoom(roomName).then(function(response){
 			ForumService.getSetCurrentRoom(roomName, true);
