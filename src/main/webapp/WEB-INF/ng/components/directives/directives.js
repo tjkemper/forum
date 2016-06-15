@@ -35,6 +35,17 @@ angular.module("ForumApp")
 });
 
 angular.module("ForumApp")
+.directive("forumMessage", function(){
+	return {
+		scope : {
+			msg : '=',
+			likeMessage : '&'
+		},
+		templateUrl : 'ng/templates/directives/forumMessage.html'
+	};
+});
+
+angular.module("ForumApp")
 .directive("scrollCallback", function(){
 	return {
 		scope : {
