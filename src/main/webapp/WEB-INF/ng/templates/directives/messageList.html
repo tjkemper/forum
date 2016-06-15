@@ -1,7 +1,10 @@
 <div data-ng-repeat="msg in messages">
 
   <data-forum-message 	msg="msg" 
+  						username="username"
   						like-message='likeMessage({message:msg, userLikesMessage:userLikesMessage})'
+  						update-message='updateMessage({msg:msg, newMessage:newMessage})'
+  						delete-message='deleteMessage({msg:msg})'
   						>
   </data-forum-message>
 	

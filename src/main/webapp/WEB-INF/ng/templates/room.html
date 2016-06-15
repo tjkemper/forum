@@ -33,9 +33,12 @@
 
 <div class="well">
   <data-message-list	messages='rData.currentMessages'
+  						username="rData.authUser.name"
 						last-page-accessed='rData.lastPageAccessed'
 						ready-for-more-posts='rData.readyForMorePosts'
 						like-message='rData.likeMessage(message, userLikesMessage)'
+						update-message='rData.updateMessage(msg, newMessage)'
+						delete-message='rData.deleteMessage(msg)'
 						load-more-messages='rData.loadMoreMessages()'						
 					>
   </data-message-list>

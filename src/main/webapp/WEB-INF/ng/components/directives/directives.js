@@ -25,9 +25,12 @@ angular.module("ForumApp")
 	return {
 		scope : {
 			messages 	      : '=',
+			username		  : '=',
 			lastPageAccessed  : '=',
 			readyForMorePosts : '=',
 			likeMessage 	  : '&',
+			updateMessage 	  : '&',
+			deleteMessage 	  : '&',
 			loadMoreMessages  : '&'
 		},
 		templateUrl : 'ng/templates/directives/messageList.html'
@@ -39,7 +42,10 @@ angular.module("ForumApp")
 	return {
 		scope : {
 			msg : '=',
-			likeMessage : '&'
+			username : '=',
+			likeMessage : '&',
+			updateMessage 	  : '&',
+			deleteMessage 	  : '&'
 		},
 		templateUrl : 'ng/templates/directives/forumMessage.html'
 	};

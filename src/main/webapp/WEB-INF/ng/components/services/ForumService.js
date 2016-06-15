@@ -195,6 +195,21 @@ angular.module("ForumApp")
 		});
 	}
 	
+	serviceData.updateMessage = function(msg, newMessage){
+		return $http({
+			method:'PUT',
+			url:messageUrl + '/' + msg.id,
+			data:newMessage
+		});
+	}
+	
+	serviceData.deleteMessage = function(msg){
+		return $http({
+			method:'DELETE',
+			url:messageUrl + '/' + msg.id
+		});
+	}
+	
 	serviceData.updateRoomDescription = function(room, newDescription){
 		return $http({
 					method:'PUT',

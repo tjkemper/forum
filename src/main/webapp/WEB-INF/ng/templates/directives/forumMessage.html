@@ -26,10 +26,19 @@
 	  </span>
 	</div>
 
-	<div class="col-xs-2">
-	  <div class="btn-group pull-right">
-		<button data-ng-click="" class="btn btn-xs btn-success" type="button">Edit</button>
-		<button data-ng-click="" class="btn btn-xs btn-danger" type="button">Delete</button>
+	<div class="col-xs-2" data-ng-show="username == msg.owner.username">
+	  <div class="pull-right">
+	    <div data-ng-hide="readyToUpdateMessage || readyToDeleteMessage">
+		  <button data-ng-click="readyToUpdateMessage = !readyToUpdateMessage;" class="btn btn-xs btn-primary" type="button">Edit</button>
+		  <button data-ng-click="readyToDeleteMessage = !readyToDeleteMessage;" class="btn btn-xs btn-danger" type="button">Delete</button>
+		</div>
+		<div data-ng-show="readyToUpdateMessage">
+		  <button data-ng-click="updateMessage({msg:msg, newMessage:newMessage});readyToUpdateMessage = false;" class="btn btn-xs btn-success" type="button">Update</button>
+		  <button data-ng-click="readyToUpdateMessage = !readyToUpdateMessage; newMessage = msg.message;" class="btn btn-xs btn-danger" type="button">Cancel</button>		  
+		</div>
+		<div data-ng-show="readyToDeleteMessage">
+		  <button data-ng-click="readyToDeleteMessage = !readyToDeleteMessage;" class="btn btn-xs btn-danger" type="button">Cancel</button>		  
+		</div>
 	  </div>	
 	</div>
 	  
@@ -39,7 +48,15 @@
   <div class="jumbotron">
 	<div class="row">
 	  <div class="col-xs-12">
-	    <span data-ng-bind-html="msg.message"></span>
+	    <div data-ng-hide="readyToUpdateMessage || readyToDeleteMessage">
+	      <span data-ng-bind-html="msg.message"></span>
+	    </div>
+	    <div data-ng-show="readyToUpdateMessage">
+	      <div text-angular ta-toolbar="[['h1','h2','h3','p','pre','quote','bold','italics','underline','ul','ol','justifyLeft','justifyCenter','justifyRight'],['undo','redo','clear','wordcount','charcount']]" data-ng-model="newMessage" data-ng-init="newMessage = msg.message" placeholder="Enter Message"></div>
+	    </div>
+	    <div data-ng-show="readyToDeleteMessage">
+	      Are you sure you want to delete this message? <button data-ng-click="deleteMessage({msg:msg})" class="btn btn-danger" type="button">Yes, delete this message.</button>
+	    </div>
 	  </div>
 	</div>
   </div>

@@ -230,6 +230,24 @@ angular.module("ForumApp")
 		roomData.newMessage="";
 	}
 	
+	roomData.updateMessage = function(msg, newMessage){
+		var promise = ForumService.updateMessage(msg, newMessage);
+		promise.then(function(response){
+			msg.message = newMessage;
+		}, function(response){
+			
+		});
+	}
+	
+	roomData.deleteMessage = function(msg){
+		var promise = ForumService.deleteMessage(msg);
+		promise.then(function(response){
+			roomData.currentMessages.splice(roomData.currentMessages.indexOf(msg), 1);
+		}, function(response){
+			
+		});
+	}
+	
 	roomData.loadMoreMessages = function(){
 		if(roomData.readyForMorePosts){
 			ForumService.getSetRoomMessages(roomName, false, roomData.lastPageAccessed.number + 1, roomData.lastPageAccessed.size)
