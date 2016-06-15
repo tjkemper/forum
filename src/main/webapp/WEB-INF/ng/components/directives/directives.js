@@ -21,7 +21,7 @@ angular.module("ForumApp")
 });
 
 angular.module("ForumApp")
-.directive("messageList", function(){
+.directive("forumMessageList", function(){
 	return {
 		scope : {
 			messages 	      : '=',
@@ -33,7 +33,7 @@ angular.module("ForumApp")
 			deleteMessage 	  : '&',
 			loadMoreMessages  : '&'
 		},
-		templateUrl : 'ng/templates/directives/messageList.html'
+		templateUrl : 'ng/templates/directives/forumMessageList.html'
 	};
 });
 
