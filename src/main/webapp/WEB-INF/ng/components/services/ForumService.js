@@ -3,7 +3,7 @@
  */
 
 angular.module("ForumApp")
-.service("ForumService", function($http, $cookies, userUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl, categoryUrl, updateRoomNameUrl, updateRoomDescriptionUrl){
+.service("ForumService", function($http, $cookies, userUrl, ownerUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl, categoryUrl, updateRoomNameUrl, updateRoomDescriptionUrl){
 	
 	var serviceData = this;
 	
@@ -67,7 +67,7 @@ angular.module("ForumApp")
 	serviceData.updateUser = function(userDetails){
 		return $http({
 			method:'PATCH',
-			url:userUrl+userDetails.username,
+			url:ownerUrl+userUrl+userDetails.username,
 			data:userDetails		
 		}).then(function(response){
 			//serviceData.auth();//TODO: will it work w/o credentials?
@@ -191,14 +191,14 @@ angular.module("ForumApp")
 	serviceData.updateRoomName = function(room, newName){
 		return $http({
 					method:'PUT',
-					url:roomUrl+room.name+updateRoomNameUrl+'?newRoomName='+newName,
+					url:ownerUrl+roomUrl+room.name+updateRoomNameUrl+'?newRoomName='+newName,
 		});
 	}
 	
 	serviceData.updateMessage = function(msg, newMessage){
 		return $http({
 			method:'PUT',
-			url:messageUrl + '/' + msg.id,
+			url:ownerUrl+messageUrl + '/' + msg.id,
 			data:newMessage
 		});
 	}
@@ -206,14 +206,14 @@ angular.module("ForumApp")
 	serviceData.deleteMessage = function(msg){
 		return $http({
 			method:'DELETE',
-			url:messageUrl + '/' + msg.id
+			url:ownerUrl+messageUrl + '/' + msg.id
 		});
 	}
 	
 	serviceData.updateRoomDescription = function(room, newDescription){
 		return $http({
 					method:'PUT',
-					url:roomUrl+room.name+updateRoomDescriptionUrl,
+					url:ownerUrl+roomUrl+room.name+updateRoomDescriptionUrl,
 					data:newDescription
 		});
 	}
@@ -222,14 +222,14 @@ angular.module("ForumApp")
 	serviceData.closeRoom = function(roomName){
 		return $http({
 			method:'DELETE',
-			url:roomUrl + roomName,
+			url:ownerUrl+roomUrl + roomName,
 		});
 	}
 	
 	serviceData.reopenRoom = function(roomName){
 		return $http({
 			method:'PUT',
-			url:roomUrl + roomName,
+			url:ownerUrl+roomUrl + roomName,
 		});
 	}
 	
@@ -252,7 +252,7 @@ angular.module("ForumApp")
 	serviceData.addCategoryToRoom = function(room, category){
 		return $http({
 			method:'PUT',
-			url:roomUrl+room.name+categoryUrl,
+			url:ownerUrl+roomUrl+room.name+categoryUrl,
 			data:category
 		}).then(function(response){
 			if(response.data){
@@ -267,7 +267,7 @@ angular.module("ForumApp")
 	serviceData.removeCategoryFromRoom = function(room, category){
 		return $http({
 			method:'DELETE',
-			url:roomUrl+room.name+categoryUrl,
+			url:ownerUrl+roomUrl+room.name+categoryUrl,
 			data:category,
             headers: {
                 'Content-Type': 'application/json'

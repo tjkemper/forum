@@ -13,6 +13,7 @@ angular.module("ForumApp",[
 
 //angular.module("ForumApp").constant("baseUrl","http://localhost:8085/forum/");
 angular.module("ForumApp").constant("userUrl","user/");
+angular.module("ForumApp").constant("ownerUrl","owner/");
 angular.module("ForumApp").constant("loginUrl","login/");
 angular.module("ForumApp").constant("logoutUrl","logout/");
 angular.module("ForumApp").constant("roomsUrl","rooms/");
