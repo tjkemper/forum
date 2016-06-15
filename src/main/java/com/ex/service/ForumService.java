@@ -16,7 +16,7 @@ public interface ForumService {
 	
 	public User getUserDetails(User user);
 	public User registerUser(RegisterUser registerUser);
-	public User updateUser(User user);
+	public User updateUser(User user, String username);
 	
 	public List<Room> getRooms();
 	public void createRoom(Room room);

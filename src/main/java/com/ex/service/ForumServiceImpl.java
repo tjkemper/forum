@@ -72,13 +72,10 @@ public class ForumServiceImpl implements ForumService {
 	}
 
 	@Override
-	public User updateUser(User user) {
-//		userRepo.updateUser(user.getUsername(), user.getEmail(), user.getFirstName(), user.getPassword());
-//		return userRepo.findByUsername(user.getUsername());
+	public User updateUser(User user, String username) {
 		
-		List<User> userList = userRepo.findByUsername(user.getUsername());
-		if(userList.size() == 1){
-			User foundUser = userList.get(0);
+		User foundUser = userRepo.findOneByUsername(username);
+		if(foundUser != null){
 			foundUser.setEmail(user.getEmail());
 			foundUser.setFirstName(user.getFirstName());
 			foundUser.setLastName(user.getLastName());
@@ -86,7 +83,6 @@ public class ForumServiceImpl implements ForumService {
 		}else {
 			return null;
 		}
-		
 	}
 	
 	@Override

@@ -42,9 +42,9 @@ public class ForumRestController {
 		return forumService.registerUser(registerUser);
 	}
 	
-	@RequestMapping(value="user", method=RequestMethod.PATCH)
-	public User updateUser(@RequestBody User user){
-		return forumService.updateUser(user);
+	@RequestMapping(value="user/{username}", method=RequestMethod.PATCH)
+	public User updateUser(@RequestBody User user, @PathVariable String username){
+		return forumService.updateUser(user, username);
 	}
 	
 	@RequestMapping(value="rooms", method=RequestMethod.GET)
