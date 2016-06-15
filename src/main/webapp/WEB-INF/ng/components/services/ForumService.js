@@ -67,7 +67,7 @@ angular.module("ForumApp")
 	serviceData.updateUser = function(userDetails){
 		return $http({
 			method:'PATCH',
-			url:userUrl,
+			url:userUrl+userDetails.username,
 			data:userDetails		
 		}).then(function(response){
 			//serviceData.auth();//TODO: will it work w/o credentials?
