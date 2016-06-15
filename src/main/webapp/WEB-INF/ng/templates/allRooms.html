@@ -22,15 +22,17 @@
 </div>
 </div>
 <table class="table table-responsive table-hover">
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Owner</th>
-    <th>Created</th>
-    <th>Closed</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Owner</th>
+      <th>Created</th>
+      <th>Closed</th>
+    </tr>
+  </thead>
   <tbody data-ng-repeat="room in aData.allRooms">
-    <tr data-ng-click="aData.viewRoom(room.name)">
+    <tr data-ng-click="aData.viewRoom(room.name)" class="clickable">
       <td>{{room.name}}</td>
       <td>{{room.description}}</td>
       <td>{{room.owner.username}}</td>
