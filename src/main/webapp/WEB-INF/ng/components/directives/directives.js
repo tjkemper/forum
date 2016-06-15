@@ -2,6 +2,31 @@
  * @author Taylor Kemper
  */
 
+angular.module("ForumApp")
+.directive("forumViewRoomList", function(){
+	return {
+		scope : {
+			roomList : '=',
+			authUser : '=',
+			viewRoom : '&',
+			closeRoom : '&',
+			reopenRoom : '&'
+			
+		},
+		templateUrl : 'ng/templates/directives/forumViewRoomList.html'
+	};
+});
+
+angular.module("ForumApp")
+.directive("forumViewRoom", function(){
+	return {
+		scope : {
+			
+		},
+		templateUrl : 'ng/templates/directives/forumViewRoom.html'
+	};
+});
+
 
 angular.module("ForumApp")
 .directive("forumRoom", function(){

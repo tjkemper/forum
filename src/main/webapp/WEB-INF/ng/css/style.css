@@ -8,6 +8,18 @@
 .modalForm > div {
 	margin: 5px;
 }
+.forumViewRoomList {
+	width: 100%;
+	text-align: center;
+}
+
+.forumViewRoom {
+	display: inline-block;
+	width: 225px; 
+	height:225px; 
+	margin: 5px;
+	text-align: left;
+}
 
 .forumRoom {
 	margin: auto;

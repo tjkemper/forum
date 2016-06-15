@@ -21,31 +21,39 @@
 </form>
 </div>
 </div>
-<table class="table table-responsive table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Owner</th>
-      <th>Created</th>
-      <th>Closed</th>
-    </tr>
-  </thead>
-  <tbody data-ng-repeat="room in aData.allRooms">
-    <tr data-ng-click="aData.viewRoom(room.name)" class="clickable">
-      <td>{{room.name}}</td>
-      <td>{{room.description}}</td>
-      <td>{{room.owner.username}}</td>
-      <td>{{room.created | date}}</td>
-      <td>
-        {{(room.closed | date) || "OPEN"}}
-		<div class="label label-danger clickable" data-ng-if="aData.authUser.name == room.owner.username && !room.closed" data-ng-click="aData.closeRoom(room.name);$event.stopPropagation();" uib-popover-template="'ng/templates/popovers/clickToCloseRoom.html'" popover-trigger="mouseenter">
-		  Close
-		</div>
-        <div class="label label-success clickable" data-ng-if="aData.authUser.name == room.owner.username && room.closed" data-ng-click="aData.reopenRoom(room.name);$event.stopPropagation();" uib-popover-template="'ng/templates/popovers/clickToReopenRoom.html'" popover-trigger="mouseenter">
-          Reopen
+
+<div class="row">
+<div class="col-xs-4">
+  <div class="well">
+    <div class="noticeMeText" style="text-align: center;">
+      Filter
+    </div>
+    <form data-ng-submit="aData.addRoomNameToFilter(aData.roomNameFilter)">
+      <input data-ng-model="aData.roomNameFilter" type="text" class="form-control" placeholder="Room Name"/>
+    </form>
+    <input data-ng-model="aData.newCategoryToFilter" data-ng-click="aData.addCategoryToFilter(aData.newCategoryToFilter)" type="text" class="form-control" placeholder="Add Category"/>
+    
+    <div data-ng-repeat="cat in aData.categoryListFilter" style="display: inline;">
+      <div class="btn-group" style="margin-top: 5px;">
+        <div class="btn btn-primary btn-xs">
+          {{cat.category.categoryName}}
         </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        <div data-ng-click="" class="btn btn-danger btn-xs">
+          <span class="glyphicon glyphicon-remove"></span>
+        </div>
+      </div>        
+    </div>
+    
+  </div>
+</div>
+<div class="col-xs-8">
+  <forum-view-room-list room-list="aData.allRooms"
+  						auth-user="aData.authUser"
+  						view-room="aData.viewRoom(roomName)"
+  						close-room="aData.closeRoom(roomName)"
+  						reopen-room="aData.reopenRoom(roomName)"
+  						>
+  </forum-view-room-list>
+
+</div>
+</div>
