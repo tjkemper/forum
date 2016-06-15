@@ -294,10 +294,8 @@ public class ForumServiceImpl implements ForumService {
 			Room room = roomRepo.findOneByName(roomName);
 			
 			if(room != null){
-				Category category = categoryRepo.findOneByCategoryName(categoryName);
-				if(category == null){
-					category = createCategory(new Category(categoryName));
-				}
+				
+				Category category = createCategory(new Category(categoryName));
 				
 				roomCategory.setRoom(room);
 				roomCategory.setCategory(category);
