@@ -13,7 +13,7 @@
 	  <span class="badge" uib-popover-template="'ng/templates/popovers/likesList.html'" popover-trigger="mouseenter">{{msg.numLikes}}</span>
 	</div>
 
-	<div class="col-xs-6 limitedText">
+	<div class="col-xs-4 limitedText">
 	  <img gravatar-src="msg.owner.email" gravatar-size="25" class="img-circle img-responsive" style="display: inline;">
 	  <span class="noticeMeText">
 		{{msg.owner.username}}
@@ -24,6 +24,13 @@
 	  <span class="pull-right">
 		{{msg.created | date : "short"}}
 	  </span>
+	</div>
+
+	<div class="col-xs-2">
+	  <div class="btn-group pull-right">
+		<button data-ng-click="" class="btn btn-xs btn-success" type="button">Edit</button>
+		<button data-ng-click="" class="btn btn-xs btn-danger" type="button">Delete</button>
+	  </div>	
 	</div>
 	  
   </div> <!-- end row -->
