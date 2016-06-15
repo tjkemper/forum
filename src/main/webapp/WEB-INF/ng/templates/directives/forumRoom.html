@@ -6,15 +6,15 @@
       <div data-ng-show="readyToUpdateRoomName">
         <form data-ng-submit="updateRoomName({room:room, newName:newName});readyToUpdateRoomName=false;">
 		  <div class="input-group">
-			<input type="text" class="form-control" data-ng-model="newName" data-ng-init="newName = room.name"  placeholder="New Name"/>
+			<input type="text" class="form-control" data-ng-model="newName" placeholder="New Name"/>
 			<span class="input-group-btn" style="width:0;">
 			  <button data-ng-click="updateRoomName({room:room, newName:newName});readyToUpdateRoomName=false;" class="btn btn-success" type="button">Update</button>
-			  <button data-ng-click="readyToUpdateRoomName = !readyToUpdateRoomName; newName = room.name;" class="btn btn-danger" type="button">Cancel</button>
+			  <button data-ng-click="readyToUpdateRoomName = false; newName = room.name;" class="btn btn-danger" type="button">Cancel</button>
 			</span>
 		  </div>
         </form>
       </div>
-      <span data-ng-click="readyToUpdateRoomName = !readyToUpdateRoomName; newName = room.name;" data-ng-hide="readyToUpdateRoomName" class="clickable">
+      <span data-ng-click="readyToUpdateRoomName = true; newName = room.name;" data-ng-hide="readyToUpdateRoomName" class="clickable">
         {{room.name}}
       </span>
     </div>
@@ -22,16 +22,16 @@
 	  <div data-ng-show="readyToUpdateRoomDescription">
         <form data-ng-submit="updateRoomDescription({room:room, newDescription:newDescription});readyToUpdateRoomDescription=false;">
   		  <div class="form-group"> <!-- Description field -->
-    	    <textarea class="form-control" placeholder="New Description" data-ng-model="newDescription" data-ng-init="newDescription = room.description"></textarea>
+    	    <textarea class="form-control" placeholder="New Description" data-ng-model="newDescription"></textarea>
   	 	  </div>
 		  <div class="btn-group">
 		    <button data-ng-click="updateRoomDescription({room:room, newDescription:newDescription});readyToUpdateRoomDescription=false;" class="btn btn-success" type="button">Update</button>
-		    <button data-ng-click="readyToUpdateRoomDescription = !readyToUpdateRoomDescription; newDescription = room.description;" class="btn btn-danger" type="button">Cancel</button>
+		    <button data-ng-click="readyToUpdateRoomDescription = false; newDescription = room.description;" class="btn btn-danger" type="button">Cancel</button>
 		  </div>
         </form>
       </div>
     
-    <span data-ng-click="readyToUpdateRoomDescription = !readyToUpdateRoomDescription; newDescription = room.description;" data-ng-hide="readyToUpdateRoomDescription" class="clickable" style="font-style: italic;">
+    <span data-ng-click="readyToUpdateRoomDescription = true; newDescription = room.description;" data-ng-hide="readyToUpdateRoomDescription" class="clickable" style="font-style: italic;">
       {{room.description}}
     </span>  
   </div>
