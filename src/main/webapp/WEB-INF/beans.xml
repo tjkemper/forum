@@ -5,14 +5,14 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
-		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 	
 <!-- 	Enable MVC annotations -->
@@ -90,6 +90,11 @@
 		<security:intercept-url pattern="/" method="GET" access="permitAll"/> <!-- home -->
 		<security:intercept-url pattern="/user/" method="PUT" access="permitAll"/> <!-- register -->
 		<security:intercept-url pattern="/ng/**" method="GET" access="permitAll"/> <!-- static content -->
+		
+		<security:intercept-url pattern="/owner/user/{username}/**" access="hasRole('ROLE_USER') and @accessControl.checkUserIsUser(authentication,#username)"/>
+		<security:intercept-url pattern="/owner/message/{messageId}/**" access="hasRole('ROLE_USER') and @accessControl.checkUserOwnsMessage(authentication,#messageId)"/>
+		<security:intercept-url pattern="/owner/room/{roomName}/**" access="hasRole('ROLE_USER') and @accessControl.checkUserOwnsRoom(authentication,#roomName)"/>
+		
 		
 		<!-- ROLE_USER -->
 		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>

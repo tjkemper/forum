@@ -31,6 +31,7 @@ public class ForumRestController {
 		return user;
 	}
 	
+	//TODO: secure OR have 2 methods (where less secure method returns less info)
 	@RequestMapping(value="user", method=RequestMethod.POST)
 	public User getUserDetails(@RequestBody User user){
 //		return forumService.auth(user);
@@ -42,7 +43,7 @@ public class ForumRestController {
 		return forumService.registerUser(registerUser);
 	}
 	
-	@RequestMapping(value="user/{username}", method=RequestMethod.PATCH)
+	@RequestMapping(value="owner/user/{username}", method=RequestMethod.PATCH)
 	public User updateUser(@RequestBody User user, @PathVariable String username){
 		return forumService.updateUser(user, username);
 	}
@@ -57,22 +58,22 @@ public class ForumRestController {
 		forumService.createRoom(room);
 	}
 	
-	@RequestMapping(value="room/{roomName}/updateRoomName", method=RequestMethod.PUT)
+	@RequestMapping(value="owner/room/{roomName}/updateRoomName", method=RequestMethod.PUT)
 	public void updateRoomName(@PathVariable String roomName, String newRoomName){
 		forumService.updateRoomName(roomName, newRoomName);
 	}
 	
-	@RequestMapping(value="room/{roomName}/updateRoomDescription", method=RequestMethod.PUT)
+	@RequestMapping(value="owner/room/{roomName}/updateRoomDescription", method=RequestMethod.PUT)
 	public void updateRoomDescription(@PathVariable String roomName, @RequestBody String newRoomDescription){
 		forumService.updateRoomDescription(roomName, newRoomDescription);
 	}
 	
-	@RequestMapping(value="room/{roomName}", method=RequestMethod.DELETE)
+	@RequestMapping(value="owner/room/{roomName}", method=RequestMethod.DELETE)
 	public void closeRoom(@PathVariable String roomName){
 		forumService.closeRoom(roomName);
 	}
 	
-	@RequestMapping(value="room/{roomName}", method=RequestMethod.PUT)
+	@RequestMapping(value="owner/room/{roomName}", method=RequestMethod.PUT)
 	public void reopenRoom(@PathVariable String roomName){
 		forumService.reopenRoom(roomName);
 	}
@@ -92,12 +93,12 @@ public class ForumRestController {
 		forumService.postMessage(message, roomName);
 	}
 	
-	@RequestMapping(value="message/{messageId}", method=RequestMethod.PUT)
+	@RequestMapping(value="owner/message/{messageId}", method=RequestMethod.PUT)
 	public void updateMessage(@PathVariable Integer messageId, @RequestBody String newMessage){
 		forumService.updateMessage(messageId, newMessage);
 	}
 	
-	@RequestMapping(value="message/{messageId}", method=RequestMethod.DELETE)
+	@RequestMapping(value="owner/message/{messageId}", method=RequestMethod.DELETE)
 	public void deleteMessage(@PathVariable Integer messageId){
 		forumService.deleteMessage(messageId);
 	}
@@ -107,14 +108,13 @@ public class ForumRestController {
 		return forumService.likeMessage(userMessage, messageId);
 	}
 	
-	@RequestMapping(value="room/{roomName}/category", method=RequestMethod.PUT)
+	@RequestMapping(value="owner/room/{roomName}/category", method=RequestMethod.PUT)
 	public RoomCategory addCategoryToRoom(@RequestBody RoomCategory roomCategory, @PathVariable String roomName){
 		return forumService.addCategoryToRoom(roomCategory, roomName);
 	}
 	
-	@RequestMapping(value="room/{roomName}/category", method=RequestMethod.DELETE)
+	@RequestMapping(value="owner/room/{roomName}/category", method=RequestMethod.DELETE)
 	public Integer removeCategoryFromRoom(@RequestBody RoomCategory roomCategory, @PathVariable String roomName){
-		
 		return forumService.removeCategoryFromRoom(roomCategory, roomName);
 	}
 	
