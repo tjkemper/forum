@@ -273,8 +273,12 @@ public class ForumServiceImpl implements ForumService {
 
 	@Override
 	public Category createCategory(Category category) {
-		//TODO: check if category name already exists (it should be unique)
-		return categoryRepo.save(category);
+		Category searchedForCategory = categoryRepo.findOneByCategoryName(category.getCategoryName());
+		if(searchedForCategory != null){
+			return searchedForCategory;
+		}else {
+			return categoryRepo.save(category);
+		}
 	}
 
 
