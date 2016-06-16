@@ -124,38 +124,6 @@ angular.module("ForumApp")
 			url:roomUrl+roomName
 		});
 	}
-
-/*
-	serviceData.getRoom = function(roomName, currentMessages, lastMessagePage){
-		
-		serviceData.getSetCurrentRoom(roomName);
-		serviceData.getSetRoomMessages(roomName, currentMessages, lastMessagePage, true);
-		
-	}
-	
-	//TODO: see if we can be more performant
-	var getSetCurrentRoomHelper = function(roomName){
-		for(var arIndex = 0; arIndex < serviceData.allRooms.length; arIndex++){
-			if(roomName == serviceData.allRooms[arIndex].name){
-				
-				serviceData.setPropsDynamically(serviceData.allRooms[arIndex], serviceData.currentRoom);
-				break;
-			}
-		}
-	} 
-	//TODO: see if we can be more performant
-	serviceData.getSetCurrentRoom = function(roomName, reset){
-		
-		if(serviceData.allRooms.length == 0 || reset){
-			var subpromise = serviceData.getAllRooms();
-			subpromise.then(function(){
-				getSetCurrentRoomHelper(roomName);	
-			},function(){});
-		}else {
-			getSetCurrentRoomHelper(roomName);
-		}
-	}
-*/
 	
 	serviceData.getSetRoomMessages = function(roomName, currentMessages, lastMessagePage, reset, page, size){
 		
