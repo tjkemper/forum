@@ -217,13 +217,28 @@ angular.module("ForumApp")
 	
 	roomData.authUser = ForumService.authUser;	
 	roomData.currentRoom = ForumService.currentRoom;
+	roomData.newMessage="";
+	
+	//handle the loading of messages
 	roomData.currentMessages = [];
 	roomData.lastPageAccessed = {};
-	roomData.newMessage="";
-	roomData.readyForMorePosts = true;
+	roomData.readyForMorePosts = false;
 	
 	var roomName = $stateParams.roomName;
-	ForumService.getRoom(roomName, roomData.currentMessages, roomData.lastPageAccessed);
+	
+	var getRoomPromise = ForumService.getRoomByName(roomName);
+	getRoomPromise.then(function(response){
+		ForumService.setPropsDynamically(response.data, roomData.currentRoom);
+	}, function(response){
+		
+	});
+	
+	ForumService.getSetRoomMessages(roomName, roomData.currentMessages, roomData.lastPageAccessed, true)
+	.then(function(response){
+		roomData.readyForMorePosts = true;
+	}, function(response){});
+	
+	//ForumService.getRoom(roomName, roomData.currentMessages, roomData.lastPageAccessed);
 	
 	roomData.postMessage = function(){
 		ForumService.postMessage(roomData.currentRoom.name, roomData.newMessage, roomData.currentMessages, roomData.lastPageAccessed);

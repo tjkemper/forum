@@ -73,18 +73,18 @@ angular.module("ForumApp")
 	}
 	
 	serviceData.setAuthUser = function(someUser){
-		setPropsDynamically(someUser, serviceData.authUser);
+		serviceData.setPropsDynamically(someUser, serviceData.authUser);
 	}
 	
 	serviceData.copyAuthUser = function(){
 		var authUserCopy = {};
-		setPropsDynamically(serviceData.authUser, authUserCopy);
+		serviceData.setPropsDynamically(serviceData.authUser, authUserCopy);
 		return authUserCopy;
 	}
 	
 	serviceData.copyUserDetails = function(){
 		var userDetailsCopy = {};
-		setPropsDynamically(serviceData.authUser.userDetails, userDetailsCopy);
+		serviceData.setPropsDynamically(serviceData.authUser.userDetails, userDetailsCopy);
 		return userDetailsCopy;
 	}
 	
@@ -99,6 +99,7 @@ angular.module("ForumApp")
 		
 	}
 	
+	//TODO: refactor for pagination
 	serviceData.getAllRooms = function(){
 		return $http({
 			method:'GET',
@@ -117,7 +118,14 @@ angular.module("ForumApp")
 		});
 	}
 	
-	
+	serviceData.getRoomByName = function(roomName){
+		return $http({
+			method:'GET',
+			url:roomUrl+roomName
+		});
+	}
+
+/*
 	serviceData.getRoom = function(roomName, currentMessages, lastMessagePage){
 		
 		serviceData.getSetCurrentRoom(roomName);
@@ -130,7 +138,7 @@ angular.module("ForumApp")
 		for(var arIndex = 0; arIndex < serviceData.allRooms.length; arIndex++){
 			if(roomName == serviceData.allRooms[arIndex].name){
 				
-				setPropsDynamically(serviceData.allRooms[arIndex], serviceData.currentRoom);
+				serviceData.setPropsDynamically(serviceData.allRooms[arIndex], serviceData.currentRoom);
 				break;
 			}
 		}
@@ -147,7 +155,7 @@ angular.module("ForumApp")
 			getSetCurrentRoomHelper(roomName);
 		}
 	}
-	
+*/
 	
 	serviceData.getSetRoomMessages = function(roomName, currentMessages, lastMessagePage, reset, page, size){
 		
@@ -172,7 +180,7 @@ angular.module("ForumApp")
 		return $http(reqConfig)
 				.then(function(response){
 					Array.prototype.push.apply(list, response.data.content);
-					setPropsDynamically(response.data, lastPage);
+					serviceData.setPropsDynamically(response.data, lastPage);
 					return response;
 				},    function(response){
 					throw response;
@@ -307,7 +315,7 @@ angular.module("ForumApp")
 		}
 	}
 	
-	var setPropsDynamically = function(from, to){
+	serviceData.setPropsDynamically = function(from, to){
 		clearPropsDynamically(to);
 		
 		for(var fromProp in from){
