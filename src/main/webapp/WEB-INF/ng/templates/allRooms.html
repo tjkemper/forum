@@ -28,17 +28,25 @@
     <div class="noticeMeText" style="text-align: center;">
       Filter
     </div>
-    <form data-ng-submit="aData.addRoomNameToFilter(aData.roomNameFilter)">
-      <input data-ng-model="aData.roomNameFilter" type="text" class="form-control" placeholder="Room Name"/>
+    <form data-ng-submit="aData.addRoomNameToFilter()">
+      <input data-ng-model="aData.newRoomNameToFilter" type="text" class="form-control" placeholder="Room Name"/>
     </form>
-    <input data-ng-model="aData.newCategoryToFilter" data-ng-click="aData.addCategoryToFilter(aData.newCategoryToFilter)" type="text" class="form-control" placeholder="Add Category"/>
-    
-    <div data-ng-repeat="cat in aData.categoryListFilter" style="display: inline;">
+    <form data-ng-submit="aData.addCategoryToFilter()">
+      <input data-ng-model="aData.newCategoryToFilter" type="text" class="form-control" placeholder="Add Category"/>
+    </form>
+    <hr class="awesomeHr"/>
+    <div data-ng-show="aData.roomFilter.roomName">
+      Room Name : {{aData.roomFilter.roomName}}
+      <button data-ng-click="aData.removeRoomNameFromFilter()" class="btn btn-danger btn-xs" type="button">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+    <div data-ng-repeat="cat in aData.roomFilter.categories" style="display: inline;">
       <div class="btn-group" style="margin-top: 5px;">
         <div class="btn btn-primary btn-xs">
-          {{cat.category.categoryName}}
+          {{cat}}
         </div>
-        <div data-ng-click="" class="btn btn-danger btn-xs">
+        <div data-ng-click="aData.removeCategoryFromFilter(cat)" class="btn btn-danger btn-xs">
           <span class="glyphicon glyphicon-remove"></span>
         </div>
       </div>        

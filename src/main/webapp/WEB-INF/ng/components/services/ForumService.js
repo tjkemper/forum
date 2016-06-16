@@ -124,9 +124,9 @@ angular.module("ForumApp")
 		});
 	}
 	
-	serviceData.getRoomPage = function(page, size, roomFilter){
+	serviceData.getRoomPage = function(roomFilter, page, size){
 		
-		roomFilter = roomFilter || {};
+		roomFilter = roomFilter || {}; // default roomFilter is empty object
 		
 		page = page || 0; //Default page number (base 0)
 		size = size || 10; //Default page size

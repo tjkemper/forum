@@ -166,7 +166,12 @@ angular.module("ForumApp")
 	allRoomsData.message = "";
 
 	allRoomsData.currentRooms = [];
-	allRoomsData.roomFilter = {};
+	allRoomsData.roomFilter = {
+			roomName : null,
+			categories : []
+	};
+	allRoomsData.newRoomNameToFilter = null;
+	allRoomsData.newCategoryToFilter = null;
 	allRoomsData.lastRoomPage = {};
 	allRoomsData.readyForMoreRooms = false;
 	
@@ -177,23 +182,53 @@ angular.module("ForumApp")
 		
 	}, function(response){});
 	
-	allRoomsData.loadMoreRooms = function(){
+	allRoomsData.loadMoreRooms = function(reset){
 		if(allRoomsData.readyForMoreRooms){
-			ForumService.getRoomPage(allRoomsData.lastRoomPage.number + 1, allRoomsData.lastRoomPage.size)
+			
+			var page = reset ? null  : allRoomsData.lastRoomPage.number + 1;
+			var size = reset ? null  : allRoomsData.lastRoomPage.size;
+			
+			ForumService.getRoomPage(allRoomsData.roomFilter, page, size)
 			.then(function(response){
 				
-				handleRoomResponse(response);
+				handleRoomResponse(response, reset);
 				
 			}, function(response){});
 		}
-		
 	}
 	
-	var handleRoomResponse = function(response){
+	var handleRoomResponse = function(response, reset){
+		if(reset){
+			allRoomsData.currentRooms.length = 0;
+		}
 		Array.prototype.push.apply(allRoomsData.currentRooms, response.data.content);
 		ForumService.setPropsDynamically(response.data, allRoomsData.lastRoomPage);
 		allRoomsData.readyForMoreRooms = true;
 	}
+	
+	allRoomsData.addRoomNameToFilter = function(){
+		allRoomsData.roomFilter.roomName = allRoomsData.newRoomNameToFilter;
+		allRoomsData.newRoomNameToFilter = null;
+		allRoomsData.loadMoreRooms(true);
+	}
+	
+	allRoomsData.removeRoomNameFromFilter = function(){
+		allRoomsData.roomFilter.roomName = null;
+		allRoomsData.loadMoreRooms(true);
+	}
+	
+	allRoomsData.addCategoryToFilter = function(){
+		allRoomsData.roomFilter.categories.unshift(allRoomsData.newCategoryToFilter);
+		allRoomsData.newCategoryToFilter = null;
+		allRoomsData.loadMoreRooms(true);
+	}
+	
+	allRoomsData.removeCategoryFromFilter = function(category){
+		allRoomsData.roomFilter.categories.splice(allRoomsData.roomFilter.categories.indexOf(category), 1);
+		allRoomsData.loadMoreRooms(true);
+	}
+	
+	
 	
 //	ForumService.getAllRooms();
 	
