@@ -124,34 +124,16 @@ angular.module("ForumApp")
 		});
 	}
 	
-	serviceData.getSetRoomMessages = function(roomName, currentMessages, lastMessagePage, reset, page, size){
+	serviceData.getMessagePage = function(roomName, page, size){
 		
 		page = page || 0; //Default page number (base 0)
 		size = size || 10; //Default page size
 		
-		var reqConfig = {
+		return $http({
 			method:'GET',
-			url:roomUrl+roomName+messagesUrl
-		};
+			url:roomUrl+roomName+messagesUrl + "?"+"page="+page+"&"+"size="+size
+		});
 		
-		return serviceData.getSetPage(reqConfig, currentMessages, lastMessagePage, reset, page, size);
-		
-	}
-	
-	serviceData.getSetPage = function(reqConfig, list, lastPage, reset, page, size){
-		if(reset){
-			list.length = 0;
-		}
-		reqConfig.url += "?"+"page="+page+"&"+"size="+size; 
-		
-		return $http(reqConfig)
-				.then(function(response){
-					Array.prototype.push.apply(list, response.data.content);
-					serviceData.setPropsDynamically(response.data, lastPage);
-					return response;
-				},    function(response){
-					throw response;
-				});
 	}
 	
 	

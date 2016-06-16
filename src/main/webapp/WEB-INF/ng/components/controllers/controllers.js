@@ -233,10 +233,14 @@ angular.module("ForumApp")
 		
 	});
 	
-	ForumService.getSetRoomMessages(roomName, roomData.currentMessages, roomData.lastPageAccessed, true)
+	ForumService.getMessagePage(roomName)
 	.then(function(response){
+		Array.prototype.push.apply(roomData.currentMessages, response.data.content);
+		ForumService.setPropsDynamically(response.data, roomData.lastPageAccessed);
 		roomData.readyForMorePosts = true;
-	}, function(response){});
+	}, function(response){
+		
+	});
 	
 	
 	roomData.postMessage = function(){
@@ -272,8 +276,10 @@ angular.module("ForumApp")
 	
 	roomData.loadMoreMessages = function(){
 		if(roomData.readyForMorePosts){
-			ForumService.getSetRoomMessages(roomName, roomData.currentMessages, roomData.lastPageAccessed, false, roomData.lastPageAccessed.number + 1, roomData.lastPageAccessed.size)
+			ForumService.getMessagePage(roomName, roomData.lastPageAccessed.number + 1, roomData.lastPageAccessed.size)
 			.then(function(response){
+				Array.prototype.push.apply(roomData.currentMessages, response.data.content);
+				ForumService.setPropsDynamically(response.data, roomData.lastPageAccessed);
 				roomData.readyForMorePosts = true;
 			}, function(response){});
 		}
