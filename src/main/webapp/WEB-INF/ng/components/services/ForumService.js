@@ -188,7 +188,7 @@ angular.module("ForumApp")
 	}
 	
 	
-	serviceData.postMessage = function(roomName, message, currentMessages, lastMessagePage){
+	serviceData.postMessage = function(roomName, message){
 		var postData = {
 			message:message,
 			owner:{
@@ -196,14 +196,11 @@ angular.module("ForumApp")
 			}
 		};
 		
-		$http({
+		return $http({
 			method:'POST',
 			url:roomUrl+roomName+messagesUrl,
 			data:postData
-		}).then(function(response){
-			//TODO: maybe push to front of currentMessages
-			serviceData.getSetRoomMessages(roomName, currentMessages, lastMessagePage, true);
-		},function(response){});
+		});
 	}
 	
 	serviceData.updateRoomName = function(room, newName){

@@ -238,11 +238,18 @@ angular.module("ForumApp")
 		roomData.readyForMorePosts = true;
 	}, function(response){});
 	
-	//ForumService.getRoom(roomName, roomData.currentMessages, roomData.lastPageAccessed);
 	
 	roomData.postMessage = function(){
-		ForumService.postMessage(roomData.currentRoom.name, roomData.newMessage, roomData.currentMessages, roomData.lastPageAccessed);
-		roomData.newMessage="";
+		var postPromise = ForumService.postMessage(roomData.currentRoom.name, roomData.newMessage);
+		
+		postPromise.then(function(response){
+			
+			roomData.currentMessages.unshift(response.data);
+			roomData.newMessage="";
+			
+		},function(response){
+			
+		});	
 	}
 	
 	roomData.updateMessage = function(msg, newMessage){
