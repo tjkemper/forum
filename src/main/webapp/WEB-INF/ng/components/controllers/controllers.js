@@ -303,13 +303,17 @@ angular.module("ForumApp")
 	//		but DO need to return room json in response...
 	roomData.closeRoom = function(roomName){
 		ForumService.closeRoom(roomName).then(function(response){
-			ForumService.getSetCurrentRoom(roomName, true);
+			
+			ForumService.setPropsDynamically(response.data, roomData.currentRoom);
+			
 		},function(response){});
 	}
 	
 	roomData.reopenRoom = function(roomName){
 		ForumService.reopenRoom(roomName).then(function(response){
-			ForumService.getSetCurrentRoom(roomName, true);
+		
+			ForumService.setPropsDynamically(response.data, roomData.currentRoom);
+
 		},function(response){});
 	}
 	
