@@ -311,7 +311,8 @@ angular.module("ForumApp")
 	roomData.closeRoom = function(roomName){
 		ForumService.closeRoom(roomName).then(function(response){
 			
-			ForumService.setPropsDynamically(response.data, roomData.currentRoom);
+//			ForumService.setPropsDynamically(response.data, roomData.currentRoom);
+			roomData.currentRoom.closed = Date.now();
 			
 		},function(response){});
 	}
@@ -319,7 +320,8 @@ angular.module("ForumApp")
 	roomData.reopenRoom = function(roomName){
 		ForumService.reopenRoom(roomName).then(function(response){
 		
-			ForumService.setPropsDynamically(response.data, roomData.currentRoom);
+//			ForumService.setPropsDynamically(response.data, roomData.currentRoom);
+			roomData.currentRoom.closed = null;
 
 		},function(response){});
 	}
