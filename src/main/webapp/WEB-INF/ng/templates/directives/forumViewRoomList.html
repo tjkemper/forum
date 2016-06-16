@@ -7,6 +7,13 @@
     <hr class="awesomeHr"/>
     
   </div>
+
+
+<!-- Load more rooms on scroll -->
+<div data-ng-hide="lastPageAccessed.last">
+  <data-scroll-callback scroll-threshold="50" cb="loadMoreRooms()" ready-for-more="readyForMoreRooms"></data-scroll-callback>
+</div>
+
 </div>
 <!-- <table class="table table-responsive table-hover"> -->
 <!--   <thead> -->

@@ -217,16 +217,16 @@ angular.module("ForumApp")
 	
 	roomData.authUser = ForumService.authUser;	
 	roomData.currentRoom = ForumService.currentRoom;
-	roomData.currentMessages = ForumService.currentMessages;
-	roomData.lastPageAccessed = ForumService.lastMessagePageAccessed;
+	roomData.currentMessages = [];
+	roomData.lastPageAccessed = {};
 	roomData.newMessage="";
 	roomData.readyForMorePosts = true;
 	
 	var roomName = $stateParams.roomName;
-	ForumService.getRoom(roomName);
+	ForumService.getRoom(roomName, roomData.currentMessages, roomData.lastPageAccessed);
 	
 	roomData.postMessage = function(){
-		ForumService.postMessage(roomData.newMessage);
+		ForumService.postMessage(roomData.currentRoom.name, roomData.newMessage, roomData.currentMessages, roomData.lastPageAccessed);
 		roomData.newMessage="";
 	}
 	
@@ -250,7 +250,7 @@ angular.module("ForumApp")
 	
 	roomData.loadMoreMessages = function(){
 		if(roomData.readyForMorePosts){
-			ForumService.getSetRoomMessages(roomName, false, roomData.lastPageAccessed.number + 1, roomData.lastPageAccessed.size)
+			ForumService.getSetRoomMessages(roomName, roomData.currentMessages, roomData.lastPageAccessed, false, roomData.lastPageAccessed.number + 1, roomData.lastPageAccessed.size)
 			.then(function(response){
 				roomData.readyForMorePosts = true;
 			}, function(response){});
@@ -283,6 +283,9 @@ angular.module("ForumApp")
 		});
 	}
 	
+	
+	//TODO: next 2 methods - don't need to get from backend 
+	//		but DO need to return room json in response...
 	roomData.closeRoom = function(roomName){
 		ForumService.closeRoom(roomName).then(function(response){
 			ForumService.getSetCurrentRoom(roomName, true);

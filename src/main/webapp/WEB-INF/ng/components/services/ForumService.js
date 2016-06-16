@@ -10,10 +10,6 @@ angular.module("ForumApp")
 	serviceData.authUser = {};
 	serviceData.allRooms = [];
 	serviceData.currentRoom = {};
-	serviceData.currentMessages = [];
-	serviceData.lastMessagePageAccessed = {};
-	
-	
 	
 	serviceData.getStats = function(){
 		//TODO: implement
@@ -122,13 +118,14 @@ angular.module("ForumApp")
 	}
 	
 	
-	serviceData.getRoom = function(roomName){
+	serviceData.getRoom = function(roomName, currentMessages, lastMessagePage){
 		
 		serviceData.getSetCurrentRoom(roomName);
-		serviceData.getSetRoomMessages(roomName, true);
+		serviceData.getSetRoomMessages(roomName, currentMessages, lastMessagePage, true);
 		
 	}
 	
+	//TODO: see if we can be more performant
 	var getSetCurrentRoomHelper = function(roomName){
 		for(var arIndex = 0; arIndex < serviceData.allRooms.length; arIndex++){
 			if(roomName == serviceData.allRooms[arIndex].name){
@@ -138,7 +135,7 @@ angular.module("ForumApp")
 			}
 		}
 	} 
-	
+	//TODO: see if we can be more performant
 	serviceData.getSetCurrentRoom = function(roomName, reset){
 		
 		if(serviceData.allRooms.length == 0 || reset){
@@ -152,26 +149,38 @@ angular.module("ForumApp")
 	}
 	
 	
-	serviceData.getSetRoomMessages = function(roomName, reset, page, size){
-		if(reset){
-			serviceData.currentMessages.length = 0;
-		}
+	serviceData.getSetRoomMessages = function(roomName, currentMessages, lastMessagePage, reset, page, size){
 		
 		page = page || 0; //Default page number (base 0)
 		size = size || 10; //Default page size
 		
-		return $http({
+		var reqConfig = {
 			method:'GET',
-			url:roomUrl+roomName+messagesUrl + "?"+"page="+page+"&"+"size="+size
-		}).then(function(response){
-
-			Array.prototype.push.apply(serviceData.currentMessages, response.data.content);
-			setPropsDynamically(response.data, serviceData.lastMessagePageAccessed);
-			
-		},function(response){});
+			url:roomUrl+roomName+messagesUrl
+		};
+		
+		return serviceData.getSetPage(reqConfig, currentMessages, lastMessagePage, reset, page, size);
+		
 	}
 	
-	serviceData.postMessage = function(message){
+	serviceData.getSetPage = function(reqConfig, list, lastPage, reset, page, size){
+		if(reset){
+			list.length = 0;
+		}
+		reqConfig.url += "?"+"page="+page+"&"+"size="+size; 
+		
+		return $http(reqConfig)
+				.then(function(response){
+					Array.prototype.push.apply(list, response.data.content);
+					setPropsDynamically(response.data, lastPage);
+					return response;
+				},    function(response){
+					throw response;
+				});
+	}
+	
+	
+	serviceData.postMessage = function(roomName, message, currentMessages, lastMessagePage){
 		var postData = {
 			message:message,
 			owner:{
@@ -181,11 +190,11 @@ angular.module("ForumApp")
 		
 		$http({
 			method:'POST',
-			url:roomUrl+serviceData.currentRoom.name+messagesUrl,
+			url:roomUrl+roomName+messagesUrl,
 			data:postData
 		}).then(function(response){
 			//TODO: maybe push to front of currentMessages
-			serviceData.getSetRoomMessages(serviceData.currentRoom.name, true);
+			serviceData.getSetRoomMessages(roomName, currentMessages, lastMessagePage, true);
 		},function(response){});
 	}
 	
