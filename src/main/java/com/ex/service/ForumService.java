@@ -11,6 +11,7 @@ import com.ex.domain.User;
 import com.ex.domain.m2m.RoomCategory;
 import com.ex.domain.m2m.UserMessage;
 import com.ex.model.RegisterUser;
+import com.ex.model.RoomFilter;
 
 public interface ForumService {
 	
@@ -18,7 +19,10 @@ public interface ForumService {
 	public User registerUser(RegisterUser registerUser);
 	public User updateUser(User user, String username);
 	
-	public List<Room> getRooms();
+	//TODO: delete
+//	public List<Room> getRooms();
+	public Page<Room> getRoomPage(RoomFilter roomFilter, Integer page, Integer size);
+	
 	public void createRoom(Room room);
 	public void updateRoomName(String roomName, String newRoomName);
 	public void updateRoomDescription(String roomName, String newDescription);

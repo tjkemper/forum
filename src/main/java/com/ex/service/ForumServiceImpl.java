@@ -13,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.NumberUtils;
 import org.springframework.util.StringUtils;
 
 import com.ex.domain.Category;
@@ -23,6 +22,7 @@ import com.ex.domain.User;
 import com.ex.domain.m2m.RoomCategory;
 import com.ex.domain.m2m.UserMessage;
 import com.ex.model.RegisterUser;
+import com.ex.model.RoomFilter;
 import com.ex.repo.CategoryRepo;
 import com.ex.repo.MessageRepo;
 import com.ex.repo.RoomRepo;
@@ -85,9 +85,17 @@ public class ForumServiceImpl implements ForumService {
 		}
 	}
 	
+//	@Override
+//	public List<Room> getRooms() {
+//		return roomRepo.findAll();
+//	}
+	
 	@Override
-	public List<Room> getRooms() {
-		return roomRepo.findAll();
+	public Page<Room> getRoomPage(RoomFilter roomFilter, Integer page, Integer size) {
+		
+		Pageable pageable = new PageRequest(page, size);
+		
+		return roomRepo.findAll(pageable);
 	}
 	
 	@Override

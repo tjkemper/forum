@@ -11,8 +11,10 @@ import org.springframework.data.repository.query.Param;
 import com.ex.domain.Room;
 
 public interface RoomRepo extends JpaRepository<Room, Integer> {
-	List<Room> findByName(String name);
 	
+	//TODO: awesome Spring Data logic for filtering/sortings
+	
+	List<Room> findByName(String name);
 	Room findOneByName(String name);
 	
 	@Modifying
