@@ -85,10 +85,10 @@ public class ForumServiceImpl implements ForumService {
 		}
 	}
 	
-//	@Override
-//	public List<Room> getRooms() {
-//		return roomRepo.findAll();
-//	}
+	@Override
+	public List<Room> getRooms() {
+		return roomRepo.findAll();
+	}
 	
 	@Override
 	public Page<Room> getRoomPage(RoomFilter roomFilter, Integer page, Integer size) {

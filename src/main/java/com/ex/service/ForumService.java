@@ -20,7 +20,7 @@ public interface ForumService {
 	public User updateUser(User user, String username);
 	
 	//TODO: delete
-//	public List<Room> getRooms();
+	public List<Room> getRooms();
 	public Page<Room> getRoomPage(RoomFilter roomFilter, Integer page, Integer size);
 	
 	public void createRoom(Room room);

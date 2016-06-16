@@ -48,10 +48,10 @@ public class ForumRestController {
 		return forumService.updateUser(user, username);
 	}
 	
-//	@RequestMapping(value="rooms", method=RequestMethod.GET)
-//	public List<Room> rooms(){
-//		return forumService.getRooms();
-//	}
+	@RequestMapping(value="rooms", method=RequestMethod.GET)
+	public List<Room> rooms(){
+		return forumService.getRooms();
+	}
 	
 	@RequestMapping(value="rooms", method=RequestMethod.POST)
 	public Page<Room> rooms(@RequestBody RoomFilter roomFilter, Integer page, Integer size){
