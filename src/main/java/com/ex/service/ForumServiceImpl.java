@@ -103,53 +103,59 @@ public class ForumServiceImpl implements ForumService {
 	}
 	
 	@Override
-	public void createRoom(Room room) {
+	public Room createRoom(Room room) {
 		
-		List<User> userList = userRepo.findByUsername(room.getOwner().getUsername());
-		if(userList.size() == 1){
-			User owner = userList.get(0);
+		User owner = userRepo.findOneByUsername(room.getOwner().getUsername());
+		if(owner != null){
 			
 			Timestamp now = new Timestamp(new Date().getTime());
 
 			Room newRoom = new Room(room.getName(), room.getDescription(), owner, now);
-			System.out.println("createRoom success");
-			System.out.println(newRoom);
-			roomRepo.save(newRoom);
+			return roomRepo.save(newRoom);
 		}
+		return null;
 		
 	}
 	
 	@Override
-	public void updateRoomName(String roomName, String newRoomName){
+	public Room updateRoomName(String roomName, String newRoomName){
 		
 		if(StringUtils.hasText(newRoomName)) {
 			Room room = roomRepo.findOneByName(roomName);
 			if(room != null){
 				room.setName(newRoomName);
+				return room;
 			}
 		}
+		return null;
 	}
 	
 	@Override
-	public void updateRoomDescription(String roomName, String newDescription) {
+	public Room updateRoomDescription(String roomName, String newDescription) {
 		Room room = roomRepo.findOneByName(roomName);
 		if(room != null){
 			room.setDescription(newDescription);
+			return room;
 		}
+		return null;
 	}
 	
 	@Override
-	public void closeRoom(String roomName) {
+	public Room closeRoom(String roomName) {
 		Timestamp now = new Timestamp(new Date().getTime());
 		roomRepo.closeRoom(roomName, now);
+		return roomRepo.findOneByName(roomName);
+		
 	}
 
 	@Override
-	public void reopenRoom(String roomName) {
+	public Room reopenRoom(String roomName) {
 		Room room = roomRepo.findOneByName(roomName);
 		if(room != null){
 			room.setClosed(null);
+			return room;
 		}
+		return null;
 	}
 	
 	@Override
@@ -209,7 +215,7 @@ public class ForumServiceImpl implements ForumService {
 	}
 	
 	@Override
-	public void postMessage(Message message, String roomName) {
+	public Message postMessage(Message message, String roomName) {
 
 		List<Room> roomList = roomRepo.findByName(roomName);
 		List<User> userList = userRepo.findByUsername(message.getOwner().getUsername());
@@ -217,25 +223,29 @@ public class ForumServiceImpl implements ForumService {
 			User owner = userList.get(0);
 			Timestamp now = new Timestamp(new Date().getTime());
 			Message newMessage = new Message(message.getMessage(), owner, now, roomList.get(0));
-			messageRepo.save(newMessage);
+			return messageRepo.save(newMessage);
 		}
+		return null;
 	}
 
 	@Override
-	public void updateMessage(Integer id, String newMessage) {
+	public Message updateMessage(Integer id, String newMessage) {
 		if(id != null && StringUtils.hasText(newMessage)) {
 			Message message = messageRepo.findOne(id);
 			if(message != null){
 				message.setMessage(newMessage);
+				return message;
 			}
 		}
+		return null;
 	}
 
 	@Override
-	public void deleteMessage(Integer id) {
+	public Integer deleteMessage(Integer id) {
 		if(id != null){
 			messageRepo.delete(id);
 		}
+		return id;
 	}
 
 	@Override

@@ -25,17 +25,17 @@ public interface ForumService {
 	public Page<Room> getRoomPage(RoomFilter roomFilter, Integer page, Integer size);
 	public Room getRoomByName(String roomName);
 	
-	public void createRoom(Room room);
-	public void updateRoomName(String roomName, String newRoomName);
-	public void updateRoomDescription(String roomName, String newDescription);
-	public void closeRoom(String roomName);
-	public void reopenRoom(String roomName);
+	public Room createRoom(Room room);
+	public Room updateRoomName(String roomName, String newRoomName);
+	public Room updateRoomDescription(String roomName, String newDescription);
+	public Room closeRoom(String roomName);
+	public Room reopenRoom(String roomName);
 	
 	public List<Message> getMessagesByRoom(String roomName);
 	public Page<Message> getMessagesByRoomPage(String roomName, Integer page, Integer size);
-	public void postMessage(Message message, String roomName);
-	public void updateMessage(Integer id, String newMessage);
-	public void deleteMessage(Integer id);
+	public Message postMessage(Message message, String roomName);
+	public Message updateMessage(Integer id, String newMessage);
+	public Integer deleteMessage(Integer id);
 	
 	public UserMessage likeMessage(UserMessage userMessage, String messageIdStr);
 	
