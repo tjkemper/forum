@@ -98,6 +98,10 @@ public class ForumServiceImpl implements ForumService {
 		return roomRepo.findAll(pageable);
 	}
 	
+	public Room getRoomByName(String roomName){
+		return roomRepo.findOneByName(roomName);
+	}
+	
 	@Override
 	public void createRoom(Room room) {
 		

@@ -58,6 +58,11 @@ public class ForumRestController {
 		return forumService.getRoomPage(roomFilter, page, size);
 	}
 	
+	@RequestMapping(value="room/{roomName}", method=RequestMethod.GET)
+	public Room getRoomByName(@PathVariable String roomName){
+		return forumService.getRoomByName(roomName);
+	}
+	
 	@RequestMapping(value="room", method=RequestMethod.POST)
 	public void createRoom(@RequestBody Room room){
 		forumService.createRoom(room);

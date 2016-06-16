@@ -21,7 +21,9 @@ public interface ForumService {
 	
 	//TODO: delete
 	public List<Room> getRooms();
+	
 	public Page<Room> getRoomPage(RoomFilter roomFilter, Integer page, Integer size);
+	public Room getRoomByName(String roomName);
 	
 	public void createRoom(Room room);
 	public void updateRoomName(String roomName, String newRoomName);
