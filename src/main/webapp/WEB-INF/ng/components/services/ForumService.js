@@ -124,6 +124,21 @@ angular.module("ForumApp")
 		});
 	}
 	
+	serviceData.getRoomPage = function(page, size, roomFilter){
+		
+		roomFilter = roomFilter || {};
+		
+		page = page || 0; //Default page number (base 0)
+		size = size || 10; //Default page size
+		
+		return $http({
+			method:'POST',
+			url:roomsUrl + "?"+"page="+page+"&"+"size="+size,
+			data:roomFilter
+		});
+		
+	}
+	
 	serviceData.getMessagePage = function(roomName, page, size){
 		
 		page = page || 0; //Default page number (base 0)

@@ -162,12 +162,40 @@ angular.module("ForumApp")
 	allRoomsData.authUser = ForumService.authUser;
 	
 	allRoomsData.allRooms = ForumService.allRooms;
-	
 	allRoomsData.newRoom = null;
-	
 	allRoomsData.message = "";
+
+	allRoomsData.currentRooms = [];
+	allRoomsData.roomFilter = {};
+	allRoomsData.lastRoomPage = {};
+	allRoomsData.readyForMoreRooms = false;
 	
-	ForumService.getAllRooms();
+	var getRoomPagePromise = ForumService.getRoomPage();
+	getRoomPagePromise.then(function(response){
+		
+		handleRoomResponse(response);
+		
+	}, function(response){});
+	
+	allRoomsData.loadMoreRooms = function(){
+		if(allRoomsData.readyForMoreRooms){
+			ForumService.getRoomPage(allRoomsData.lastRoomPage.number + 1, allRoomsData.lastRoomPage.size)
+			.then(function(response){
+				
+				handleRoomResponse(response);
+				
+			}, function(response){});
+		}
+		
+	}
+	
+	var handleRoomResponse = function(response){
+		Array.prototype.push.apply(allRoomsData.currentRooms, response.data.content);
+		ForumService.setPropsDynamically(response.data, allRoomsData.lastRoomPage);
+		allRoomsData.readyForMoreRooms = true;
+	}
+	
+//	ForumService.getAllRooms();
 	
 	allRoomsData.viewRoom = function(roomName){
 		$state.go("roomState", {roomName:roomName});

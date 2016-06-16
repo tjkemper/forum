@@ -47,8 +47,11 @@
   </div>
 </div>
 <div class="col-xs-8">
-  <forum-view-room-list room-list="aData.allRooms"
+  <forum-view-room-list room-list="aData.currentRooms"
+  						last-page-accessed="aData.lastRoomPage"
+  						ready-for-more-rooms="aData.readyForMoreRooms"
   						auth-user="aData.authUser"
+						load-more-rooms="aData.loadMoreRooms()"
   						view-room="aData.viewRoom(roomName)"
   						close-room="aData.closeRoom(roomName)"
   						reopen-room="aData.reopenRoom(roomName)"

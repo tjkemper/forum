@@ -7,7 +7,10 @@ angular.module("ForumApp")
 	return {
 		scope : {
 			roomList : '=',
+			lastPageAccessed : '=',
+			readyForMoreRooms : '=',
 			authUser : '=',
+			loadMoreRooms : '&',
 			viewRoom : '&',
 			closeRoom : '&',
 			reopenRoom : '&'
