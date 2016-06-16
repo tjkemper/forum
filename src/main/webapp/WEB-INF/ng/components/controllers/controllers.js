@@ -218,7 +218,7 @@ angular.module("ForumApp")
 	roomData.authUser = ForumService.authUser;	
 	roomData.currentRoom = ForumService.currentRoom;
 	roomData.currentMessages = ForumService.currentMessages;
-	roomData.lastPageAccessed = ForumService.lastPageAccessed;
+	roomData.lastPageAccessed = ForumService.lastMessagePageAccessed;
 	roomData.newMessage="";
 	roomData.readyForMorePosts = true;
 	

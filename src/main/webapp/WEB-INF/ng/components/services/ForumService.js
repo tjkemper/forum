@@ -11,7 +11,7 @@ angular.module("ForumApp")
 	serviceData.allRooms = [];
 	serviceData.currentRoom = {};
 	serviceData.currentMessages = [];
-	serviceData.lastPageAccessed = {};
+	serviceData.lastMessagePageAccessed = {};
 	
 	
 	
@@ -166,7 +166,7 @@ angular.module("ForumApp")
 		}).then(function(response){
 
 			Array.prototype.push.apply(serviceData.currentMessages, response.data.content);
-			setPropsDynamically(response.data, serviceData.lastPageAccessed);
+			setPropsDynamically(response.data, serviceData.lastMessagePageAccessed);
 			
 		},function(response){});
 	}
@@ -184,6 +184,7 @@ angular.module("ForumApp")
 			url:roomUrl+serviceData.currentRoom.name+messagesUrl,
 			data:postData
 		}).then(function(response){
+			//TODO: maybe push to front of currentMessages
 			serviceData.getSetRoomMessages(serviceData.currentRoom.name, true);
 		},function(response){});
 	}
