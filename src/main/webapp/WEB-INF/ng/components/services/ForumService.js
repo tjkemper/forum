@@ -9,7 +9,6 @@ angular.module("ForumApp")
 	
 	serviceData.authUser = {};
 	serviceData.allRooms = [];
-	serviceData.currentRoom = {};
 	
 	serviceData.getStats = function(){
 		//TODO: implement

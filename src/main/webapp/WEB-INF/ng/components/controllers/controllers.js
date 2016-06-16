@@ -216,7 +216,7 @@ angular.module("ForumApp")
 	var roomData = this;
 	
 	roomData.authUser = ForumService.authUser;	
-	roomData.currentRoom = ForumService.currentRoom;
+	roomData.currentRoom = {};
 	roomData.newMessage="";
 	
 	//handle the loading of messages
@@ -277,7 +277,6 @@ angular.module("ForumApp")
 				roomData.readyForMorePosts = true;
 			}, function(response){});
 		}
-		//TODO: set Load More directive if NOT last page
 	}
 	
 	roomData.updateRoomName = function(room, newName){
@@ -306,8 +305,6 @@ angular.module("ForumApp")
 	}
 	
 	
-	//TODO: next 2 methods - don't need to get from backend 
-	//		but DO need to return room json in response...
 	roomData.closeRoom = function(roomName){
 		ForumService.closeRoom(roomName).then(function(response){
 			
