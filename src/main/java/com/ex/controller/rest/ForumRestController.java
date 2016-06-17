@@ -56,10 +56,6 @@ public class ForumRestController {
 	
 	@RequestMapping(value="rooms", method=RequestMethod.POST)
 	public Page<Room> rooms(@RequestBody RoomFilter roomFilter, Integer page, Integer size){
-		System.out.println("rooms pages");
-		System.out.println(roomFilter);
-		System.out.println("page: " + page);
-		System.out.println("size: " + size);
 		return forumService.getRoomPage(roomFilter, page, size);
 	}
 	
