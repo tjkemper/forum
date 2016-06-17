@@ -12,7 +12,7 @@ import com.ex.domain.Room;
 
 public interface RoomRepo extends JpaRepository<Room, Integer> {
 	
-	//TODO: awesome Spring Data logic for filtering/sortings
+	//TODO: awesome Spring Data logic for filtering/sorting
 	
 	List<Room> findByName(String name);
 	Room findOneByName(String name);
