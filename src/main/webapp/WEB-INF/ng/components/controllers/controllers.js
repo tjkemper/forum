@@ -166,6 +166,8 @@ angular.module("ForumApp")
 	allRoomsData.message = "";
 
 	allRoomsData.currentRooms = [];
+	
+	//TODO: read from cookie
 	allRoomsData.roomFilter = {
 			roomName : null,
 			categories : []
@@ -175,7 +177,7 @@ angular.module("ForumApp")
 	allRoomsData.lastRoomPage = {};
 	allRoomsData.readyForMoreRooms = false;
 	
-	var getRoomPagePromise = ForumService.getRoomPage();
+	var getRoomPagePromise = ForumService.getRoomPage(allRoomsData.roomFilter);
 	getRoomPagePromise.then(function(response){
 		
 		handleRoomResponse(response);
