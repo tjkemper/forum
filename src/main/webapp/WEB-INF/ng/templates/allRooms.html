@@ -29,7 +29,11 @@
       Filter
     </div>
     <form data-ng-submit="aData.addRoomNameToFilter()">
-      <input data-ng-model="aData.newRoomNameToFilter" type="text" class="form-control" placeholder="Room Name" required/>
+      <input data-ng-model="aData.newRoomNameToFilter" type="text" class="form-control" placeholder="Room Name" required uib-typeahead="room.name for room in aData.getRoomsWithRoomNameLike($viewValue)  | limitTo:5" typeahead-loading="loadingRoomNames" typeahead-no-results="noRoomNameResults" typeahead-focus-first="false"/>
+      <i ng-show="loadingRoomNames" class="glyphicon glyphicon-refresh"></i>
+      <div ng-show="noRoomNameResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+      </div>
     </form>
     <form data-ng-submit="aData.addOwnerToFilter()">
       <input data-ng-model="aData.newOwnerToFilter" type="text" class="form-control" placeholder="Owner" required/>

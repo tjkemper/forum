@@ -19,12 +19,16 @@ import com.ex.domain.m2m.UserMessage;
 import com.ex.model.RegisterUser;
 import com.ex.model.RoomFilter;
 import com.ex.service.ForumService;
+import com.ex.service.TypeAheadService;
 
 @RestController
 public class ForumRestController {
 	
 	@Autowired
 	private ForumService forumService;
+	
+	@Autowired
+	private TypeAheadService typeAheadService;
 	
 	@RequestMapping("user/login")
 	public Principal getUser(Principal user) {
@@ -56,6 +60,11 @@ public class ForumRestController {
 	@RequestMapping(value="rooms", method=RequestMethod.POST)
 	public Page<Room> rooms(@RequestBody RoomFilter roomFilter, Integer page, Integer size){
 		return forumService.getRoomPage(roomFilter, page, size);
+	}
+	
+	@RequestMapping(value="typeahead/rooms/{roomName}", method=RequestMethod.GET)
+	public List<Room> getRoomsWithRoomNameLike(@PathVariable String roomName){
+		return typeAheadService.getRoomsWithRoomNameLike(roomName);
 	}
 	
 	@RequestMapping(value="room/{roomName}", method=RequestMethod.GET)
@@ -127,6 +136,5 @@ public class ForumRestController {
 	public Integer removeCategoryFromRoom(@RequestBody RoomCategory roomCategory, @PathVariable String roomName){
 		return forumService.removeCategoryFromRoom(roomCategory, roomName);
 	}
-	
 	
 }

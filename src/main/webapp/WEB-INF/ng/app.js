@@ -24,7 +24,7 @@ angular.module("ForumApp").constant("likeUrl","/like");
 angular.module("ForumApp").constant("categoryUrl", "/category");
 angular.module("ForumApp").constant("updateRoomNameUrl", "/updateRoomName");
 angular.module("ForumApp").constant("updateRoomDescriptionUrl", "/updateRoomDescription");
-
+angular.module("ForumApp").constant("typeaheadUrl","typeahead/");
 
 angular.module("ForumApp")
 .config(function($stateProvider, $urlRouterProvider){

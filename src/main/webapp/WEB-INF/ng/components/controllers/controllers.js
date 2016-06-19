@@ -155,7 +155,7 @@ angular.module("ForumApp")
 });
 
 angular.module("ForumApp")
-.controller("AllRoomsCtrl", function($http, ForumService, $state){
+.controller("AllRoomsCtrl", function(ForumService, $state){
 	
 	var allRoomsData = this;
 	
@@ -166,6 +166,10 @@ angular.module("ForumApp")
 
 	allRoomsData.currentRooms = [];
 	
+	
+	/*
+	 * Filter
+	 */
 	//TODO: read from cookie
 	allRoomsData.roomFilter = {
 			roomName : null,
@@ -174,9 +178,18 @@ angular.module("ForumApp")
 	allRoomsData.newRoomNameToFilter = null;
 	allRoomsData.newOwnerToFilter = null;
 	allRoomsData.newCategoryToFilter = null;
+	
+	/*
+	 * Pagination
+	 */
 	allRoomsData.lastRoomPage = {};
 	allRoomsData.readyForMoreRooms = false;
 	
+	
+	
+	/*
+	 * init
+	 */
 	var getRoomPagePromise = ForumService.getRoomPage(allRoomsData.roomFilter);
 	getRoomPagePromise.then(function(response){
 		
@@ -184,6 +197,10 @@ angular.module("ForumApp")
 		
 	}, function(response){});
 	
+	
+	/*
+	 * fn
+	 */
 	allRoomsData.loadMoreRooms = function(reset){
 		if(allRoomsData.readyForMoreRooms){
 			
@@ -284,10 +301,18 @@ angular.module("ForumApp")
 		},function(response){});
 	}
 	
+	allRoomsData.getRoomsWithRoomNameLike = function(roomName){
+		var promise = ForumService.getRoomsWithRoomNameLike(roomName);
+		return promise.then(function(response){
+			return response.data;
+		});
+		
+	}
+	
 });
 
 angular.module("ForumApp")
-.controller("RoomCtrl", function($http, ForumService, $state, $stateParams){
+.controller("RoomCtrl", function(ForumService, $state, $stateParams){
 	
 	var roomData = this;
 	
