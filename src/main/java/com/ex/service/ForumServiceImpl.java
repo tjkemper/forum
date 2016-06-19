@@ -31,7 +31,6 @@ import com.ex.repo.RoomRepo;
 import com.ex.repo.UserRepo;
 import com.ex.repo.m2m.RoomCategoryRepo;
 import com.ex.repo.m2m.UserMessageRepo;
-import com.ex.repo.specifications.RoomSpecification;
 import com.ex.repo.specifications.RoomSpecs;
 
 @Service
