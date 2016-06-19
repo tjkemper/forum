@@ -5,8 +5,10 @@
       {{room.name}}
     </div>
     <hr class="awesomeHr"/>
-    <div class="row">
-      <div class="col-xs-4 noticeMeText">
+    
+    <div>
+    <div class="row forumViewRoomDescLine">
+      <div class="col-xs-4 noticeMeTextSm">
         Owner
       </div>
       <div class="col-xs-8 limitedText">
@@ -16,16 +18,16 @@
 	    </span>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-4 noticeMeText">
+    <div class="row forumViewRoomDescLine">
+      <div class="col-xs-4 noticeMeTextSm">
         Created
       </div>
       <div class="col-xs-8">
         {{room.created | date}}
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-4 noticeMeText">
+    <div class="row forumViewRoomDescLine">
+      <div class="col-xs-4 noticeMeTextSm">
 		Closed
       </div>
       <div class="col-xs-8">
@@ -39,8 +41,9 @@
       </div>
     </div>
     
-    
-  </div>
+    </div>
+  </div> <!-- end ngRepeat -->
+  
 
 
 <!-- Load more rooms on scroll -->
@@ -48,7 +51,7 @@
   <data-scroll-callback scroll-threshold="0" cb="loadMoreRooms()" ready-for-more="readyForMoreRooms"></data-scroll-callback>
 </div>
 
-</div>
+</div> <!-- end div with class forumViewRoomList -->
 <!-- <table class="table table-responsive table-hover"> -->
 <!--   <thead> -->
 <!--     <tr> -->

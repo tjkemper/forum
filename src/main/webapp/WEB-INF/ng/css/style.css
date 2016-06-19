@@ -21,6 +21,10 @@
 	text-align: left;
 }
 
+.forumViewRoomDescLine {
+	margin-top: 23px;
+}
+
 .forumRoom {
 	margin: auto;
     width: 380px;
@@ -53,6 +57,12 @@
 	font-weight: bolder;
 	font-family: cursive;
 	font-size: 1.2em;
+}
+
+.noticeMeTextSm {
+	font-weight: bolder;
+	font-family: cursive;
+	font-style: italic;
 }
 
 .limitedText {
