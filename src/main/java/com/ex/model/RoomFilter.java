@@ -8,7 +8,7 @@ public class RoomFilter {
 	private List<String> categories;
 	
 	//TODO: other filters
-//	private String ownerUsername;
+	private String ownerUsername;
 //	private <class> after;
 //	private <class> before;
 //	private String status;
@@ -33,11 +33,18 @@ public class RoomFilter {
 		this.categories = categories;
 	}
 
+	public String getOwnerUsername() {
+		return ownerUsername;
+	}
+
+	public void setOwnerUsername(String ownerUsername) {
+		this.ownerUsername = ownerUsername;
+	}
+
 	@Override
 	public String toString() {
-		return "RoomFilter [roomName=" + roomName + ", categories=" + categories + "]";
+		return "RoomFilter [roomName=" + roomName + ", categories=" + categories + ", ownerUsername=" + ownerUsername
+				+ "]";
 	}
-	
-	
 	
 }

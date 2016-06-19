@@ -173,6 +173,7 @@ angular.module("ForumApp")
 			categories : []
 	};
 	allRoomsData.newRoomNameToFilter = null;
+	allRoomsData.newOwnerToFilter = null;
 	allRoomsData.newCategoryToFilter = null;
 	allRoomsData.lastRoomPage = {};
 	allRoomsData.readyForMoreRooms = false;
@@ -216,6 +217,17 @@ angular.module("ForumApp")
 	
 	allRoomsData.removeRoomNameFromFilter = function(){
 		allRoomsData.roomFilter.roomName = null;
+		allRoomsData.loadMoreRooms(true);
+	}
+	
+	allRoomsData.addOwnerToFilter = function(){
+		allRoomsData.roomFilter.ownerUsername = allRoomsData.newOwnerToFilter;
+		allRoomsData.newOwnerToFilter = null;
+		allRoomsData.loadMoreRooms(true);
+	}
+	
+	allRoomsData.removeOwnerFromFilter = function(){
+		allRoomsData.roomFilter.ownerUsername = null;
 		allRoomsData.loadMoreRooms(true);
 	}
 	

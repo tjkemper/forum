@@ -29,15 +29,26 @@
       Filter
     </div>
     <form data-ng-submit="aData.addRoomNameToFilter()">
-      <input data-ng-model="aData.newRoomNameToFilter" type="text" class="form-control" placeholder="Room Name"/>
+      <input data-ng-model="aData.newRoomNameToFilter" type="text" class="form-control" placeholder="Room Name" required/>
+    </form>
+    <form data-ng-submit="aData.addOwnerToFilter()">
+      <input data-ng-model="aData.newOwnerToFilter" type="text" class="form-control" placeholder="Owner" required/>
     </form>
     <form data-ng-submit="aData.addCategoryToFilter()">
-      <input data-ng-model="aData.newCategoryToFilter" type="text" class="form-control" placeholder="Add Category"/>
+      <input data-ng-model="aData.newCategoryToFilter" type="text" class="form-control" placeholder="Add Category" required/>
     </form>
+    
     <hr class="awesomeHr"/>
+    
     <div data-ng-show="aData.roomFilter.roomName">
       Room Name : {{aData.roomFilter.roomName}}
       <button data-ng-click="aData.removeRoomNameFromFilter()" class="btn btn-danger btn-xs" type="button">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+    <div data-ng-show="aData.roomFilter.ownerUsername">
+      Owner : {{aData.roomFilter.ownerUsername}}
+      <button data-ng-click="aData.removeOwnerFromFilter()" class="btn btn-danger btn-xs" type="button">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
     </div>

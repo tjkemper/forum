@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import com.ex.domain.Category;
 import com.ex.domain.Room;
+import com.ex.domain.User;
 import com.ex.domain.m2m.RoomCategory;
 import com.ex.model.RoomFilter;
 
@@ -21,12 +22,13 @@ public class RoomSpecs {
 	
 	public static Specifications<Room> createRoomSpecByRoomFilter(RoomFilter roomFilter){
 		
-		Specification<Room> roomNameSpec = RoomSpecs.hasRoomNameLike(roomFilter.getRoomName());
+		Specification<Room> roomNameSpec = hasRoomNameLike(roomFilter.getRoomName());
+		Specification<Room> ownerSpec = hasOwner(roomFilter.getOwnerUsername()); 
 		
-		Specifications<Room> allSpecs = Specifications.where(roomNameSpec);
+		Specifications<Room> allSpecs = Specifications.where(roomNameSpec).and(ownerSpec);		
 		
 		for(String cat : roomFilter.getCategories()){
-			allSpecs = allSpecs.and(RoomSpecs.hasCategory(cat));
+			allSpecs = allSpecs.and(hasCategory(cat));
 		}
 		
 		return allSpecs;
@@ -42,6 +44,23 @@ public class RoomSpecs {
 		        if (StringUtils.hasText(roomName)) {
 		            p.getExpressions()
 		                    .add(cb.like(cb.lower(root.<String>get("name")), "%"+roomName.toLowerCase()+"%" ));
+		        }
+		        return p;
+			}
+		};
+	}
+
+	public static Specification<Room> hasOwner(final String ownerUsername){
+		return new Specification<Room>() {
+
+			@Override
+			public Predicate toPredicate(Root<Room> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+		        Predicate p = cb.conjunction();
+
+		        if (StringUtils.hasText(ownerUsername)) {
+		        	Join<Room, User> userTable = root.join("owner");
+		            p.getExpressions()
+		                    .add(cb.equal(userTable.get("username"), ownerUsername));
 		        }
 		        return p;
 			}
