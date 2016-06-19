@@ -99,6 +99,7 @@ angular.module("ForumApp")
 	}
 	
 	//TODO: refactor for pagination
+	/*
 	serviceData.getAllRooms = function(){
 		return $http({
 			method:'GET',
@@ -108,6 +109,7 @@ angular.module("ForumApp")
 			Array.prototype.push.apply(serviceData.allRooms, response.data);
 		},function(response){});
 	}
+	*/
 	
 	serviceData.createRoom = function(room){
 		return $http({

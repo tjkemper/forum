@@ -231,9 +231,6 @@ angular.module("ForumApp")
 	}
 	
 	
-	
-//	ForumService.getAllRooms();
-	
 	allRoomsData.viewRoom = function(roomName){
 		$state.go("roomState", {roomName:roomName});
 	}
@@ -250,7 +247,9 @@ angular.module("ForumApp")
 
 			ForumService.createRoom(allRoomsData.newRoom).then(function(response){
 				allRoomsData.newRoom = null;
-				ForumService.getAllRooms();
+				
+				//TODO: maybe go to roomState
+				allRoomsData.loadMoreRooms(true);
 			}, function(response){
 				allRoomsData.message = "Room name already exists."
 			});
