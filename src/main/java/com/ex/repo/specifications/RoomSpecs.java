@@ -7,15 +7,30 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.util.StringUtils;
 
 import com.ex.domain.Category;
 import com.ex.domain.Room;
 import com.ex.domain.m2m.RoomCategory;
+import com.ex.model.RoomFilter;
 
 public class RoomSpecs {
 	
 	private RoomSpecs(){}
+	
+	public static Specifications<Room> createRoomSpecByRoomFilter(RoomFilter roomFilter){
+		
+		Specification<Room> roomNameSpec = RoomSpecs.hasRoomNameLike(roomFilter.getRoomName());
+		
+		Specifications<Room> allSpecs = Specifications.where(roomNameSpec);
+		
+		for(String cat : roomFilter.getCategories()){
+			allSpecs = allSpecs.and(RoomSpecs.hasCategory(cat));
+		}
+		
+		return allSpecs;
+	}
 	
 	public static Specification<Room> hasRoomNameLike(final String roomName){
 		return new Specification<Room>() {

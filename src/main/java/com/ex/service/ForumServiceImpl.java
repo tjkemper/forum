@@ -98,15 +98,9 @@ public class ForumServiceImpl implements ForumService {
 		
 		Pageable pageable = new PageRequest(page, size);
 		
-		Specification<Room> roomNameSpec = RoomSpecs.hasRoomNameLike(roomFilter.getRoomName());
+		Specifications<Room> roomSpec = RoomSpecs.createRoomSpecByRoomFilter(roomFilter); 
 		
-		Specifications<Room> allSpecs = Specifications.where(roomNameSpec);
-		
-		for(String cat : roomFilter.getCategories()){
-			allSpecs = allSpecs.and(RoomSpecs.hasCategory(cat));
-		}
-		
-		return roomRepo.findAll(allSpecs, pageable);
+		return roomRepo.findAll(roomSpec, pageable);
 	}
 	
 	public Room getRoomByName(String roomName){
