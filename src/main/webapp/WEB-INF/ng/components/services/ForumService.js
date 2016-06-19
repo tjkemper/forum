@@ -8,7 +8,6 @@ angular.module("ForumApp")
 	var serviceData = this;
 	
 	serviceData.authUser = {};
-	serviceData.allRooms = [];
 	
 	serviceData.getStats = function(){
 		//TODO: implement

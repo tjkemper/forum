@@ -161,7 +161,6 @@ angular.module("ForumApp")
 	
 	allRoomsData.authUser = ForumService.authUser;
 	
-	allRoomsData.allRooms = ForumService.allRooms;
 	allRoomsData.newRoom = null;
 	allRoomsData.message = "";
 
