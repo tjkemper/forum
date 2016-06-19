@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,8 @@ import com.ex.repo.RoomRepo;
 import com.ex.repo.UserRepo;
 import com.ex.repo.m2m.RoomCategoryRepo;
 import com.ex.repo.m2m.UserMessageRepo;
+import com.ex.repo.specifications.RoomSpecification;
+import com.ex.repo.specifications.RoomSpecs;
 
 @Service
 @Transactional
@@ -95,7 +99,15 @@ public class ForumServiceImpl implements ForumService {
 		
 		Pageable pageable = new PageRequest(page, size);
 		
-		return roomRepo.findAll(pageable);
+		Specification<Room> roomNameSpec = RoomSpecs.hasRoomNameLike(roomFilter.getRoomName());
+		
+		Specifications<Room> allSpecs = Specifications.where(roomNameSpec);
+		
+		for(String cat : roomFilter.getCategories()){
+			allSpecs = allSpecs.and(RoomSpecs.hasCategory(cat));
+		}
+		
+		return roomRepo.findAll(allSpecs, pageable);
 	}
 	
 	public Room getRoomByName(String roomName){

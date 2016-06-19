@@ -28,7 +28,7 @@ public class RoomCategory {
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name="RC_USER")
+	@JoinColumn(name="RC_ROOM")
 	private Room room;
 	
 	@ManyToOne
