@@ -256,18 +256,19 @@ angular.module("ForumApp")
 		}
 	}
 	
-	allRoomsData.closeRoom = function(roomName){
-		ForumService.closeRoom(roomName).then(function(response){
+	allRoomsData.closeRoom = function(room){
+		ForumService.closeRoom(room.name).then(function(response){
 			
-			ForumService.getAllRooms();
+			room.closed = Date.now();
+			
 			
 		},function(response){});
 	}
 	
-	allRoomsData.reopenRoom = function(roomName){
-		ForumService.reopenRoom(roomName).then(function(response){
+	allRoomsData.reopenRoom = function(room){
+		ForumService.reopenRoom(room.name).then(function(response){
 			
-			ForumService.getAllRooms();
+			room.closed = null;
 			
 		},function(response){});
 	}
