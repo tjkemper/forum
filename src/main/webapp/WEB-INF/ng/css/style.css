@@ -71,6 +71,10 @@
 	white-space: nowrap;
 }
 
+.limitedTextBtn {
+	max-width: 15em;
+}
+
 .awesomeHr {
     border: 0;
     height: 1px;
