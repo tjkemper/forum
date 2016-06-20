@@ -50,19 +50,35 @@
       </div>
     </form>
     
-    <hr class="awesomeHr"/>
+    <hr class="awesomeHr hrSmMargin"/>
     
-    <div data-ng-show="aData.roomFilter.roomName">
-      Room Name : {{aData.roomFilter.roomName}}
-      <button data-ng-click="aData.removeRoomNameFromFilter()" class="btn btn-danger btn-xs" type="button">
-        <span class="glyphicon glyphicon-remove"></span>
-      </button>
+    <div data-ng-show="aData.roomFilter.roomName" class="limitedText limitedTextBtnSm spaceBelow">
+      <div class="noticeMeTextSm centered">
+        Room Name
+        <button data-ng-click="aData.removeRoomNameFromFilter()" class="btn btn-danger btn-xs" type="button">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+      {{aData.roomFilter.roomName}}
     </div>
-    <div data-ng-show="aData.roomFilter.ownerUsername">
-      Owner : {{aData.roomFilter.ownerUsername}}
-      <button data-ng-click="aData.removeOwnerFromFilter()" class="btn btn-danger btn-xs" type="button">
-        <span class="glyphicon glyphicon-remove"></span>
-      </button>
+    <div data-ng-show="aData.roomFilter.ownerUsername" class="limitedText limitedTextBtnSm spaceBelow">
+      <div class="noticeMeTextSm centered">
+        Owner
+		<button data-ng-click="aData.removeOwnerFromFilter()" class="btn btn-danger btn-xs" type="button">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+      {{aData.roomFilter.ownerUsername}}
+    </div>
+    <div data-ng-show="aData.roomFilter.categories.length > 0">
+    
+      <div class="noticeMeTextSm centered">
+        Categories
+		<button data-ng-click="aData.removeAllCategoriesFromFilter()" class="btn btn-danger btn-xs" type="button">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+    
     </div>
     <div data-ng-repeat="cat in aData.roomFilter.categories" style="display: inline;">
       <div class="btn-group" style="margin-top: 5px;">

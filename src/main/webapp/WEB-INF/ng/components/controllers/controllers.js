@@ -258,6 +258,11 @@ angular.module("ForumApp")
 		allRoomsData.loadMoreRooms(true);
 	}
 	
+	allRoomsData.removeAllCategoriesFromFilter = function(){
+		allRoomsData.roomFilter.categories.length = 0;
+		allRoomsData.loadMoreRooms(true);
+	}
+	
 	
 	allRoomsData.viewRoom = function(roomName){
 		$state.go("roomState", {roomName:roomName});
