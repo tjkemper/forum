@@ -75,6 +75,10 @@
 	max-width: 15em;
 }
 
+.limitedTextBtnSm {
+	max-width: 13em;
+}
+
 .awesomeHr {
     border: 0;
     height: 1px;
