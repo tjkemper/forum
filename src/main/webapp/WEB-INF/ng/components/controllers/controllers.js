@@ -314,6 +314,13 @@ angular.module("ForumApp")
 			return response.data;
 		});
 	}
+	
+	allRoomsData.getCategoriesWithNameLike = function(category){
+		var promise = ForumService.getCategoriesWithNameLike(category);
+		return promise.then(function(response){
+			return response.data;
+		});
+	}
 
 });
 

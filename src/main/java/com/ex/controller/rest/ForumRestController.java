@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ex.domain.Category;
 import com.ex.domain.Message;
 import com.ex.domain.Room;
 import com.ex.domain.User;
@@ -145,4 +146,10 @@ public class ForumRestController {
 	public List<User> getUsersWithUsernameLike(@PathVariable String username){
 		return typeAheadService.getUsersWithUsernameLike(username);
 	}
+	
+	@RequestMapping(value="typeahead/categories/{category}", method=RequestMethod.GET)
+	public List<Category> getCategoriesWithNameLike(@PathVariable String category){
+		return typeAheadService.getCategoriesWithNameLike(category);
+	}
+	
 }

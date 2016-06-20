@@ -11,7 +11,6 @@ angular.module("ForumApp",[
                            'textAngular'
                            ]);
 
-//angular.module("ForumApp").constant("baseUrl","http://localhost:8085/forum/");
 angular.module("ForumApp").constant("userUrl","user/");
 angular.module("ForumApp").constant("usersUrl","users/");
 angular.module("ForumApp").constant("ownerUrl","owner/");
@@ -23,6 +22,7 @@ angular.module("ForumApp").constant("messagesUrl","/messages/");
 angular.module("ForumApp").constant("messageUrl","message");
 angular.module("ForumApp").constant("likeUrl","/like");
 angular.module("ForumApp").constant("categoryUrl", "/category");
+angular.module("ForumApp").constant("categoriesUrl", "categories/");
 angular.module("ForumApp").constant("updateRoomNameUrl", "/updateRoomName");
 angular.module("ForumApp").constant("updateRoomDescriptionUrl", "/updateRoomDescription");
 angular.module("ForumApp").constant("typeaheadUrl","typeahead/");
