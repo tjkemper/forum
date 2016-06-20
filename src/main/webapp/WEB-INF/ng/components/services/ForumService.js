@@ -3,7 +3,7 @@
  */
 
 angular.module("ForumApp")
-.service("ForumService", function($http, $cookies, userUrl, ownerUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl, categoryUrl, updateRoomNameUrl, updateRoomDescriptionUrl, typeaheadUrl){
+.service("ForumService", function($http, $cookies, userUrl, usersUrl, ownerUrl, loginUrl, logoutUrl, roomsUrl, roomUrl, messagesUrl, messageUrl, likeUrl, categoryUrl, updateRoomNameUrl, updateRoomDescriptionUrl, typeaheadUrl){
 	
 	var serviceData = this;
 	
@@ -272,6 +272,13 @@ angular.module("ForumApp")
 			url:typeaheadUrl+roomsUrl+roomName
 		});
 	}
+	serviceData.getUsersWithUsernameLike = function(username){
+		return $http({
+			method:'GET',
+			url:typeaheadUrl+usersUrl+username
+		});
+	}
+	
 	
 	/*
 	 * Helper fn

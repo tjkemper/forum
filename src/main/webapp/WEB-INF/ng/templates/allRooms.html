@@ -29,14 +29,18 @@
       Filter
     </div>
     <form data-ng-submit="aData.addRoomNameToFilter()">
-      <input data-ng-model="aData.newRoomNameToFilter" type="text" class="form-control" placeholder="Room Name" required uib-typeahead="room.name for room in aData.getRoomsWithRoomNameLike($viewValue)  | limitTo:5" typeahead-loading="loadingRoomNames" typeahead-no-results="noRoomNameResults" typeahead-focus-first="false"/>
+      <input data-ng-model="aData.newRoomNameToFilter" type="text" class="form-control" placeholder="Room Name" required uib-typeahead="room.name for room in aData.getRoomsWithRoomNameLike($viewValue) | limitTo:5" typeahead-loading="loadingRoomNames" typeahead-no-results="noRoomNameResults" typeahead-focus-first="false"/>
       <i ng-show="loadingRoomNames" class="glyphicon glyphicon-refresh"></i>
       <div ng-show="noRoomNameResults">
         <i class="glyphicon glyphicon-remove"></i> No Results Found
       </div>
     </form>
     <form data-ng-submit="aData.addOwnerToFilter()">
-      <input data-ng-model="aData.newOwnerToFilter" type="text" class="form-control" placeholder="Owner" required/>
+      <input data-ng-model="aData.newOwnerToFilter" type="text" class="form-control" placeholder="Owner" required uib-typeahead="user.username for user in aData.getUsersWithUsernameLike($viewValue) | limitTo:5" typeahead-loading="loadingUsernames" typeahead-no-results="noUsernameResults" typeahead-focus-first="false" typeahead-template-url="ng/templates/typeahead/users.html"/>
+      <i ng-show="loadingUsernames" class="glyphicon glyphicon-refresh"></i>
+      <div ng-show="noUsernameResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+      </div>
     </form>
     <form data-ng-submit="aData.addCategoryToFilter()">
       <input data-ng-model="aData.newCategoryToFilter" type="text" class="form-control" placeholder="Add Category" required/>

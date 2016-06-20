@@ -62,11 +62,6 @@ public class ForumRestController {
 		return forumService.getRoomPage(roomFilter, page, size);
 	}
 	
-	@RequestMapping(value="typeahead/rooms/{roomName}", method=RequestMethod.GET)
-	public List<Room> getRoomsWithRoomNameLike(@PathVariable String roomName){
-		return typeAheadService.getRoomsWithRoomNameLike(roomName);
-	}
-	
 	@RequestMapping(value="room/{roomName}", method=RequestMethod.GET)
 	public Room getRoomByName(@PathVariable String roomName){
 		return forumService.getRoomByName(roomName);
@@ -137,4 +132,17 @@ public class ForumRestController {
 		return forumService.removeCategoryFromRoom(roomCategory, roomName);
 	}
 	
+	
+	/*
+	 * typeahead
+	 */
+	@RequestMapping(value="typeahead/rooms/{roomName}", method=RequestMethod.GET)
+	public List<Room> getRoomsWithRoomNameLike(@PathVariable String roomName){
+		return typeAheadService.getRoomsWithRoomNameLike(roomName);
+	}
+	
+	@RequestMapping(value="typeahead/users/{username}", method=RequestMethod.GET)
+	public List<User> getUsersWithUsernameLike(@PathVariable String username){
+		return typeAheadService.getUsersWithUsernameLike(username);
+	}
 }

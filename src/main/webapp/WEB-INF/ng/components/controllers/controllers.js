@@ -306,9 +306,15 @@ angular.module("ForumApp")
 		return promise.then(function(response){
 			return response.data;
 		});
-		
 	}
-	
+
+	allRoomsData.getUsersWithUsernameLike = function(username){
+		var promise = ForumService.getUsersWithUsernameLike(username);
+		return promise.then(function(response){
+			return response.data;
+		});
+	}
+
 });
 
 angular.module("ForumApp")
