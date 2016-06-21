@@ -8,7 +8,6 @@ public class RoomFilter {
 	private String roomName;
 	private List<String> categories;
 	
-	//TODO: other filters
 	private String ownerUsername;
 	private Timestamp after;
 	private Timestamp before;
