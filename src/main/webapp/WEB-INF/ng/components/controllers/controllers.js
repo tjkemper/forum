@@ -173,11 +173,26 @@ angular.module("ForumApp")
 	//TODO: read from cookie
 	allRoomsData.roomFilter = {
 			roomName : null,
+			ownerUsername : null,
+			after : null,
+			before: null,
 			categories : []
+
 	};
 	allRoomsData.newRoomNameToFilter = null;
 	allRoomsData.newOwnerToFilter = null;
 	allRoomsData.newCategoryToFilter = null;
+	allRoomsData.newAfterDateToFilter = null;
+	allRoomsData.newBeforeDateToFilter = null;
+	
+	
+//	allRoomsData.afterDateOption = {
+////			dateDisabled: disabled,
+//		    formatYear: 'yy',
+//		    maxDate: new Date(),
+//		    minDate: new Date(2000, 1, 1),
+//		    startingDay: 1	
+//	};
 	
 	/*
 	 * Pagination
@@ -244,6 +259,28 @@ angular.module("ForumApp")
 	
 	allRoomsData.removeOwnerFromFilter = function(){
 		allRoomsData.roomFilter.ownerUsername = null;
+		allRoomsData.loadMoreRooms(true);
+	}
+	
+	allRoomsData.addAfterDateToFilter = function(){
+		allRoomsData.roomFilter.after = allRoomsData.newAfterDateToFilter;
+		allRoomsData.newAfterDateToFilter = null;
+		allRoomsData.loadMoreRooms(true);
+	}
+
+	allRoomsData.removeAfterDateFromFilter = function(){
+		allRoomsData.roomFilter.after = null;
+		allRoomsData.loadMoreRooms(true);
+	}
+
+	allRoomsData.addBeforeDateToFilter = function(){
+		allRoomsData.roomFilter.before = allRoomsData.newBeforeDateToFilter;
+		allRoomsData.newBeforeDateToFilter = null;
+		allRoomsData.loadMoreRooms(true);
+	}
+
+	allRoomsData.removeBeforeDateFromFilter = function(){
+		allRoomsData.roomFilter.before = null;
 		allRoomsData.loadMoreRooms(true);
 	}
 	

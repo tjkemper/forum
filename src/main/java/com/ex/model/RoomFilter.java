@@ -1,5 +1,6 @@
 package com.ex.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class RoomFilter {
@@ -9,8 +10,8 @@ public class RoomFilter {
 	
 	//TODO: other filters
 	private String ownerUsername;
-//	private <class> after;
-//	private <class> before;
+	private Timestamp after;
+	private Timestamp before;
 //	private String status;
 	
 	//TODO: sortings
@@ -41,10 +42,28 @@ public class RoomFilter {
 		this.ownerUsername = ownerUsername;
 	}
 
+	public Timestamp getAfter() {
+		return after;
+	}
+
+	public void setAfter(Timestamp after) {
+		this.after = after;
+	}
+
+	public Timestamp getBefore() {
+		return before;
+	}
+
+	public void setBefore(Timestamp before) {
+		this.before = before;
+	}
+
 	@Override
 	public String toString() {
 		return "RoomFilter [roomName=" + roomName + ", categories=" + categories + ", ownerUsername=" + ownerUsername
-				+ "]";
+				+ ", after=" + after + ", before=" + before + "]";
 	}
+
+	
 	
 }

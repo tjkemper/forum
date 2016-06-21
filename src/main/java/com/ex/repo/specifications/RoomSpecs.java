@@ -1,5 +1,7 @@
 package com.ex.repo.specifications;
 
+import java.sql.Timestamp;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -24,8 +26,12 @@ public class RoomSpecs {
 		
 		Specification<Room> roomNameSpec = hasRoomNameLike(roomFilter.getRoomName());
 		Specification<Room> ownerSpec = hasOwner(roomFilter.getOwnerUsername()); 
+		Specification<Room> createdAfter = createdAfter(roomFilter.getAfter());
+		Specification<Room> createdBefore = createdBefore(roomFilter.getBefore());
 		
-		Specifications<Room> allSpecs = Specifications.where(roomNameSpec).and(ownerSpec);		
+		
+		
+		Specifications<Room> allSpecs = Specifications.where(roomNameSpec).and(ownerSpec).and(createdAfter).and(createdBefore);		
 		
 		for(String cat : roomFilter.getCategories()){
 			allSpecs = allSpecs.and(hasCategory(cat));
@@ -67,6 +73,40 @@ public class RoomSpecs {
 		};
 	}
 
+	public static Specification<Room> createdAfter(final Timestamp ts){
+		return new Specification<Room>() {
+
+			@Override
+			public Predicate toPredicate(Root<Room> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+		        Predicate p = cb.conjunction();
+
+		        if (ts != null) {
+		            p.getExpressions()
+		                    .add(cb.greaterThanOrEqualTo(root.<Timestamp>get("created"), ts));
+		        }
+		        return p;
+			}
+		};
+	}
+	
+	public static Specification<Room> createdBefore(final Timestamp ts){
+		return new Specification<Room>() {
+
+			@Override
+			public Predicate toPredicate(Root<Room> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+		        Predicate p = cb.conjunction();
+
+		        if (ts != null) {
+		        	//because createdBefore should be inclusive of that day and filters are typically sent with midnight as their time
+		        	ts.setDate(ts.getDate()+1); 
+		            p.getExpressions()
+		                    .add(cb.lessThanOrEqualTo(root.<Timestamp>get("created"), ts));
+		        }
+		        return p;
+			}
+		};
+	}
+	
 	public static Specification<Room> hasCategory(final String categoryName){
 		return new Specification<Room>() {
 

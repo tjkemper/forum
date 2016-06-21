@@ -42,6 +42,22 @@
         <i class="glyphicon glyphicon-remove"></i> No Results Found
       </div>
     </form>
+    <form data-ng-submit="aData.addAfterDateToFilter()">
+      <div class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup ng-model="aData.newAfterDateToFilter" is-open="newAfterDateToFilter.open" placeholder="Created After"/>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="newAfterDateToFilter.open = !newAfterDateToFilter.open"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </div>
+    </form>
+    <form data-ng-submit="aData.addBeforeDateToFilter()">
+      <div class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup ng-model="aData.newBeforeDateToFilter" is-open="newBeforeDateToFilter.open" placeholder="Created Before"/>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="newBeforeDateToFilter.open = !newBeforeDateToFilter.open"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </div>
+    </form>
     <form data-ng-submit="aData.addCategoryToFilter()">
       <input data-ng-model="aData.newCategoryToFilter" type="text" class="form-control" placeholder="Add Category" required uib-typeahead="cat.categoryName for cat in aData.getCategoriesWithNameLike($viewValue) | limitTo:5" typeahead-loading="loadingCategories" typeahead-no-results="noCategoryResults" typeahead-focus-first="false"/>
       <i ng-show="loadingCategories" class="glyphicon glyphicon-refresh"></i>
@@ -49,6 +65,7 @@
         <i class="glyphicon glyphicon-remove"></i> No Results Found
       </div>
     </form>
+
     
     <hr class="awesomeHr hrSmMargin"/>
     
@@ -70,15 +87,31 @@
       </div>
       {{aData.roomFilter.ownerUsername}}
     </div>
+    <div data-ng-show="aData.roomFilter.after" class="spaceBelow">
+      <div class="noticeMeTextSm centered">
+        Created After
+		<button data-ng-click="aData.removeAfterDateFromFilter()" class="btn btn-danger btn-xs" type="button">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+      {{aData.roomFilter.after | date}}
+    </div>
+    <div data-ng-show="aData.roomFilter.before" class="spaceBelow">
+      <div class="noticeMeTextSm centered">
+        Created Before
+		<button data-ng-click="aData.removeBeforeDateFromFilter()" class="btn btn-danger btn-xs" type="button">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+      {{aData.roomFilter.before | date}}
+    </div>
     <div data-ng-show="aData.roomFilter.categories.length > 0">
-    
       <div class="noticeMeTextSm centered">
         Categories
 		<button data-ng-click="aData.removeAllCategoriesFromFilter()" class="btn btn-danger btn-xs" type="button">
           <span class="glyphicon glyphicon-remove"></span>
         </button>
       </div>
-    
     </div>
     <div data-ng-repeat="cat in aData.roomFilter.categories" style="display: inline;">
       <div class="btn-group" style="margin-top: 5px;">
