@@ -12,7 +12,7 @@ public class RoomFilter {
 	private String ownerUsername;
 	private Timestamp after;
 	private Timestamp before;
-//	private String status;
+	private boolean hideClosedRooms;
 	
 	//TODO: sortings
 	
@@ -58,12 +58,18 @@ public class RoomFilter {
 		this.before = before;
 	}
 
+	public boolean isHideClosedRooms() {
+		return hideClosedRooms;
+	}
+
+	public void setHideClosedRooms(boolean hideClosedRooms) {
+		this.hideClosedRooms = hideClosedRooms;
+	}
+
 	@Override
 	public String toString() {
 		return "RoomFilter [roomName=" + roomName + ", categories=" + categories + ", ownerUsername=" + ownerUsername
-				+ ", after=" + after + ", before=" + before + "]";
+				+ ", after=" + after + ", before=" + before + ", hideClosedRooms=" + hideClosedRooms + "]";
 	}
-
-	
 	
 }

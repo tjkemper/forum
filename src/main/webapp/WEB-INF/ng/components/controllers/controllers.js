@@ -170,15 +170,6 @@ angular.module("ForumApp")
 	/*
 	 * Filter
 	 */
-	//TODO: read from cookie
-	allRoomsData.roomFilter = {
-			roomName : null,
-			ownerUsername : null,
-			after : null,
-			before: null,
-			categories : []
-
-	};
 	allRoomsData.newRoomNameToFilter = null;
 	allRoomsData.newOwnerToFilter = null;
 	allRoomsData.newCategoryToFilter = null;
@@ -192,10 +183,25 @@ angular.module("ForumApp")
 	allRoomsData.readyForMoreRooms = false;
 	
 	
-	
 	/*
 	 * init
 	 */
+	//TODO: read from cookie	
+	var resetRoomFilter = function(){
+
+		allRoomsData.roomFilter = {
+				roomName : null,
+				ownerUsername : null,
+				after : null,
+				before: null,
+				categories : [],
+				hideClosedRooms : true
+
+		};
+	}
+	
+	resetRoomFilter();
+	
 	var getRoomPagePromise = ForumService.getRoomPage(allRoomsData.roomFilter);
 	getRoomPagePromise.then(function(response){
 		
@@ -207,6 +213,7 @@ angular.module("ForumApp")
 	/*
 	 * fn
 	 */
+	
 	allRoomsData.loadMoreRooms = function(reset){
 		if(allRoomsData.readyForMoreRooms){
 			
@@ -232,14 +239,7 @@ angular.module("ForumApp")
 	}
 	
 	allRoomsData.removeFilter = function(){
-		allRoomsData.roomFilter = {
-				roomName : null,
-				ownerUsername : null,
-				after : null,
-				before: null,
-				categories : []
-
-		};
+		resetRoomFilter();
 		allRoomsData.loadMoreRooms(true);
 	}
 	

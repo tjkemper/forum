@@ -68,7 +68,12 @@
         <i class="glyphicon glyphicon-remove"></i> No Results Found
       </div>
     </form>
-
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" data-ng-model="aData.roomFilter.hideClosedRooms" data-ng-change="aData.loadMoreRooms(true);"/>
+        Hide closed rooms
+      </label>
+	</div>
     
     <hr class="awesomeHr hrSmMargin"/>
     

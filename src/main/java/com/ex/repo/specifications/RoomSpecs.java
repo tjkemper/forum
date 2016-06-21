@@ -26,12 +26,13 @@ public class RoomSpecs {
 		
 		Specification<Room> roomNameSpec = hasRoomNameLike(roomFilter.getRoomName());
 		Specification<Room> ownerSpec = hasOwner(roomFilter.getOwnerUsername()); 
-		Specification<Room> createdAfter = createdAfter(roomFilter.getAfter());
-		Specification<Room> createdBefore = createdBefore(roomFilter.getBefore());
+		Specification<Room> createdAfterSpec = createdAfter(roomFilter.getAfter());
+		Specification<Room> createdBeforeSpec = createdBefore(roomFilter.getBefore());
+		Specification<Room> hideClosedRoomsSpec = hideClosedRooms(roomFilter.isHideClosedRooms());
 		
 		
 		
-		Specifications<Room> allSpecs = Specifications.where(roomNameSpec).and(ownerSpec).and(createdAfter).and(createdBefore);		
+		Specifications<Room> allSpecs = Specifications.where(roomNameSpec).and(ownerSpec).and(createdAfterSpec).and(createdBeforeSpec).and(hideClosedRoomsSpec);		
 		
 		for(String cat : roomFilter.getCategories()){
 			allSpecs = allSpecs.and(hasCategory(cat));
@@ -105,6 +106,24 @@ public class RoomSpecs {
 		        return p;
 			}
 		};
+	}
+	
+	public static Specification<Room> hideClosedRooms(final boolean hideClosedRooms){
+
+		return new Specification<Room>() {
+
+			@Override
+			public Predicate toPredicate(Root<Room> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+		        Predicate p = cb.conjunction();
+
+		        if (hideClosedRooms) {
+		            p.getExpressions()
+		                    .add(cb.isNull(root.<Timestamp>get("closed")));
+		        }
+		        return p;
+			}
+		};
+		
 	}
 	
 	public static Specification<Room> hasCategory(final String categoryName){
