@@ -185,15 +185,6 @@ angular.module("ForumApp")
 	allRoomsData.newAfterDateToFilter = null;
 	allRoomsData.newBeforeDateToFilter = null;
 	
-	
-//	allRoomsData.afterDateOption = {
-////			dateDisabled: disabled,
-//		    formatYear: 'yy',
-//		    maxDate: new Date(),
-//		    minDate: new Date(2000, 1, 1),
-//		    startingDay: 1	
-//	};
-	
 	/*
 	 * Pagination
 	 */
@@ -238,6 +229,18 @@ angular.module("ForumApp")
 		Array.prototype.push.apply(allRoomsData.currentRooms, response.data.content);
 		ForumService.setPropsDynamically(response.data, allRoomsData.lastRoomPage);
 		allRoomsData.readyForMoreRooms = true;
+	}
+	
+	allRoomsData.removeFilter = function(){
+		allRoomsData.roomFilter = {
+				roomName : null,
+				ownerUsername : null,
+				after : null,
+				before: null,
+				categories : []
+
+		};
+		allRoomsData.loadMoreRooms(true);
 	}
 	
 	allRoomsData.addRoomNameToFilter = function(){

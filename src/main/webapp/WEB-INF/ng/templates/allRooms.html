@@ -27,6 +27,9 @@
   <div class="well">
     <div class="noticeMeText" style="text-align: center;">
       Filter
+      <button data-ng-click="aData.removeFilter()" class="btn btn-danger btn-xs" type="button">
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
     </div>
     <form data-ng-submit="aData.addRoomNameToFilter()">
       <input data-ng-model="aData.newRoomNameToFilter" type="text" class="form-control" placeholder="Room Name" required uib-typeahead="room.name for room in aData.getRoomsWithRoomNameLike($viewValue) | limitTo:5" typeahead-loading="loadingRoomNames" typeahead-no-results="noRoomNameResults" typeahead-focus-first="false"/>
