@@ -91,10 +91,10 @@
 		<security:intercept-url pattern="/user/" method="PUT" access="permitAll"/> <!-- register -->
 		<security:intercept-url pattern="/ng/**" method="GET" access="permitAll"/> <!-- static content -->
 		
+		<!-- ROLE_USER iff she owns resource -->
 		<security:intercept-url pattern="/owner/user/{username}/**" access="hasRole('ROLE_USER') and @accessControl.checkUserIsUser(authentication,#username)"/>
 		<security:intercept-url pattern="/owner/message/{messageId}/**" access="hasRole('ROLE_USER') and @accessControl.checkUserOwnsMessage(authentication,#messageId)"/>
 		<security:intercept-url pattern="/owner/room/{roomName}/**" access="hasRole('ROLE_USER') and @accessControl.checkUserOwnsRoom(authentication,#roomName)"/>
-		
 		
 		<!-- ROLE_USER -->
 		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
@@ -115,7 +115,7 @@
 		    			"select USER_USERNAME, USER_PASSWORD, true from FORUM_USER where USER_USERNAME=?"
 		  			authorities-by-username-query=
 		    			"select USER_USERNAME, 'ROLE_USER' from FORUM_USER where USER_USERNAME=?  " />
-		
+			<security:password-encoder ref="bcryptEncoder"/>
 <!-- 			<security:user-service> -->
 <!-- 				<security:user name="john" password="123" authorities="ROLE_USER" /> -->
 <!-- 				<security:user name="amy" password="1234" authorities="ROLE_USER"/> -->
@@ -128,5 +128,7 @@
 	<bean id="csrfTokenRepository" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository">
 	    <property name="headerName" value="X-XSRF-TOKEN" />
 	</bean>
+	
+	<bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
 </beans>
