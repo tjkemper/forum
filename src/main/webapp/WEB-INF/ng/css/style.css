@@ -1,5 +1,9 @@
 @CHARSET "ISO-8859-1";
 
+.navbar {
+	margin-bottom: 0px;
+}
+
 .modalForm {
 	margin: auto;
 	width: 72%;
