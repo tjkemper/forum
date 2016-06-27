@@ -46,7 +46,10 @@ angular.module("ForumApp")
         .state('allRoomsState', {
             url: '/room',
             templateUrl: 'ng/templates/allRooms.html',
-            controller:'AllRoomsCtrl as aData'
+            controller:'AllRoomsCtrl as aData',
+            params : {
+            	desiredCategoryName : null
+            }
         })
         .state('roomState', {
             url: '/room/:roomName',

@@ -155,7 +155,7 @@ angular.module("ForumApp")
 });
 
 angular.module("ForumApp")
-.controller("AllRoomsCtrl", function(ForumService, $state){
+.controller("AllRoomsCtrl", function(ForumService, $state, $stateParams){
 	
 	var allRoomsData = this;
 	
@@ -181,33 +181,6 @@ angular.module("ForumApp")
 	 */
 	allRoomsData.lastRoomPage = {};
 	allRoomsData.readyForMoreRooms = false;
-	
-	
-	/*
-	 * init
-	 */
-	//TODO: read from cookie	
-	var resetRoomFilter = function(){
-
-		allRoomsData.roomFilter = {
-				roomName : null,
-				ownerUsername : null,
-				after : null,
-				before: null,
-				categories : [],
-				hideClosedRooms : true
-
-		};
-	}
-	
-	resetRoomFilter();
-	
-	var getRoomPagePromise = ForumService.getRoomPage(allRoomsData.roomFilter);
-	getRoomPagePromise.then(function(response){
-		
-		handleRoomResponse(response);
-		
-	}, function(response){});
 	
 	
 	/*
@@ -366,6 +339,37 @@ angular.module("ForumApp")
 			return response.data;
 		});
 	}
+	
+	
+	/*
+	 * init
+	 */
+	//TODO: read from cookie	
+	var resetRoomFilter = function(){
+		allRoomsData.roomFilter = {
+				roomName : null,
+				ownerUsername : null,
+				after : null,
+				before: null,
+				categories : [],
+				hideClosedRooms : true
+		};
+	}
+	
+	resetRoomFilter();
+
+	if($stateParams.desiredCategoryName){
+		allRoomsData.newCategoryToFilter = $stateParams.desiredCategoryName;
+		allRoomsData.addCategoryToFilter();
+	}
+	
+	var getRoomPagePromise = ForumService.getRoomPage(allRoomsData.roomFilter);
+	getRoomPagePromise.then(function(response){
+		
+		handleRoomResponse(response);
+		
+	}, function(response){});
+	
 
 });
 
@@ -514,6 +518,10 @@ angular.module("ForumApp")
 	
 	roomData.removeCategoryFromRoom = function(room, category){
 		ForumService.removeCategoryFromRoom(room, category);
+	}
+	
+	roomData.findOtherRoomsWithCategory = function(categoryName){
+		$state.go('allRoomsState', {desiredCategoryName:categoryName});
 	}
 	
 });

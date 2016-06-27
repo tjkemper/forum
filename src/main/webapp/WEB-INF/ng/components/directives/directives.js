@@ -42,7 +42,8 @@ angular.module("ForumApp")
 			closefn : '&',
 			reopenfn : '&',
 			addCategoryToRoom : '&',
-			removeCategoryFromRoom : '&'
+			removeCategoryFromRoom : '&',
+			findOtherRoomsWithCategory : '&'
 		},
 		templateUrl: 'ng/templates/directives/forumRoom.html'
 	};
