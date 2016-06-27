@@ -261,9 +261,12 @@ angular.module("ForumApp")
 	}
 	
 	allRoomsData.addCategoryToFilter = function(){
-		allRoomsData.roomFilter.categories.unshift(allRoomsData.newCategoryToFilter);
+		if(allRoomsData.roomFilter.categories.indexOf(allRoomsData.newCategoryToFilter) == -1){
+			allRoomsData.roomFilter.categories.unshift(allRoomsData.newCategoryToFilter);
+			allRoomsData.loadMoreRooms(true);
+		}
 		allRoomsData.newCategoryToFilter = null;
-		allRoomsData.loadMoreRooms(true);
+		
 	}
 	
 	allRoomsData.removeCategoryFromFilter = function(category){
