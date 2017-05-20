@@ -8,7 +8,7 @@ Forumazing allows users to communicate and share ideas in a fun and easy to use 
 ## Tech Stack
 
 ### Front end
-* AngularJS, 
+* AngularJS
 * Twitter Bootstrap
 
 ### Back end
